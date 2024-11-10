@@ -1,0 +1,13 @@
+{
+  "name": "@wtrd/data",
+  "version": "0.0.1",
+  "description": "Data fetcher for the what the rep doin project",
+  "scripts": {},
+  "author": "Evan Shimizu <ebshimizu@proton.me>",
+  "engines": {
+    "node": "^22.0.0"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}
