@@ -17,6 +17,7 @@ const memberData = {}
 const congress = parseInt(process.argv[2])
 
 const billDir = `${dataDir}/${congress}/bills`
+const repInfo = JSON.parse(fs.readFileSync(`./rep_data/${congress}.json`))
 
 const VoteResult = {
   SUCCESS: 'success',
@@ -175,11 +176,28 @@ function processVote(voteData) {
   // format is the vote answer is the key, followed by array of who voted for that
   Object.entries(voteData.votes).forEach(([t, v]) => {
     v.forEach((member) => {
-      repVotes[member.id] = t
+      // senate ids need reconciliation, and the VP is "id undefined"
+      let id = member?.id ?? 'VP'
+
+      if (voteData.chamber === 's') {
+        // find in the rep data
+        const bioId = repInfo.find(r => r.id?.lis === id)?.id.bioguide
+
+        if (bioId) {
+          id = bioId
+        }
+      }
+
+      repVotes[id] = t
 
       // cache the member data (idk if we need, there's a different source for that where we link the bioid)
-      if (!(member.id in memberData)) {
-        memberData[member.id] = member
+      if (!(id in memberData)) {
+        memberData[id] = member
+
+        if (voteData.chamber === 's') {
+          memberData[id].lis = member.id
+          memberData[id].id = id
+        }
       }
     })
   })

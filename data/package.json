@@ -8,6 +8,10 @@
     "node": "^22.0.0"
   },
   "dependencies": {
-    "fs-extra": "^11.2.0"
+    "@supabase/supabase-js": "^2.46.1",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^3.3.2",
+    "number-to-words": "^1.2.4"
   }
 }
