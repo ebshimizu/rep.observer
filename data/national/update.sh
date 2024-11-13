@@ -5,3 +5,7 @@ cd congress
 usc-run govinfo --bulkdata=BILLSTATUS --congress=$1
 usc-run bills --congress=$1
 usc-run votes --congress=$1
+
+node ./generateCache.js $1
+
+node ./dbUpdateVotes.mjs
