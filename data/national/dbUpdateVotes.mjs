@@ -275,7 +275,7 @@ async function processVotes() {
   for (const file of files) {
     try {
       // i have one special file in the cache that we should skip
-      if (file === 'representatives.json') return
+      if (file === 'representatives.json') continue
 
       const data = JSON.parse(fs.readFileSync(`./cache/${congress}/${file}`))
       const result = await processVote(
@@ -294,9 +294,12 @@ async function processVotes() {
   }
 
   console.log(`writing db last updated at`)
+  
+  // we actually want to record the time at which the cache was updated, not the time this script was run
+  const cacheGenerationDate = JSON.parse(fs.readFileSync('./cache/cache_updated_at.json')).updated_at
   const dbUpdate = await supabase.from('db_updates').upsert({
     script_id: SCRIPT_ID,
-    last_run: new Date(),
+    last_run: new Date(cacheGenerationDate),
     status: 'success'
   })
 

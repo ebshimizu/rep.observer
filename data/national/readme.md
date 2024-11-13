@@ -6,12 +6,7 @@ This project uses `unitedstates/congress` to fetch data in json format. The json
 If you are working on windows, you should use WSL to run the scripts in this folder.
 
 ### Development notes
-Initializing the data cache
-```
-usc-run govinfo --bulkdata=BILLSTATUS
-usc-run bills
-usc-run votes
-```
+Run `./downloadData.sh 118` where the last number is the number of the current congress.
 
 ## Reformatting the data
 We're interested in sorting things here by the list of bills/resolutions/actions and then mapping representative votes to those actions. Each piece of legislation goes through multiple revisions and votes, so we'll need to track what was voted on when.
