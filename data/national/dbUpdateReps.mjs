@@ -52,17 +52,8 @@ async function processRep(bioguideId, sessions) {
       bioData.member.partyHistory[bioData.member.partyHistory.length - 1]
         .partyName
 
-    // update term data, if exists
-    const existing = await supabase
-      .from('terms')
-      .select('id')
-      .eq('rep_id', bioguideId)
-      .eq('session_id', sid)
-
-    const updateId = existing.data.length > 0 ? { id: existing.data[0].id } : {}
-
+    // update or insert term data
     const updateTerm = await supabase.from('terms').upsert({
-      ...updateId,
       rep_id: bioguideId,
       session_id: sid,
       state: mostRecentTerm.stateCode,
