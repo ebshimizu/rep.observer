@@ -5,22 +5,23 @@ dotenv.config({ path: path.resolve(process.cwd(), '../../.env') })
 
 import fs from 'fs-extra'
 import { createClient } from '@supabase/supabase-js'
+import type { NationalAction } from './national-types'
 
 const supabase = createClient(
-  process.env.SUPABASE_DB_URL,
-  process.env.SUPABASE_KEY
+  process.env.SUPABASE_DB_URL ?? '',
+  process.env.SUPABASE_KEY ?? ''
 )
 
 const SCRIPT_ID = 'national-votes'
 
 /**
- *
- * @param {*} data Bill data
- * @param {Date} dbUpdatedAt the last time this script ran successfully
- * @param {{ h: number, s: number }} sessionId House and senate session ids (maps to sessions table)
- * @returns {{ bill: string, votesRecorded: number }} Object representing status
+ * Process the vote data and upload to database
+ * @param data Bill data
+ * @param dbUpdatedAt the last time this script ran successfully
+ * @param sessionId House and senate session ids (maps to sessions table)
+ * @returns Object representing status
  */
-async function processVote(data, dbUpdatedAt, sessionId, congress) {
+async function processVote(data: NationalAction, dbUpdatedAt: Date, sessionId: { h: number, s: number }, congress: number) {
   // check the cache time for the action. If the
   const returnData = {
     action: 'failed',
@@ -44,10 +45,10 @@ async function processVote(data, dbUpdatedAt, sessionId, congress) {
         type: data.type,
         level: data.level,
         chamber: data.chamber,
-        session_id: sessionId[data.chamber],
+        session_id: sessionId[data.chamber as 'h' | 's'],
         congress,
         bill_type: data.bill_type,
-        number: parseInt(data.number),
+        number: data.number,
         official_title: data.official_title,
         popular_title: data.popular_title,
         short_title: data.short_title,
@@ -152,7 +153,7 @@ async function processVote(data, dbUpdatedAt, sessionId, congress) {
             type: vote.type,
             chamber: vote.chamber,
             congress: vote.congress,
-            session: sessionId[vote.chamber],
+            session: sessionId[vote.chamber as 'h' | 's'],
             requires: vote.requires,
             number: vote.number,
             date: new Date(vote.date),
@@ -265,7 +266,7 @@ async function processVotes() {
   // DEBUG: Testing one file first so i can revert DB when necessary
   const files = fs.readdirSync(`./cache/${congress}`)
 
-  const results = {
+  const results: Record<string, number> = {
     updated: 0,
     failed: 0,
     noChange: 0,
@@ -279,7 +280,7 @@ async function processVotes() {
       // i have one special file in the cache that we should skip
       if (file === 'representatives.json') continue
 
-      const data = JSON.parse(fs.readFileSync(`./cache/${congress}/${file}`))
+      const data = JSON.parse(fs.readFileSync(`./cache/${congress}/${file}`).toString()) as NationalAction
       const result = await processVote(
         data,
         updatedAt,
@@ -298,7 +299,7 @@ async function processVotes() {
   console.log(`writing db last updated at`)
   
   // we actually want to record the time at which the cache was updated, not the time this script was run
-  const cacheGenerationDate = JSON.parse(fs.readFileSync('./cache/cache_updated_at.json')).updated_at
+  const cacheGenerationDate = JSON.parse(fs.readFileSync('./cache/cache_updated_at.json').toString()).updated_at
   const dbUpdate = await supabase.from('db_updates').upsert({
     script_id: SCRIPT_ID,
     last_run: new Date(cacheGenerationDate),
