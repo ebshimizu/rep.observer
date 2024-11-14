@@ -135,7 +135,9 @@ async function processVote(data, dbUpdatedAt, sessionId, congress) {
 
     // check the votes
     for (const vote of data.votes) {
-      const voteUpdatedAt = new Date(vote.cache_updated_at)
+      // votes don't actually update after they're taken (usually)
+      // which seems like an obvious thing to write BUT
+      const voteUpdatedAt = new Date(vote.date)
 
       if (voteUpdatedAt > dbUpdatedAt) {
         console.log(`[${data.id}] updating vote ${vote.id}`)
