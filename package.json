@@ -1,12 +1,31 @@
 {
   "name": "whattherepdoin",
-  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
   "description": "Track what representatives vote on.",
-  "scripts": {},
-  "keywords": [],
-  "author": "Evan Shimizu <ebshimizu@proton.me>",
-  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.46.1",
+    "number-to-words": "^1.2.4",
+    "nuxt": "^3.14.159",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
   "devDependencies": {
-    "supabase": "^1.219.2"
-  }
+    "@types/fs-extra": "^11.0.4",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^3.3.2",
+    "supabase": "^1.219.2",
+    "tsx": "^4.19.2"
+  },
+  "author": "Evan Shimizu <ebshimizu@proton.me>",
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
 }

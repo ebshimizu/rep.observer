@@ -1,6 +1,17 @@
 // argument structure
 // node ./generateCache.js [congress number]
-const fs = require('fs-extra')
+import fs from 'fs-extra'
+import type {
+  BillAmendment,
+  BillReference,
+  NationalAction,
+  RawAmendment,
+  RawBillAmendment,
+  RawBillData,
+  RawVote,
+  RawVoteMember,
+  Vote,
+} from './national-types'
 
 // assume we're running from '/data/national' right now
 const dataDir = './congress/data'
@@ -9,15 +20,17 @@ const outDir = './cache'
 // in-memory cache
 // there isn't that much data so we can keep tracking things until the end to see what gets referenced repeatedly
 // the vote data will embed the linked bill or other action info
-const actionData = {}
+const actionData: Record<string, NationalAction> = {}
 
-const memberData = {}
+const memberData: Record<string, RawVoteMember & { lis?: string }> = {}
 
 // 118 = 2023-24
 const congress = parseInt(process.argv[2])
 
 const billDir = `${dataDir}/${congress}/bills`
-const repInfo = JSON.parse(fs.readFileSync(`./rep_data/${congress}.json`))
+const repInfo = JSON.parse(
+  fs.readFileSync(`./rep_data/${congress}.json`).toString()
+) as any
 
 const VoteResult = {
   SUCCESS: 'success',
@@ -25,34 +38,39 @@ const VoteResult = {
   SKIPPED: 'skip',
 }
 
-function getAmendment(amendment) {
+function getAmendment(amendment: RawBillAmendment): BillAmendment | undefined {
   const amendmentPath = `${dataDir}/${congress}/amendments/${amendment.amendment_type}/${amendment.amendment_type}${amendment.number}/data.json`
 
   try {
-    const data = JSON.parse(fs.readFileSync(amendmentPath))
+    const data = JSON.parse(
+      fs.readFileSync(amendmentPath).toString()
+    ) as RawAmendment
+
     return {
       id: data.amendment_id,
       type: data.amendment_type,
       chamber: data.chamber,
-      congress: data.congress,
+      congress: parseInt(data.congress),
       number: data.number,
       description: data.description,
       introduced_at: data.introduced_at,
       sponsor: data.sponsor.bioguide_id,
       status: data.status,
-      status_at: new Date(data.status_at),
-      cache_updated_at: new Date(data.updated_at),
+      status_at: new Date(data.status_at).toISOString(),
+      cache_updated_at: new Date(data.updated_at).toISOString(),
     }
   } catch (e) {
     console.error(e)
-    return amendment
+
+    return undefined
   }
 }
 
-function getBillData(bill) {
+function getBillData(bill: BillReference) {
   const billPath = `${billDir}/${bill.type}/${bill.type}${bill.number}/data.json`
+
   try {
-    const data = JSON.parse(fs.readFileSync(billPath))
+    const data = JSON.parse(fs.readFileSync(billPath).toString()) as RawBillData
 
     const id = data.bill_id
 
@@ -65,7 +83,7 @@ function getBillData(bill) {
         id: data.bill_id,
         type: 'bill',
         level: 'national',
-        state: null,
+        state: undefined,
         chamber: data.bill_id[0], // starts with h or s so ...
         bill_type: data.bill_type,
         congress: parseInt(data.congress),
@@ -76,7 +94,7 @@ function getBillData(bill) {
           withdrawn_at: c.withdrawn_at,
         })),
         introduced_at: data.introduced_at,
-        number: data.number,
+        number: parseInt(data.number),
         official_title: data.official_title,
         popular_title: data.popular_title,
         short_title: data.short_title,
@@ -87,9 +105,9 @@ function getBillData(bill) {
         tags: data.subjects,
         top_tag: data.subjects_top_term,
         summary: data.summary,
-        cache_updated_at: new Date(data.updated_at),
+        cache_updated_at: new Date(data.updated_at).toISOString(),
         source_url: data.url,
-        amendments: data.amendments.map(getAmendment),
+        amendments: data.amendments.map(getAmendment).filter((a) => a != null),
         votes: [],
       }
 
@@ -102,8 +120,8 @@ function getBillData(bill) {
   }
 }
 
-function getNominationData(voteData) {
-  const id = `${voteData.chamber}n${voteData.nomination.number}-${voteData.congress}.${voteData.session}`
+function getNominationData(voteData: RawVote) {
+  const id = `${voteData.chamber}n${voteData.nomination?.number}-${voteData.congress}.${voteData.session}`
   if (id in actionData) {
     return actionData[id]
   } else {
@@ -111,17 +129,15 @@ function getNominationData(voteData) {
       id,
       type: 'nomination',
       level: 'national',
-      state: null,
+      state: undefined,
       chamber: voteData.chamber,
       congress: voteData.congress,
-      introduced_at: new Date(voteData.date),
+      introduced_at: new Date(voteData.date).toISOString(),
       number: voteData.number,
-      official_title: voteData.nomination.title,
-      popular_title: voteData.nomination.title,
-      short_title: voteData.nomination.title,
+      official_title: `${voteData.nomination?.title}`,
       status: voteData.result,
-      status_at: new Date(voteData.date),
-      cache_updated_at: new Date(voteData.updated_at),
+      status_at: new Date(voteData.date).toISOString(),
+      cache_updated_at: new Date(voteData.updated_at).toISOString(),
       source_url: voteData.source_url,
       votes: [],
     }
@@ -130,7 +146,7 @@ function getNominationData(voteData) {
   }
 }
 
-function getTreatyData(voteData) {
+function getTreatyData(voteData: RawVote) {
   const id = `${voteData.chamber}t${voteData.number}-${voteData.congress}.${voteData.session}`
   if (id in actionData) {
     return actionData[id]
@@ -139,17 +155,15 @@ function getTreatyData(voteData) {
       id,
       type: 'treaty',
       level: 'national',
-      state: null,
+      state: undefined,
       chamber: voteData.chamber,
       congress: voteData.congress,
-      introduced_at: new Date(voteData.date),
+      introduced_at: new Date(voteData.date).toISOString(),
       number: voteData.number,
-      official_title: voteData.treaty.title,
-      popular_title: voteData.treaty.title,
-      short_title: voteData.treaty.title,
+      official_title: `${voteData.treaty?.title}`,
       status: voteData.result,
-      status_at: new Date(voteData.date),
-      cache_updated_at: new Date(voteData.updated_at),
+      status_at: new Date(voteData.date).toISOString(),
+      cache_updated_at: new Date(voteData.updated_at).toISOString(),
       source_url: voteData.source_url,
       votes: [],
     }
@@ -158,7 +172,7 @@ function getTreatyData(voteData) {
   }
 }
 
-function processVote(voteData) {
+function processVote(voteData: RawVote) {
   // skip certain votes
   if (
     voteData.category === 'procedural' ||
@@ -171,7 +185,7 @@ function processVote(voteData) {
   }
 
   // convert to my format
-  const repVotes = {}
+  const repVotes: Record<string, string> = {}
 
   // format is the vote answer is the key, followed by array of who voted for that
   Object.entries(voteData.votes).forEach(([t, v]) => {
@@ -181,7 +195,7 @@ function processVote(voteData) {
 
       if (voteData.chamber === 's') {
         // find in the rep data
-        const bioId = repInfo.find(r => r.id?.lis === id)?.id.bioguide
+        const bioId = repInfo.find((r: any) => r.id?.lis === id)?.id.bioguide
 
         if (bioId) {
           id = bioId
@@ -191,7 +205,7 @@ function processVote(voteData) {
       repVotes[id] = t
 
       // cache the member data (idk if we need, there's a different source for that where we link the bioid)
-      if (!(id in memberData)) {
+      if (id !== 'VP' && !(id in memberData)) {
         memberData[id] = member
 
         if (voteData.chamber === 's') {
@@ -202,7 +216,7 @@ function processVote(voteData) {
     })
   })
 
-  const vote = {
+  const vote: Vote = {
     id: voteData.vote_id,
     source_url: voteData.source_url,
     chamber: voteData.chamber,
@@ -212,15 +226,15 @@ function processVote(voteData) {
     number: voteData.number,
     question: voteData.question,
     result_text: voteData.result_text,
-    date: new Date(voteData.date),
-    cache_updated_at: new Date(voteData.updated_at),
+    date: new Date(voteData.date).toISOString(),
+    cache_updated_at: new Date(voteData.updated_at).toISOString(),
     type: voteData.type,
     result: voteData.result,
     rep_votes: repVotes,
   }
 
   // currently: just check if there's a linked bill (we'll add other data later)
-  if ('bill' in voteData) {
+  if (voteData.bill != null) {
     // collect the related bill
     const billData = getBillData(voteData.bill)
 
@@ -252,7 +266,7 @@ function processVote(voteData) {
   return VoteResult.FAILURE
 }
 
-function writeCacheToDisk(outPath) {
+function writeCacheToDisk(outPath: string) {
   // take the global cache and write it
   Object.entries(actionData).forEach(([id, d]) => {
     try {
@@ -311,7 +325,7 @@ function generateDataCache() {
       for (const id of votes) {
         try {
           const file = `${sessionDir}/${id}/data.json`
-          const data = JSON.parse(fs.readFileSync(file))
+          const data = JSON.parse(fs.readFileSync(file).toString()) as RawVote
 
           // this will update the global cache
           const result = processVote(data)
@@ -343,5 +357,5 @@ function generateDataCache() {
   } catch (e) {}
 }
 
-// it's 2023 we have top level await now if we need it
+// it's 2024 we have top level await now if we need it
 generateDataCache()
