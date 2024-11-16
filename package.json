@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
+    "@types/number-to-words": "^1.2.3",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "node-fetch": "^3.3.2",

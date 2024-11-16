@@ -10,10 +10,12 @@ import fs from 'fs-extra'
 import fetch from 'node-fetch'
 import { createClient } from '@supabase/supabase-js'
 import n2w from 'number-to-words'
+import type { CongressResponse, RepCacheData } from './national-types'
+import HistoricalMemberData from './rep_data/legislators-historical.json'
 
 const supabase = createClient(
-  process.env.SUPABASE_DB_URL,
-  process.env.SUPABASE_KEY
+  process.env.SUPABASE_DB_URL ?? '',
+  process.env.SUPABASE_KEY ?? ''
 )
 const CONGRESS_API = 'https://api.congress.gov/v3'
 const congress = parseInt(process.argv[2])
@@ -22,21 +24,36 @@ console.log(
   `fetching data for congress ${congress}}`
 )
 
-async function processRep(bioguideId, sessions) {
+
+// we're going to elide types here for convenience
+const currentMemberData = JSON.parse(fs.readFileSync(`./rep_data/${congress}.json`).toString()) as any[]
+const AllMemberData = [...currentMemberData, ...HistoricalMemberData as any[]]
+
+function findFullMemberData(bioguideId: string) {
+  return AllMemberData.find(m => m.id.bioguide === bioguideId)
+}
+
+async function processRep(bioguideId: string, sessions: { house: number, senate: number}) {
   // get the data from the congress api
   const bioReq = await fetch(
     `${CONGRESS_API}/member/${bioguideId}?api_key=${process.env.CONGRESS_API_KEY}`
   )
-  const bioData = await bioReq.json()
+  const bioData = await bioReq.json() as CongressResponse
 
   if (bioData) {
     // update rep
+    const fullData = findFullMemberData(bioguideId)
+
+    const mostRecentTermData = fullData != null ? fullData.terms[fullData.terms.length - 1] : null
+
     const updateRep = await supabase.from('representatives').upsert(
       {
         id: bioguideId,
         full_name: bioData.member.directOrderName,
         first_name: bioData.member.firstName,
         last_name: bioData.member.lastName,
+        homepage: mostRecentTermData?.url,
+        govtrack_id: fullData?.id?.govtrack
       }
     )
 
@@ -73,9 +90,9 @@ async function processRep(bioguideId, sessions) {
   }
 }
 
-async function processReps(sessions) {
+async function processReps(sessions: { house: number, senate: number }) {
   const repFile = `./cache/${congress}/representatives.json`
-  const repData = JSON.parse(fs.readFileSync(repFile))
+  const repData = JSON.parse(fs.readFileSync(repFile).toString()) as Record<string, RepCacheData>
 
   const reps = Object.values(repData)
   console.log(
@@ -86,11 +103,6 @@ async function processReps(sessions) {
 
   for (let i = 0; i < reps.length; i++) {
     const rep = reps[i]
-
-    // the VP has a special rep field in this DB
-    if (rep === 'VP') {
-      continue
-    }
 
     console.log(`[${i + 1} / ${reps.length}] Processing ID ${rep.id}`)
     const result = await processRep(rep.id, sessions)
@@ -105,7 +117,7 @@ async function processReps(sessions) {
   console.log(`updated ${success} / ${reps.length} representatives`)
 }
 
-async function createTermData() {
+async function createTermData(): Promise<{ house: number, senate: number }> {
   // check if exists
   const house = await supabase
     .from('sessions')
@@ -125,14 +137,15 @@ async function createTermData() {
   const sessionReq = await fetch(
     `${CONGRESS_API}/congress/${congress}?api_key=${process.env.CONGRESS_API_KEY}`
   )
-  const sessionData = await sessionReq.json()
+  const sessionData = await sessionReq.json() as CongressResponse
 
   const sortedStartDates = sessionData.congress.sessions
     .map((s) => new Date(s.startDate).getTime())
     .sort((a, b) => a - b)
 
   const sortedEndDates = sessionData.congress.sessions
-    .map((s) => new Date(s.endDate).getTime())
+    // we will let this fall through to nan
+    .map((s) => new Date(s.endDate!).getTime())
     .sort((a, b) => b - a)
 
   const startDate = new Date(sortedStartDates[0])
@@ -145,7 +158,7 @@ async function createTermData() {
   let senateId = null
   let houseId = null
 
-  if (house.data.length > 0) {
+  if (house.data && house.data.length > 0) {
     // update
     console.log('updating house session')
     const houseUpdate = await supabase
@@ -163,7 +176,7 @@ async function createTermData() {
       .eq('id', house.data[0].id)
 
     if (houseUpdate.error) {
-      console.error(houseInsert.error)
+      console.error(houseUpdate.error)
     }
 
     houseId = house.data[0].id
@@ -184,10 +197,12 @@ async function createTermData() {
       console.error(houseInsert.error)
     }
 
-    houseId = houseInsert.data[0].id
+    if (houseInsert.data) {
+      houseId = (houseInsert.data[0] as any).id
+    }
   }
 
-  if (senate.data.length > 0) {
+  if (senate.data && senate.data.length > 0) {
     // update
     console.log('updating senate session')
     const senateUpdate = await supabase
@@ -203,7 +218,7 @@ async function createTermData() {
       .eq('id', senate.data[0].id)
 
     if (senateUpdate.error) {
-      console.error(houseInsert.error)
+      console.error(senateUpdate.error)
     }
 
     senateId = senate.data[0].id
@@ -222,7 +237,9 @@ async function createTermData() {
       console.error(senateInsert.error)
     }
 
-    senateId = senateInsert.data[0].id
+    if (senateInsert.data){
+      senateId = (senateInsert.data[0] as any).id
+    }
   }
 
   return { house: houseId, senate: senateId }

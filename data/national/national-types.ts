@@ -64,6 +64,14 @@ export interface NationalAction {
   votes: Vote[]
 }
 
+export interface RepCacheData {
+  display_name: string
+  id: string
+  party: string
+  state: string
+  lis?: string
+}
+
 // --- these datatypes are derived from the congress python library's output files
 // --- some types may be declared as `unknown` because I'm not actively using that data
 export interface RawBillAction {
@@ -219,4 +227,73 @@ export interface RawVote {
   vote_id: string
   // votes use the result as the key, which maps to a list of members
   votes: Record<string, RawVoteMember[]>
+}
+
+/** Congress API types */
+export interface CongressSession {
+  chamber: string
+  endDate: string | undefined
+  number: number
+  startDate: string
+  type: string
+}
+
+export interface CongressResponse {
+  congress: {
+    endYear: string
+    name: string
+    number: number
+    sessions: CongressSession[]
+    startYear: string
+    updateDate: string
+    url: string
+  }
+}
+
+export interface CongressTerm {
+  chamber: string
+  congress: number
+  endYear: number
+  memberType: string
+  startYear: number
+  stateCode: string
+  stateName: string
+  district?: number
+}
+
+export interface CongressMember {
+  bioguideId: string
+  birthYear: string
+  cosponsoredLegislation: {
+    count: number
+    url: string
+  }
+  depiction: {
+    attribution: string
+    imageUrl: string
+  }
+  directOrderName: string
+  firstName: string
+  honorificName: string
+  invertedOrderName: string
+  lastName: string
+  leadership: { congress: number; type: string }[]
+  partyHistory: {
+    partyAbbreviation: string
+    partyName: string
+    startYear: number
+  }[]
+  sponsoredLegislation: { count: number; url: string }
+  state: string
+  terms: CongressTerm[]
+  updateDate: string
+}
+
+export interface CongressResponse {
+  member: CongressMember
+  request: {
+    bioguideId: string
+    contentType: string
+    format: string
+  }
 }
