@@ -8,8 +8,8 @@ import { createClient } from '@supabase/supabase-js'
 import type { NationalAction } from './national-types'
 
 const supabase = createClient(
-  process.env.SUPABASE_DB_URL ?? '',
-  process.env.SUPABASE_KEY ?? ''
+  process.env.NUXT_SUPABASE_DB_URL ?? '',
+  process.env.NUXT_SUPABASE_KEY ?? ''
 )
 
 const SCRIPT_ID = 'national-votes'
@@ -21,7 +21,12 @@ const SCRIPT_ID = 'national-votes'
  * @param sessionId House and senate session ids (maps to sessions table)
  * @returns Object representing status
  */
-async function processVote(data: NationalAction, dbUpdatedAt: Date, sessionId: { h: number, s: number }, congress: number) {
+async function processVote(
+  data: NationalAction,
+  dbUpdatedAt: Date,
+  sessionId: { h: number; s: number },
+  congress: number
+) {
   // check the cache time for the action. If the
   const returnData = {
     action: 'failed',
@@ -172,14 +177,17 @@ async function processVote(data: NationalAction, dbUpdatedAt: Date, sessionId: {
         }
 
         // retrieve the id of the thing we just inserted
-        const voteEntry = await supabase.from('votes').select('id').eq('alternate_id', vote.id)
+        const voteEntry = await supabase
+          .from('votes')
+          .select('id')
+          .eq('alternate_id', vote.id)
 
         if (voteEntry.error) {
           console.error(voteResult.error)
           returnData.action = 'failed'
           return returnData
         }
-        
+
         const voteRecordId = voteEntry.data[0].id
 
         // record the rep votes
@@ -199,9 +207,7 @@ async function processVote(data: NationalAction, dbUpdatedAt: Date, sessionId: {
           return returnData
         }
 
-        console.log(
-          `[${data.id}] Recorded votes for ${vote.id}`
-        )
+        console.log(`[${data.id}] Recorded votes for ${vote.id}`)
         returnData.votesRecorded += 1
       }
     }
@@ -280,7 +286,9 @@ async function processVotes() {
       // i have one special file in the cache that we should skip
       if (file === 'representatives.json') continue
 
-      const data = JSON.parse(fs.readFileSync(`./cache/${congress}/${file}`).toString()) as NationalAction
+      const data = JSON.parse(
+        fs.readFileSync(`./cache/${congress}/${file}`).toString()
+      ) as NationalAction
       const result = await processVote(
         data,
         updatedAt,
@@ -297,13 +305,15 @@ async function processVotes() {
   }
 
   console.log(`writing db last updated at`)
-  
+
   // we actually want to record the time at which the cache was updated, not the time this script was run
-  const cacheGenerationDate = JSON.parse(fs.readFileSync('./cache/cache_updated_at.json').toString()).updated_at
+  const cacheGenerationDate = JSON.parse(
+    fs.readFileSync('./cache/cache_updated_at.json').toString()
+  ).updated_at
   const dbUpdate = await supabase.from('db_updates').upsert({
     script_id: SCRIPT_ID,
     last_run: new Date(cacheGenerationDate),
-    status: 'success'
+    status: 'success',
   })
 
   if (dbUpdate.error) {

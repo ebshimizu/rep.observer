@@ -14,8 +14,8 @@ import type { CongressResponse, RepCacheData } from './national-types'
 import HistoricalMemberData from './rep_data/legislators-historical.json'
 
 const supabase = createClient(
-  process.env.SUPABASE_DB_URL ?? '',
-  process.env.SUPABASE_KEY ?? ''
+  process.env.NUXT_SUPABASE_DB_URL ?? '',
+  process.env.NUXT_SUPABASE_KEY ?? ''
 )
 const CONGRESS_API = 'https://api.congress.gov/v3'
 const congress = parseInt(process.argv[2])
@@ -36,7 +36,7 @@ function findFullMemberData(bioguideId: string) {
 async function processRep(bioguideId: string, sessions: { house: number, senate: number}) {
   // get the data from the congress api
   const bioReq = await fetch(
-    `${CONGRESS_API}/member/${bioguideId}?api_key=${process.env.CONGRESS_API_KEY}`
+    `${CONGRESS_API}/member/${bioguideId}?api_key=${process.env.NUXT_CONGRESS_API_KEY}`
   )
   const bioData = await bioReq.json() as CongressResponse
 
@@ -135,7 +135,7 @@ async function createTermData(): Promise<{ house: number, senate: number }> {
 
   // get the data for the congressional session
   const sessionReq = await fetch(
-    `${CONGRESS_API}/congress/${congress}?api_key=${process.env.CONGRESS_API_KEY}`
+    `${CONGRESS_API}/congress/${congress}?api_key=${process.env.NUXT_CONGRESS_API_KEY}`
   )
   const sessionData = await sessionReq.json() as CongressResponse
 
