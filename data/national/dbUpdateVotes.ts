@@ -14,6 +14,8 @@ const supabase = createClient(
 
 const SCRIPT_ID = 'national-votes'
 
+const GlobalErrors: string[] = []
+
 /**
  * Process the vote data and upload to database
  * @param data Bill data
@@ -70,6 +72,7 @@ async function processVote(
 
       if (actionResult.error) {
         returnData.action = 'failed'
+        GlobalErrors.push(`${actionResult.error}`)
         console.error(actionResult.error)
         return returnData
       }
@@ -106,6 +109,7 @@ async function processVote(
 
           if (amendmentResult.error) {
             console.error(amendmentResult.error)
+            GlobalErrors.push(`${amendmentResult.error}`)
             returnData.action = 'failed'
             return returnData
           }
@@ -132,6 +136,7 @@ async function processVote(
         if (result.error) {
           console.error(result.error)
           returnData.action = 'failed'
+          GlobalErrors.push(`${result.error}`)
           return returnData
         }
       }
@@ -172,6 +177,7 @@ async function processVote(
         if (voteResult.error) {
           console.error(voteResult.error)
           returnData.action = 'failed'
+          GlobalErrors.push(`${voteResult.error}`)
           // ... eh not the best error handling but oh well at least it logs
           return returnData
         }
@@ -183,7 +189,8 @@ async function processVote(
           .eq('alternate_id', vote.id)
 
         if (voteEntry.error) {
-          console.error(voteResult.error)
+          console.error(voteEntry.error)
+          GlobalErrors.push(`${voteEntry.error}`)
           returnData.action = 'failed'
           return returnData
         }
@@ -203,6 +210,7 @@ async function processVote(
 
         if (repVotesResult.error) {
           console.error(repVotesResult.error)
+          GlobalErrors.push(`${repVotesResult.error}`)
           returnData.action = 'failed'
           return returnData
         }
@@ -257,6 +265,16 @@ async function processVotes() {
   if (lastUpdated.error) {
     console.error('Unable to retrieve database last updated at data')
     console.error(lastUpdated.error)
+  
+    // if this fails w/e, it's in a bad state already
+  await supabase.from('db_updates').upsert({
+    script_id: SCRIPT_ID,
+    status: 'error',
+    error_data: {
+      error: `${lastUpdated.error}`
+    }
+  })
+
     return
   }
 
@@ -310,10 +328,13 @@ async function processVotes() {
   const cacheGenerationDate = JSON.parse(
     fs.readFileSync('./cache/cache_updated_at.json').toString()
   ).updated_at
+
   const dbUpdate = await supabase.from('db_updates').upsert({
     script_id: SCRIPT_ID,
     last_run: new Date(cacheGenerationDate),
-    status: 'success',
+    status: GlobalErrors.length > 0 ? 'warning' : 'success',
+    result_data: results,
+    error_data: { errors: GlobalErrors }
   })
 
   if (dbUpdate.error) {
