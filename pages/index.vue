@@ -14,7 +14,7 @@ const repData = await useAsyncData(
   },
   {
     watch: [nameSearch],
-    dedupe: 'cancel'
+    dedupe: 'cancel',
   }
 )
 

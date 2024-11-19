@@ -11,9 +11,13 @@
     <div class="w-full sticky top-0 border-blue-800 border-b-1 bg-blue-900">
       <UHorizontalNavigation :links="links" />
     </div>
-    <div class="content">
+    <div class="min-h-80">
       <NuxtPage />
     </div>
-    <div class="footer">footer things</div>
+    <div class="w-full container flex justify-center mx-auto">
+      <div class="text-sm">
+        About | Data Sources | Contact
+      </div>
+    </div>
   </div>
 </template>

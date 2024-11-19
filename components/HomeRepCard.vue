@@ -34,6 +34,12 @@ const congressTitle = computed(() => {
     ? `${numberToWords.toOrdinal(props.congress ?? 1)} United States Congress`
     : ''
 })
+
+const goToRep = () => {
+  return navigateTo({
+    path: `/rep/${props.repId}`,
+  })
+}
 </script>
 
 <template>
@@ -42,6 +48,7 @@ const congressTitle = computed(() => {
     :ui="{
       background: 'bg-white dark:hover:bg-gray-800 dark:bg-gray-900 ',
     }"
+    @click="goToRep"
   >
     <div class="text-xl font-medium flex justify-between">
       {{ props.name }}
