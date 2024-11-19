@@ -5,8 +5,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     supabaseDbUrl: '',
-    supabaseKey: ''
+    supabaseKey: '',
   },
 
-  modules: ['@nuxt/ui', '@nuxtjs/tailwindcss']
+  modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', 'nuxt-lodash', '@vueuse/nuxt'],
 })
