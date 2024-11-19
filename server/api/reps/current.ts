@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
   const data = await supabase.from('current_reps').select('*')
 
   if (data.error) {
+    console.error(data.error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Query failed to return data'

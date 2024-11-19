@@ -14,7 +14,7 @@ const supabase = createClient(
 
 const SCRIPT_ID = 'national-votes'
 
-const GlobalErrors: string[] = []
+const GlobalErrors: any[] = []
 
 /**
  * Process the vote data and upload to database
@@ -36,9 +36,14 @@ async function processVote(
   }
 
   try {
-    // bill data update
+    // bill data update conditions are
+    // bill metadata was changed
     const updatedAt = new Date(data.cache_updated_at)
-    if (updatedAt < dbUpdatedAt) {
+    // there's a new vote. Now the bill might be the same, but if there's a new vote, it might not exist in the cache yet
+    // and the cache_updated_at is the time at which the scraper script downloaded the file
+    const newestVote = new Date(data.votes[data.votes.length - 1].date)
+
+    if (updatedAt < dbUpdatedAt && newestVote < dbUpdatedAt) {
       returnData.action = 'noChange'
     } else {
       console.log(
@@ -109,7 +114,7 @@ async function processVote(
 
           if (amendmentResult.error) {
             console.error(amendmentResult.error)
-            GlobalErrors.push(`${amendmentResult.error}`)
+            GlobalErrors.push(amendmentResult.error)
             returnData.action = 'failed'
             return returnData
           }
@@ -136,7 +141,7 @@ async function processVote(
         if (result.error) {
           console.error(result.error)
           returnData.action = 'failed'
-          GlobalErrors.push(`${result.error}`)
+          GlobalErrors.push(result.error)
           return returnData
         }
       }
@@ -177,7 +182,7 @@ async function processVote(
         if (voteResult.error) {
           console.error(voteResult.error)
           returnData.action = 'failed'
-          GlobalErrors.push(`${voteResult.error}`)
+          GlobalErrors.push(voteResult.error)
           // ... eh not the best error handling but oh well at least it logs
           return returnData
         }
@@ -190,7 +195,7 @@ async function processVote(
 
         if (voteEntry.error) {
           console.error(voteEntry.error)
-          GlobalErrors.push(`${voteEntry.error}`)
+          GlobalErrors.push(voteEntry.error)
           returnData.action = 'failed'
           return returnData
         }
@@ -210,7 +215,7 @@ async function processVote(
 
         if (repVotesResult.error) {
           console.error(repVotesResult.error)
-          GlobalErrors.push(`${repVotesResult.error}`)
+          GlobalErrors.push(repVotesResult.error)
           returnData.action = 'failed'
           return returnData
         }
@@ -265,22 +270,22 @@ async function processVotes() {
   if (lastUpdated.error) {
     console.error('Unable to retrieve database last updated at data')
     console.error(lastUpdated.error)
-  
+
     // if this fails w/e, it's in a bad state already
-  await supabase.from('db_updates').upsert({
-    script_id: SCRIPT_ID,
-    status: 'error',
-    error_data: {
-      error: `${lastUpdated.error}`
-    }
-  })
+    await supabase.from('db_updates').upsert({
+      script_id: SCRIPT_ID,
+      status: 'error',
+      error_data: {
+        error: `${lastUpdated.error}`,
+      },
+    })
 
     return
   }
 
   const updatedAt =
     lastUpdated.data.length > 0
-      ? new Date(lastUpdated.data[0].last_run)
+      ? new Date(lastUpdated.data[0].last_success)
       : new Date('1776-07-04')
 
   console.log(
@@ -329,13 +334,19 @@ async function processVotes() {
     fs.readFileSync('./cache/cache_updated_at.json').toString()
   ).updated_at
 
-  const dbUpdate = await supabase.from('db_updates').upsert({
+  const updateData: Record<string, any> = {
     script_id: SCRIPT_ID,
     last_run: new Date(cacheGenerationDate),
     status: GlobalErrors.length > 0 ? 'warning' : 'success',
     result_data: results,
-    error_data: { errors: GlobalErrors }
-  })
+    error_data: JSON.stringify({ errors: GlobalErrors }),
+  }
+
+  if (GlobalErrors.length === 0) {
+    updateData.last_success = new Date(cacheGenerationDate)
+  }
+
+  const dbUpdate = await supabase.from('db_updates').upsert(updateData)
 
   if (dbUpdate.error) {
     console.error(dbUpdate.error)
