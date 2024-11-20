@@ -22,7 +22,9 @@ const supabase = createClient(
  */
 
 export default defineEventHandler(async (event) => {
-  const data = await supabase
+  const queryParams = getQuery(event)
+
+  const query = supabase
     .from('rep_votes')
     .select(
       `
@@ -58,7 +60,12 @@ export default defineEventHandler(async (event) => {
   `
     )
     .eq('rep_id', getRouterParam(event, 'repId'))
-    .eq('votes.session', parseInt(getRouterParam(event, 'session') ?? '0'))
+
+  if (queryParams.session != null) {
+    query.eq('votes.session', parseInt(queryParams.session as string))
+  }
+
+  const data = await query
 
   if (data.error) {
     console.error(data.error)
@@ -67,6 +74,13 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Query failed to return data',
     })
   } else {
-    return data.data
+    // the default order is vote date descending. the client can choose to change this, but the server
+    // returns all vote data
+    const sorted = data.data.sort(
+      (a, b) =>
+        new Date(b.votes.date).getTime() - new Date(a.votes.date).getTime()
+    )
+
+    return sorted
   }
 })

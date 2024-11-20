@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import numberToWords from 'number-to-words'
+import { getTitle } from '~/utils/textUtils';
 
 const props = defineProps<{
   name: string
@@ -13,9 +14,7 @@ const props = defineProps<{
 }>()
 
 const roleTitle = computed(() => {
-  if (props.level === 'national') {
-    return `${props.chamber}`
-  }
+  return getTitle(props.level, props.chamber)
 })
 
 const badgeLabel = computed(() => {

@@ -258,6 +258,7 @@ export type Database = {
         Row: {
           error_data: Json | null
           last_run: string | null
+          last_success: string | null
           result_data: Json | null
           script_id: string
           status: string | null
@@ -265,6 +266,7 @@ export type Database = {
         Insert: {
           error_data?: Json | null
           last_run?: string | null
+          last_success?: string | null
           result_data?: Json | null
           script_id: string
           status?: string | null
@@ -272,6 +274,7 @@ export type Database = {
         Update: {
           error_data?: Json | null
           last_run?: string | null
+          last_success?: string | null
           result_data?: Json | null
           script_id?: string
           status?: string | null

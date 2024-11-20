@@ -8,7 +8,7 @@
 
 <template>
   <div class="app">
-    <div class="w-full sticky top-0 border-blue-800 border-b-1 bg-blue-900">
+    <div class="w-full sticky top-0 border-blue-800 border-b-1 bg-blue-900 z-10">
       <UHorizontalNavigation :links="links" />
     </div>
     <div class="min-h-80">
