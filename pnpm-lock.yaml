@@ -23,6 +23,9 @@ importers:
       '@vueuse/nuxt':
         specifier: ^11.2.0
         version: 11.2.0(magicast@0.3.5)(nuxt@3.14.159(@parcel/watcher@2.5.0)(@types/node@22.9.0)(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.26.0)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(terser@5.36.0)))(rollup@4.26.0)(vue@3.5.12(typescript@5.6.3))
+      moment:
+        specifier: ^2.30.1
+        version: 2.30.1
       number-to-words:
         specifier: ^1.2.4
         version: 1.2.4
@@ -55,8 +58,8 @@ importers:
         specifier: ^2.5.3
         version: 2.5.3(magicast@0.3.5)(rollup@4.26.0)
       supabase:
-        specifier: ^1.219.2
-        version: 1.219.2
+        specifier: ^1.223.10
+        version: 1.223.10
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -2613,6 +2616,9 @@ packages:
   mlly@1.7.3:
     resolution: {integrity: sha512-xUsx5n/mN0uQf4V548PKQ+YShA4/IW0KI1dZhrNrPCLG+xizETbHTkOa1f8/xut9JRPp8kQuMnz0oqwkTiLo/A==}
 
+  moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -3397,8 +3403,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  supabase@1.219.2:
-    resolution: {integrity: sha512-bngNxjoiU2EHbQ4Cxfrft/ZnYnYdlWfpLcye3KCyJFQhTl3ucpygKymJZiasJl0xdN+hR98TdrHp7WHTuf9ztQ==}
+  supabase@1.223.10:
+    resolution: {integrity: sha512-a5Wi562n0eiV3w359qiCjewyVad688Z3+JHdvLybdlITrwvNIcR6QYqRR6EzjKY5V/sNCqC+5sNf40wDYAYcHg==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -6618,6 +6624,8 @@ snapshots:
       pkg-types: 1.2.1
       ufo: 1.5.4
 
+  moment@2.30.1: {}
+
   mri@1.2.0: {}
 
   mrmime@2.0.0: {}
@@ -7566,7 +7574,7 @@ snapshots:
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
 
-  supabase@1.219.2:
+  supabase@1.223.10:
     dependencies:
       bin-links: 5.0.0
       https-proxy-agent: 7.0.5(supports-color@9.4.0)

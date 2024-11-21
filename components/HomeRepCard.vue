@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import numberToWords from 'number-to-words'
-import { getTitle } from '~/utils/textUtils';
+import { getTitle } from '~/utils/textUtils'
 
 const props = defineProps<{
   name: string
@@ -17,12 +17,9 @@ const roleTitle = computed(() => {
   return getTitle(props.level, props.chamber)
 })
 
-const badgeLabel = computed(() => {
-  if (props.level === 'national') {
-    const district = props.district ? ` District ${props.district}` : ''
-    return `${props.party?.charAt(0)}-${props.state}${district}`
-  }
-})
+const badgeLabel = computed(() =>
+  getDistrictBadge(props.level, props.district, props.party, props.state)
+)
 
 const badgeColor = computed(() => {
   return getPartyColor(props?.party ?? '') as any

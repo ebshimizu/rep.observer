@@ -3,6 +3,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
+import { RepVotesResponse } from '~/utils/correctedDbTypes'
 
 const supabase = createClient(
   process.env.NUXT_SUPABASE_DB_URL ?? '',
@@ -76,9 +77,12 @@ export default defineEventHandler(async (event) => {
   } else {
     // the default order is vote date descending. the client can choose to change this, but the server
     // returns all vote data
-    const sorted = data.data.sort(
+    const typedData = data.data as unknown as RepVotesResponse[]
+
+    const sorted = typedData.sort(
       (a, b) =>
-        new Date(b.votes.date).getTime() - new Date(a.votes.date).getTime()
+        new Date(b.votes?.date ?? '').getTime() -
+        new Date(a.votes?.date ?? '').getTime()
     )
 
     return sorted
