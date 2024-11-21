@@ -85,7 +85,7 @@ const pageItems = computed(() => {
 </script>
 
 <template>
-  <div class="md:container mx-auto">
+  <div class="container mx-auto">
     <div class="flex flex-col gap-1 my-2">
       <div class="text-2xl font-medium flex align-middle gap-2">
         {{ repData.data.value?.full_name }}
@@ -94,22 +94,23 @@ const pageItems = computed(() => {
         <UBadge :color="badgeColor">{{ badgeLabel }}</UBadge>
       </div>
       <div class="text-md">{{ repTitle }}</div>
-      <div class="text-md">{{ sessionTitle }}</div>
     </div>
-    <div class="relative">
-      <div class="absolute top-0 left-0 w-80 px-2">
-        <div class="border rounded border-gray-600 w-full p-2">Filters</div>
-      </div>
-      <div class="ml-80 border rounded border-blue-500">
-        <div class="border-b rounded border-blue-500 p-2">
+    <div class="border rounded border-blue-500">
+      <div class="border-b rounded border-blue-500 p-2">
+        <div class="flex gap-2 justify-between">
+          <div class="text-md">{{ sessionTitle }}</div>
           <UPagination
             :page-count="itemsPerPage"
             :total="votes.data.value?.length ?? 0"
             v-model="currentPage"
           />
+          <div class="flex gap-1">
+            search | filters
+          </div>
         </div>
-        <RepVoteRow v-for="vote of pageItems" :vote="vote" />
+        <div class="border rounded border-gray-600 w-full p-2">Filters</div>
       </div>
+      <RepVoteRow v-for="vote of pageItems" :vote="vote" />
     </div>
   </div>
 </template>

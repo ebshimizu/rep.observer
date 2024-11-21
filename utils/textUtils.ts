@@ -20,8 +20,8 @@ export function getDistrictBadge(
   state?: string | null
 ) {
   if (level === 'national') {
-    const dist = district ? ` District ${district}` : ''
-    return `${party?.charAt(0)}-${state}${district}`
+    const dist = district != null ? ` District ${district}` : ''
+    return `${party?.charAt(0)}-${state}${dist}`
   }
 }
 
