@@ -14,7 +14,7 @@ const questionTitle = computed(() => {
   <VoteRowBase
     :vote="props.vote.vote"
     :type="props.vote.votes.type ?? ''"
-    :passed="props.vote.votes.result?.toLowerCase() === 'passed'"
+    :result="props.vote.votes.result"
     :title="questionTitle"
     :tags="props.vote.votes.actions.tags ?? []"
     :date="new Date(props.vote.votes.date ?? '')"

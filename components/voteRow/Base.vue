@@ -5,14 +5,14 @@ const props = defineProps<{
   vote: string
   type: string
   date: Date
-  passed: boolean
+  result?: string
   title: string
-  tags: string[]
+  tags?: string[]
   top_tag?: string
   required?: string
 }>()
 
-const topTag = computed(() => props.top_tag ?? props.tags[0])
+const topTag = computed(() => props.top_tag ?? props.tags?.[0])
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const topTag = computed(() => props.top_tag ?? props.tags[0])
             {{ props.required ? `(${props.required} Required)` : '' }}
           </slot>
         </div>
-        <div class="flex gap-1 flex-wrap">
+        <div class="flex gap-1 flex-wrap" v-if="props.tags != null">
           <UPopover mode="hover">
             <UBadge variant="soft" size="xs">{{ topTag }}</UBadge>
 
@@ -49,7 +49,7 @@ const topTag = computed(() => props.top_tag ?? props.tags[0])
       <div class="text-md">
         <slot name="details">
           <div>
-            <span>{{ props.passed ? 'Passed' : 'Failed' }}</span>
+            <span>{{ props.result }}</span>
             {{ moment(props.date).format('MMMM Do YYYY') }}
           </div>
         </slot>
