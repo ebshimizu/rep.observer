@@ -73,9 +73,6 @@ const badgeColor = computed(() => {
   return getPartyColor(repData.data.value?.term?.party ?? '') as any
 })
 
-const pageCount = computed(() =>
-  Math.ceil((votes.data.value?.length ?? 0) / itemsPerPage.value)
-)
 const pageItems = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value
   const end = start + itemsPerPage.value
@@ -87,28 +84,26 @@ const pageItems = computed(() => {
 <template>
   <div class="container mx-auto">
     <div class="flex flex-col gap-1 my-2">
-      <div class="text-2xl font-medium flex align-middle gap-2">
+      <h1 class="text-3xl font-medium flex align-middle gap-2">
         {{ repData.data.value?.full_name }}
-      </div>
+      </h1>
+      <div class="text-md">{{ sessionTitle }}</div>
       <div>
-        <UBadge :color="badgeColor">{{ badgeLabel }}</UBadge>
+        <UBadge :color="badgeColor">{{ repTitle }} {{ badgeLabel }}</UBadge>
       </div>
-      <div class="text-md">{{ repTitle }}</div>
     </div>
     <div class="border rounded border-blue-500">
       <div class="border-b rounded border-blue-500 p-2">
         <div class="flex gap-2 justify-between">
-          <div class="text-md">{{ sessionTitle }}</div>
           <UPagination
             :page-count="itemsPerPage"
             :total="votes.data.value?.length ?? 0"
             v-model="currentPage"
           />
-          <div class="flex gap-1">
-            search | filters
-          </div>
+          <div class="flex gap-1">search | filters</div>
         </div>
-        <div class="border rounded border-gray-600 w-full p-2">Filters</div>
+        <UDivider class="my-2"></UDivider>
+        <div class="w-full mt-2">Filters</div>
       </div>
       <RepVoteRow v-for="vote of pageItems" :vote="vote" />
     </div>

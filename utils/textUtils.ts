@@ -31,7 +31,7 @@ export function getSessionTitle(
   date?: { start?: string | null; end?: string | null }
 ) {
   const dateStart = date?.start == null ? undefined : moment(date.start).format('MMMM Do YYYY')
-  const dateEnd = date?.end == null ? 'Present' : moment(date.end).format('MMM< Do YYYY')
+  const dateEnd = date?.end == null ? 'Present' : moment(date.end).format('MMMM Do YYYY')
 
   const dateText = dateStart != null ? ` (${dateStart} to ${dateEnd})` : ''
 
