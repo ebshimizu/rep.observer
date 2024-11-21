@@ -6,7 +6,7 @@ const session = ref(route.query?.session ?? undefined)
 const itemsPerPage = ref(50)
 
 // this might have to be computed at some point, if filtered values change we have to clamp
-const currentPage = ref(0)
+const currentPage = ref(1)
 
 const repData = useAsyncData(
   'repInfo',
@@ -77,7 +77,7 @@ const pageCount = computed(() =>
   Math.ceil((votes.data.value?.length ?? 0) / itemsPerPage.value)
 )
 const pageItems = computed(() => {
-  const start = currentPage.value * itemsPerPage.value
+  const start = (currentPage.value - 1) * itemsPerPage.value
   const end = start + itemsPerPage.value
 
   return votes.data.value?.slice(start, end) ?? []
@@ -98,27 +98,17 @@ const pageItems = computed(() => {
     </div>
     <div class="relative">
       <div class="absolute top-0 left-0 w-80 px-2">
-        <div class="border-2 rounded border-blue-400 w-full p-2">
-          Filters
-        </div>
+        <div class="border rounded border-gray-600 w-full p-2">Filters</div>
       </div>
-      <div class="ml-80">
-        <div class="border-2 rounded border-indigo-500 p-2">
-          {{ currentPage + 1 }} of {{ pageCount }}
+      <div class="ml-80 border rounded border-blue-500">
+        <div class="border-b rounded border-blue-500 p-2">
+          <UPagination
+            :page-count="itemsPerPage"
+            :total="votes.data.value?.length ?? 0"
+            v-model="currentPage"
+          />
         </div>
-        <div v-for="vote of pageItems" class="p-2">
-          <div class="text-lg">{{ vote.vote }}</div>
-          <div class="text-sm">{{ vote.votes.type }}</div>
-          <div class="text-sm">{{ vote.votes.date }}</div>
-          <div class="font-medium">
-            {{ vote.votes.actions.bill_type?.toUpperCase() }}
-            {{ vote.votes.actions.number }}
-            {{
-              vote.votes.actions.short_title ??
-              vote.votes.actions.official_title
-            }}
-          </div>
-        </div>
+        <RepVoteRow v-for="vote of pageItems" :vote="vote" />
       </div>
     </div>
   </div>
