@@ -1,3 +1,7 @@
+/**
+ * Output from this script might need manual cleanup from time to time, as reps move to different levels
+ * or change names on me.
+ */
 import fs from 'fs-extra'
 import fetch from 'node-fetch'
 import { parse } from 'node-html-parser'

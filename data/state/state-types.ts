@@ -38,6 +38,7 @@ export interface StateMember {
 	full_name: string
 	first_name: string
 	last_name: string
+	alt_name?: string
 	homepage: string
 	term: StateTerm
 }
@@ -54,9 +55,9 @@ export type StateMemberCache = {
 // TODO: unify these types with the national versions
 export interface BillCosponsor {
   id: string
-  original_cosponsor: boolean
-  sponsored_at: string
-  withdrawn_at: string | null
+  original_cosponsor?: boolean
+  sponsored_at?: string
+  withdrawn_at?: string | null
 }
 
 export interface BillAmendment {
@@ -74,19 +75,19 @@ export interface BillAmendment {
 }
 
 export interface Vote {
-  id: string
+  alternate_id?: string
   source_url: string
   chamber: string
-  congress: number
-  session: number
-  requires: string
-  number: number
+  congress?: number
+  session?: number
+  requires?: string
+  number?: number
   question: string
   result: string
-  result_text: string
+  result_text?: string
   date: string
   cache_updated_at: string
-  type: string
+  type?: string
   rep_votes: Record<string, string>
 }
 
@@ -99,8 +100,8 @@ export interface LegislatureAction {
   bill_type?: string
   congress?: number
   cosponsors?: BillCosponsor[]
-  introduced_at: string
-  number: number
+  introduced_at?: string
+  number?: number
   official_title: string
   popular_title?: string
   short_title?: string
