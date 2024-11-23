@@ -217,7 +217,9 @@ async function processBill(bill: Partial<LegislatureAction>) {
         ?.textContent ?? ''
     )
 
+    console.log(`[Debug] ${id} last update ${lastAction}`)
     if (lastAction.getTime() > lastUpdate.getTime()) {
+      cache.cache_updated_at = lastAction.toISOString()
       console.log(`[Bill] Updating ${id}`)
 
       // update core data, assume we're starting from nothing here
@@ -378,7 +380,7 @@ async function getBillData() {
 
   // ok so now we just have to get info on all of these things :)
   // DEBUG: just run like one of these
-  for (const bill of billIndex) {
+  for (const bill of billIndex.slice(0, 100)) {
     const result = await processBill(bill)
 
     results[result] += 1
