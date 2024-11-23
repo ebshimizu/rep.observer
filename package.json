@@ -29,6 +29,7 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "node-fetch": "^3.3.2",
+    "node-html-parser": "^6.1.13",
     "nuxt-lodash": "^2.5.3",
     "supabase": "^1.223.10",
     "tsx": "^4.19.2"
