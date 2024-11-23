@@ -2,9 +2,9 @@
 
 ## Data Sources
 - Members
-  - Assembly
-	- Senate
-- Votes and Bills
+  - Assembly - https://www.assembly.ca.gov/assemblymembers
+	- Senate - https://www.senate.ca.gov/senators
+- Votes and Bills - https://leginfo.legislature.ca.gov/faces/home.xhtml
 
 ### CA Notes
-CA does actually provide sql exports of their entire database, however these are in bulk drops or in incremental packages relative to their own DB schema. I'm also not sure I want to rely on that particular process staying active, so we'll treat the web page front end as the source of truth and extract data from there.
+CA does actually provide sql exports of their entire database, however these are in bulk drops or in incremental packages relative to their own DB schema. I don't really want to run a second DB to get this data so we're just going to the local file approach like the congress python library does.
