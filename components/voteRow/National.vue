@@ -14,7 +14,7 @@ const questionTitle = computed(() => {
 
 <template>
   <VoteRowBase
-    :id="props.vote.votes.actions.id"
+    :action-id="props.vote.votes.actions.id"
     :rep-id="props.repId"
     :vote="props.vote.vote"
     :type="props.vote.votes.type ?? ''"

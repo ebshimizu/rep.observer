@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import moment from 'moment'
+import type { ActionRepVotesResponse } from '~/utils/correctedDbTypes'
 
 const props = defineProps<{
-  id: string
+  actionId: string
   repId: string
   vote: string
   type: string
@@ -16,22 +17,57 @@ const props = defineProps<{
 
 const expanded = ref(false)
 
-const voteDataCache = ref<any>(undefined)
+const voteDataCache = ref<ActionRepVotesResponse>([])
 
 const topTag = computed(() => props.top_tag ?? props.tags?.[0])
 
-const expand = async () => {
-  expanded.value = true
-  if (voteDataCache.value == null) {
+const toggleExpand = async () => {
+  expanded.value = !expanded.value
+  if (voteDataCache.value.length === 0) {
     // fetch the expanded data
-    voteDataCache.value = await $fetch(`/api/action/${props.id}/${props.repId}/votes`)
-    console.log(voteDataCache.value)
+    const data = await $fetch(
+      `/api/action/${props.actionId}/${props.repId}/votes`
+    )
+    if (data) {
+      voteDataCache.value = data as ActionRepVotesResponse
+    }
   }
 }
+
+const relatedVoteItems = computed(() => {
+  return voteDataCache.value
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .map((v) => ({
+      id: v.id,
+      date: moment(v.date).format('MMMM Do YYYY'),
+      repVote: v.rep_votes[0].vote,
+      result: v.result,
+      motion: { value: v.question, class: 'text-wrap' },
+    }))
+})
+
+const relatedVoteColumns = [
+  {
+    key: 'repVote',
+    label: "Rep's Vote",
+  },
+  {
+    key: 'result',
+    label: 'Result',
+  },
+  {
+    key: 'motion',
+    label: 'Motion',
+  },
+  {
+    key: 'date',
+    label: 'Date',
+  },
+]
 </script>
 
 <template>
-  <div class="p-2 flex h-fit content-center dark:bg-zinc-700 dark:hover:bg-zinc-600">
+  <div class="p-2 flex h-fit content-center">
     <div class="text-lg w-32 flex items-center justify-center shrink-0">
       <slot name="vote">{{ props.vote }}</slot>
     </div>
@@ -44,22 +80,29 @@ const expand = async () => {
           </slot>
         </div>
         <div class="flex gap-1 flex-wrap" v-if="props.tags != null">
-          <UPopover mode="hover">
-            <UBadge variant="soft" size="xs">{{ topTag }}</UBadge>
+          <ClientOnly>
+            <UPopover mode="hover">
+              <UBadge variant="soft" size="xs">{{ topTag }}</UBadge>
 
-            <template #panel>
-              <div class="p-2 w-80">
-                <div class="text-lg mb-2">All Tags</div>
-                <div class="flex flex-wrap gap-2 max-h-80 overflow-auto">
-                  <UBadge v-for="tag in props.tags" size="xs">{{ tag }}</UBadge>
+              <template #panel>
+                <div class="p-2 w-80">
+                  <div class="text-lg mb-2">All Tags</div>
+                  <div class="flex flex-wrap gap-2 max-h-80 overflow-auto">
+                    <UBadge v-for="tag in props.tags" size="xs">{{
+                      tag
+                    }}</UBadge>
+                  </div>
                 </div>
-              </div>
-            </template>
-          </UPopover>
+              </template>
+            </UPopover>
+          </ClientOnly>
         </div>
       </div>
-      <div class="text-md font-bold cursor-pointer" @click="expand">
-        {{props.id}} {{ props.title }}
+      <div
+        class="text-md font-bold cursor-pointer hover:dark:text-blue-400"
+        @click="toggleExpand"
+      >
+        {{ props.title }}
       </div>
       <div class="text-md">
         <slot name="details">
@@ -69,8 +112,24 @@ const expand = async () => {
           </div>
         </slot>
       </div>
-    </div>
-    <div v-if="expanded">
+      <div class="flex flex-col gap-2 px-8 mt-2" v-if="expanded">
+        <h4 class="font-bold text-sm">Related Votes</h4>
+        <div v-if="voteDataCache.length === 0">
+          <USkeleton class="w-full h-4 mb-2"></USkeleton>
+          <USkeleton class="w-full h-4 mb-2"></USkeleton>
+          <USkeleton class="w-full h-4 mb-2"></USkeleton>
+        </div>
+        <UTable
+          v-if="voteDataCache.length > 0"
+          :columns="relatedVoteColumns"
+          :rows="relatedVoteItems"
+          class="border dark:border-gray-500 rounded-sm"
+        >
+          <template #motion-data="{ row }">
+            {{ row.motion.value }}
+          </template>
+        </UTable>
+      </div>
     </div>
   </div>
 </template>

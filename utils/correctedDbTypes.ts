@@ -32,3 +32,22 @@ export interface RepVotesResponse {
     }
   }
 }
+
+export type ActionRepVotesResponse = {
+  id: string
+  action_id: string
+  result?: string
+  question?: string
+  type?: string
+  chamber?: string
+  congress?: number
+  session: number
+  requires?: string
+  number?: number
+  date: string
+  alternate_id?: string
+  rep_votes: {
+    vote: string
+    rep_id: string
+  }[]
+}[]
