@@ -148,7 +148,7 @@ async function getBillIndex(): Promise<Partial<LegislatureAction>[]> {
     }
   } else {
     console.error(
-      'Failed to retrieve bill results table, returning empty object'
+      '[ERROR] Failed to retrieve bill results table, returning empty object'
     )
   }
 
@@ -217,7 +217,6 @@ async function processBill(bill: Partial<LegislatureAction>) {
         ?.textContent ?? ''
     )
 
-    console.log(`[Debug] ${id} last update ${lastAction}`)
     if (lastAction.getTime() > lastUpdate.getTime()) {
       cache.cache_updated_at = lastAction.toISOString()
       console.log(`[Bill] Updating ${id}`)
@@ -304,19 +303,17 @@ async function processBill(bill: Partial<LegislatureAction>) {
         const rows = vote.querySelectorAll('.statusRow')
 
         // check if this is an assembly floor or senate floor vote, we don't track committee votes here (at the moment)
-        const location =
+        const location = (
           rows?.[2].querySelector('.statusCellData span')?.textContent ?? ''
+        ).toLowerCase()
 
-        if (
-          location.toLowerCase() === 'assembly floor' ||
-          location.toLowerCase() === 'senate floor'
-        ) {
+        if (location === 'assembly floor' || location === 'senate floor') {
           const date = new Date(
             rows?.[0].querySelector('.statusCellData span')?.textContent ?? ''
           )
 
           if (date.getTime() > mostRecentVote.getTime()) {
-            console.log(`[Bill] found new assembly vote for ${id}`)
+            console.log(`[Bill] found new vote for ${id}`)
             const result =
               rows?.[1].querySelector('.statusCellData span')?.textContent ?? ''
             const resultFormatted =
@@ -341,7 +338,7 @@ async function processBill(bill: Partial<LegislatureAction>) {
             cache.votes.push(voteData)
           }
         } else {
-          console.log(`[Bill] ${id} skipping non-floor vote ${location}`)
+          // console.log(`[Bill] ${id} skipping non-floor vote ${location}`)
         }
       }
 
@@ -360,7 +357,7 @@ async function processBill(bill: Partial<LegislatureAction>) {
     }
   } else {
     console.error(
-      'Failed to retrieve id from bill index. this probably means something exploded earlier in the script.'
+      '[ERROR] Failed to retrieve id from bill index. this probably means something exploded earlier in the script.'
     )
   }
 
@@ -379,8 +376,7 @@ async function getBillData() {
   }
 
   // ok so now we just have to get info on all of these things :)
-  // DEBUG: just run like one of these
-  for (const bill of billIndex.slice(0, 100)) {
+  for (const bill of billIndex) {
     const result = await processBill(bill)
 
     results[result] += 1

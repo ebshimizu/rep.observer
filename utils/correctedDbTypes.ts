@@ -11,6 +11,7 @@ export interface RepVotesResponse {
     number?: number
     date?: string
     actions: {
+      id: string
       type?: string
       level?: string
       chamber: string

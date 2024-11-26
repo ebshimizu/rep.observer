@@ -38,6 +38,7 @@ export default defineEventHandler(async (event) => {
       number,
       date,
       actions (
+        id,
         type,
         level,
         chamber,

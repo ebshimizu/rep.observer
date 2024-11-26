@@ -105,7 +105,7 @@ const pageItems = computed(() => {
         <UDivider class="my-2"></UDivider>
         <div class="w-full mt-2">Filters</div>
       </div>
-      <RepVoteRow v-for="vote of pageItems" :vote="vote" />
+      <RepVoteRow v-for="vote of pageItems" :vote="vote" :rep-id="repId" />
     </div>
   </div>
 </template>

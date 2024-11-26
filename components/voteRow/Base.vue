@@ -2,6 +2,8 @@
 import moment from 'moment'
 
 const props = defineProps<{
+  id: string
+  repId: string
   vote: string
   type: string
   date: Date
@@ -12,11 +14,24 @@ const props = defineProps<{
   required?: string
 }>()
 
+const expanded = ref(false)
+
+const voteDataCache = ref<any>(undefined)
+
 const topTag = computed(() => props.top_tag ?? props.tags?.[0])
+
+const expand = async () => {
+  expanded.value = true
+  if (voteDataCache.value == null) {
+    // fetch the expanded data
+    voteDataCache.value = await $fetch(`/api/action/${props.id}/${props.repId}/votes`)
+    console.log(voteDataCache.value)
+  }
+}
 </script>
 
 <template>
-  <div class="p-2 flex h-fit content-center">
+  <div class="p-2 flex h-fit content-center dark:bg-zinc-700 dark:hover:bg-zinc-600">
     <div class="text-lg w-32 flex items-center justify-center shrink-0">
       <slot name="vote">{{ props.vote }}</slot>
     </div>
@@ -43,8 +58,8 @@ const topTag = computed(() => props.top_tag ?? props.tags?.[0])
           </UPopover>
         </div>
       </div>
-      <div class="text-md font-bold">
-        {{ props.title }}
+      <div class="text-md font-bold cursor-pointer" @click="expand">
+        {{props.id}} {{ props.title }}
       </div>
       <div class="text-md">
         <slot name="details">
@@ -54,6 +69,8 @@ const topTag = computed(() => props.top_tag ?? props.tags?.[0])
           </div>
         </slot>
       </div>
+    </div>
+    <div v-if="expanded">
     </div>
   </div>
 </template>

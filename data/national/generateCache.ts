@@ -172,12 +172,37 @@ function getTreatyData(voteData: RawVote) {
   }
 }
 
+function getClotureData(voteData: RawVote) {
+  const id = `${voteData.chamber}c${voteData.number}-${voteData.congress}.${voteData.session}`
+  if (id in actionData) {
+    return actionData[id]
+  } else {
+    actionData[id] = {
+      id,
+      type: 'cloture',
+      level: 'national',
+      state: undefined,
+      chamber: voteData.chamber,
+      congress: voteData.congress,
+      introduced_at: new Date(voteData.date).toISOString(),
+      number: voteData.number,
+      official_title: `${voteData.question}`,
+      status: voteData.result,
+      status_at: new Date(voteData.date).toISOString(),
+      cache_updated_at: new Date(voteData.updated_at).toISOString(),
+      source_url: voteData.source_url,
+      votes: [],
+    }
+
+    return actionData[id]
+  }
+}
+
 function processVote(voteData: RawVote) {
   // skip certain votes
   if (
     voteData.category === 'procedural' ||
     voteData.category === 'quorum' ||
-    voteData.category === 'cloture' ||
     voteData.category === 'leadership'
   ) {
     // console.log(`[VOTE SKIP] ${voteData.vote_id} category is ${voteData.category}`)
@@ -257,6 +282,14 @@ function processVote(voteData: RawVote) {
 
     if (treatyData) {
       treatyData.votes.push(vote)
+
+      return VoteResult.SUCCESS
+    }
+  } else if (voteData.category === 'cloture') {
+    const clotureData = getClotureData(voteData)
+
+    if (clotureData) {
+      clotureData.votes.push(vote)
 
       return VoteResult.SUCCESS
     }
