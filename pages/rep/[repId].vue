@@ -73,11 +73,43 @@ const badgeColor = computed(() => {
   return getPartyColor(repData.data.value?.term?.party ?? '') as any
 })
 
+// search filters
+const searchText = ref('')
+
+const filteredItems = computed(() => {
+  // filter on return
+  const items = (
+    votes.data.value?.filter((i) => {
+      let pass = true
+
+      if (searchText.value !== '') {
+        pass =
+          i.votes.question
+            ?.toLowerCase()
+            .includes(searchText.value.toLowerCase()) ?? false
+      }
+
+      return pass
+    }) ?? []
+  )
+
+  // page check
+  if (currentPage.value > Math.ceil(items.length / 50)) {
+    currentPage.value = Math.floor(items.length / itemsPerPage.value)
+  }
+
+  if (currentPage.value <= 0) {
+    currentPage.value = 1
+  }
+
+  return items
+})
+
 const pageItems = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value
   const end = start + itemsPerPage.value
 
-  return votes.data.value?.slice(start, end) ?? []
+  return filteredItems.value.slice(start, end)
 })
 </script>
 
@@ -97,10 +129,23 @@ const pageItems = computed(() => {
         <div class="flex gap-2 justify-between">
           <UPagination
             :page-count="itemsPerPage"
-            :total="votes.data.value?.length ?? 0"
+            :total="filteredItems.length"
             v-model="currentPage"
           />
-          <div class="flex gap-1">search | filters</div>
+          <div class="flex gap-1">
+            <UInput
+              v-model="searchText"
+              icon="i-heroicons-magnifying-glass-20-solid"
+              size="md"
+              color="white"
+              placeholder="Search Titles"
+            ></UInput>
+            <UButton
+              color="primary"
+              variant="outline"
+              icon="mdi:filter"
+            ></UButton>
+          </div>
         </div>
         <UDivider class="my-2"></UDivider>
         <div class="w-full mt-2">Filters</div>
