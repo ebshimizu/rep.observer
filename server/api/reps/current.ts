@@ -20,6 +20,14 @@ export default defineEventHandler(async (event) => {
     dbQuery.ilike('full_name', `%${query.search as string}%`)
   }
 
+  if ('level' in query) {
+    dbQuery.eq('level', `${query.level as string}`)
+  }
+
+  if ('state' in query) {
+    dbQuery.eq('state', `${query.state as string}`)
+  }
+
   const data = await dbQuery
 
   if (data.error) {

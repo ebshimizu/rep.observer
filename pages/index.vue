@@ -36,17 +36,27 @@ const filteredReps = computed(() => {
       v-model="nameSearch"
     />
     <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 my-4">
-      <HomeRepCard
-        v-for="rep in filteredReps"
-        :name="rep.full_name!"
-        :level="rep.level"
-        :repId="rep.rep_id!"
-        :chamber="rep.chamber"
-        :state="rep.state"
-        :party="rep.party"
-        :district="rep.district"
-        :congress="rep.congress!"
-      />
+      <template v-if="repData.status.value === 'pending'">
+        <USkeleton class="h-32"></USkeleton>
+        <USkeleton class="h-32"></USkeleton>
+        <USkeleton class="h-32"></USkeleton>
+      </template>
+      <template v-else-if="nameSearch.length > 2 && filteredReps?.length === 0">
+        <div>No representatives found with that name.</div>
+      </template>
+      <template v-else>
+        <HomeRepCard
+          v-for="rep in filteredReps"
+          :name="rep.full_name!"
+          :level="rep.level"
+          :repId="rep.rep_id!"
+          :chamber="rep.chamber"
+          :state="rep.state"
+          :party="rep.party"
+          :district="rep.district"
+          :congress="rep.congress!"
+        />
+      </template>
     </div>
   </div>
 </template>
