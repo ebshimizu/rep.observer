@@ -4,6 +4,7 @@
 export interface RepVotesResponse {
   vote: string
   votes: {
+    id: string
     result?: string
     question?: string
     type?: string

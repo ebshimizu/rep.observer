@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
       `
     vote,
     votes (
+      id,
       result,
       question,
       type,

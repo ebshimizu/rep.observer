@@ -10,6 +10,7 @@ const props = defineProps<{
   date: Date
   result?: string
   title: string
+  fullTitle?: string
   tags?: string[]
   top_tag?: string
   required?: string
@@ -40,7 +41,7 @@ const relatedVoteItems = computed(() => {
     .map((v) => ({
       id: v.id,
       date: moment(v.date).format('MMMM Do YYYY'),
-      repVote: v.rep_votes[0].vote,
+      repVote: v.rep_votes.length > 0 ? v.rep_votes[0].vote : '[In Other Chamber]',
       result: v.result,
       motion: { value: v.question, class: 'text-wrap' },
     }))
@@ -113,6 +114,8 @@ const relatedVoteColumns = [
         </slot>
       </div>
       <div class="flex flex-col gap-2 px-8 mt-2" v-if="expanded">
+        <h4 class="font-bold text-sm">Full Title</h4>
+        <div>{{ props.fullTitle ?? props.title }}</div>
         <h4 class="font-bold text-sm">Related Votes</h4>
         <div v-if="voteDataCache.length === 0">
           <USkeleton class="w-full h-4 mb-2"></USkeleton>
