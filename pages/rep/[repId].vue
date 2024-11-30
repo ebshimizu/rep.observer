@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 
-const repId = ref(route.params.repId)
+const repId = ref(route.params.repId as string)
 const session = ref(route.query?.session ?? undefined)
 const itemsPerPage = ref(50)
 
@@ -95,7 +95,7 @@ const filteredItems = computed(() => {
     }) ?? []
 
   // page check
-  if (currentPage.value > Math.ceil(items.length / 50)) {
+  if (currentPage.value > Math.ceil(items.length / itemsPerPage.value)) {
     currentPage.value = Math.floor(items.length / itemsPerPage.value)
   }
 
