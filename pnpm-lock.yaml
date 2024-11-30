@@ -42,6 +42,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.17.13
+        version: 4.17.13
       '@types/number-to-words':
         specifier: ^1.2.3
         version: 1.2.3
@@ -51,6 +54,9 @@ importers:
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2

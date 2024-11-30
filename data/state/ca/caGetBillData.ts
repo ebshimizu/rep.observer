@@ -3,6 +3,7 @@ import fs from 'fs-extra'
 import fetch from 'node-fetch'
 import { HTMLElement, Node, parse } from 'node-html-parser'
 import type { LegislatureAction, StateMemberCache, Vote } from '../state-types'
+import { uniq } from 'lodash'
 
 enum BillResult {
   New = 'New',
@@ -262,20 +263,21 @@ async function processBill(bill: Partial<LegislatureAction>) {
             .split(',') ?? [])
         )
 
-        cache.cosponsors = authors
-          .map((a) => {
-            const authorClean = a.substring(0, a.indexOf('(')).trim()
-            const authorId = getMemberIdFromVoteName(authorClean)
+        // ensure uniqueness
+        cache.cosponsors = uniq(
+          authors
+            .map((a) => {
+              const authorClean = a.substring(0, a.indexOf('(')).trim()
+              const authorId = getMemberIdFromVoteName(authorClean)
 
-            if (authorId) {
-              return {
-                id: authorId,
+              if (authorId) {
+                return authorId
               }
-            }
 
-            return undefined
-          })
-          .filter((a) => a != null)
+              return undefined
+            })
+            .filter((a) => a != null)
+        ).map((a) => ({ id: a }))
       }
 
       // get the analysis link. i was going to link to the pdf but it seems to trigger a JS function that performs
@@ -288,6 +290,7 @@ async function processBill(bill: Partial<LegislatureAction>) {
       if (cache.votes == null) {
         cache.votes = []
       }
+
       const mostRecentVote =
         cache.votes.length > 0
           ? new Date(cache.votes[cache.votes.length - 1].date)
@@ -324,6 +327,8 @@ async function processBill(bill: Partial<LegislatureAction>) {
             const repVotes = processRepVotes(rows?.slice(rows.length - 3))
 
             const voteData: Vote = {
+              // we reconstruct the alternate ID after sorting the votes
+              alternate_id: 'tmp',
               chamber: location === 'assembly floor' ? 'a' : 's',
               question:
                 rows?.[6].querySelector('.statusCellData span')?.textContent ??
@@ -344,6 +349,20 @@ async function processBill(bill: Partial<LegislatureAction>) {
 
       // if the new cache has more than one vote, write it
       if (cache.votes.length > 0) {
+        // sort the vote cache
+        cache.votes.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        )
+
+        // generate the vote ids now that they're sorted
+        // we need the alt ids to be unique and always correctly mapped to their votes
+        // so for CA, we'll do this by using the action id + vote index assuming votes are always sorted
+        // in date ascending order (latest last)
+        cache.votes = cache.votes.map((v, idx) => ({
+          ...v,
+          alternate_id: `ca-${cache.id}-v${idx}`,
+        }))
+
         fs.writeFileSync(cacheFile, JSON.stringify(cache, null, 2))
         console.log(`[Bill] ${id} written to disk`)
         return isNew ? BillResult.New : BillResult.Modified
@@ -365,6 +384,11 @@ async function processBill(bill: Partial<LegislatureAction>) {
 }
 
 async function getBillData() {
+  fs.writeFileSync(
+    `./cache/${session}/cache_updated_at.json`,
+    JSON.stringify({ updated_at: new Date() })
+  )
+
   const billIndex = await getBillIndex()
 
   const results: Record<BillResult, number> = {

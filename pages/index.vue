@@ -19,7 +19,9 @@ const repData = await useAsyncData(
 )
 
 const filteredReps = computed(() => {
-  return repData.error.value == null ? repData.data.value : []
+  const reps = repData.error.value == null ? repData.data.value : []
+
+  return useUniqBy(reps, 'rep_id')
 })
 </script>
 
@@ -42,7 +44,7 @@ const filteredReps = computed(() => {
         <USkeleton class="h-32"></USkeleton>
       </template>
       <template v-else-if="nameSearch.length > 2 && filteredReps?.length === 0">
-        <div>No representatives found with that name.</div>
+        <div>No representatives found with that name</div>
       </template>
       <template v-else>
         <HomeRepCard
@@ -54,7 +56,8 @@ const filteredReps = computed(() => {
           :state="rep.state"
           :party="rep.party"
           :district="rep.district"
-          :congress="rep.congress!"
+          :congress="rep.congress"
+          :title="rep.title"
         />
       </template>
     </div>

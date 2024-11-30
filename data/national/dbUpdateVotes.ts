@@ -337,7 +337,7 @@ async function processVotes() {
   const updateData: Record<string, any> = {
     script_id: SCRIPT_ID,
     last_run: new Date(cacheGenerationDate),
-    status: GlobalErrors.length > 0 ? 'warning' : 'success',
+    status: GlobalErrors.length > 0 ? 'error' : 'success',
     result_data: results,
     error_data: JSON.stringify({ errors: GlobalErrors }),
   }

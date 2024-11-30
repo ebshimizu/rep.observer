@@ -11,10 +11,11 @@ const props = defineProps<{
   repId: string
   state?: string | null
   congress?: number | null
+  title?: string | null
 }>()
 
 const roleTitle = computed(() => {
-  return getTitle(props.level, props.chamber)
+  return getTitle(props.level, props.chamber, props.state)
 })
 
 const badgeLabel = computed(() =>
@@ -26,9 +27,18 @@ const badgeColor = computed(() => {
 })
 
 const congressTitle = computed(() => {
-  return props.level === 'national'
-    ? `${numberToWords.toOrdinal(props.congress ?? 1)} United States Congress`
-    : ''
+  if (props.level === 'national')
+    return `${numberToWords.toOrdinal(
+      props.congress ?? 1
+    )} United States Congress`
+  else {
+    if (props.state === 'CA') {
+      return props.title
+        ?.replace('CA State Assembly - ', '')
+        .replace('CA State Senate - ', '')
+    }
+    return props.title
+  }
 })
 
 const goToRep = () => {
@@ -55,7 +65,7 @@ const goToRep = () => {
     <div class="text-md dark:text-white/75">
       {{ roleTitle }}
     </div>
-    <div v-if="props.level === 'national'" class="text-md dark:text-white/75">
+    <div class="text-md dark:text-white/75">
       {{ congressTitle }}
     </div>
   </UCard>

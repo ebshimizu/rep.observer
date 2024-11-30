@@ -21,9 +21,9 @@ import fs from 'fs-extra'
 import type { StateMember, StateMemberCache, StateSession } from './state-types'
 
 enum RepUpdateResult {
-  Ok,
-  RepError,
-  TermError,
+  Ok = 'OK',
+  RepError = 'Rep Error',
+  TermError = 'Term Error',
 }
 
 const supabase = createClient(
@@ -31,6 +31,12 @@ const supabase = createClient(
   process.env.NUXT_SUPABASE_KEY ?? ''
 )
 
+/**
+ * Update the representatives in the member data cache file.
+ * @param repData Representative data from the cache
+ * @param sessions Session indices (should be database foreign keys)
+ * @returns Status indicating if an error happened.
+ */
 async function processRep(repData: StateMember, sessions: number[]) {
   const updateRep = await supabase.from('representatives').upsert({
     id: repData.id,

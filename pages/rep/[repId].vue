@@ -45,7 +45,8 @@ const votes = useAsyncData(
 const repTitle = computed(() =>
   getTitle(
     repData.data.value?.term.sessions?.level,
-    repData.data.value?.term.sessions?.chamber
+    repData.data.value?.term.sessions?.chamber,
+    repData.data.value?.term.party
   )
 )
 
@@ -56,7 +57,8 @@ const sessionTitle = computed(() =>
     {
       start: repData.data.value?.term.sessions?.start_date,
       end: repData.data.value?.term.sessions?.end_date,
-    }
+    },
+    repData.data.value?.term.sessions?.title
   )
 )
 
@@ -78,7 +80,7 @@ const searchText = ref('')
 
 const filteredItems = computed(() => {
   // filter on return
-  const items = (
+  const items =
     votes.data.value?.filter((i) => {
       let pass = true
 
@@ -91,7 +93,6 @@ const filteredItems = computed(() => {
 
       return pass
     }) ?? []
-  )
 
   // page check
   if (currentPage.value > Math.ceil(items.length / 50)) {
@@ -121,7 +122,14 @@ const pageItems = computed(() => {
       </h1>
       <div class="text-md">{{ sessionTitle }}</div>
       <div>
-        <UBadge :color="badgeColor">{{ repTitle }} {{ badgeLabel }}</UBadge>
+        <UBadge :color="badgeColor"
+          >{{
+            repData.data.value?.term.sessions?.level === 'national'
+              ? repTitle
+              : ''
+          }}
+          {{ badgeLabel }}</UBadge
+        >
       </div>
     </div>
     <div class="border rounded border-blue-500">

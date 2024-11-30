@@ -75,7 +75,7 @@ export interface BillAmendment {
 }
 
 export interface Vote {
-  alternate_id?: string
+  alternate_id: string
   source_url: string
   chamber: string
   congress?: number

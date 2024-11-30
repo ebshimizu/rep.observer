@@ -4,7 +4,9 @@
 export const PartyColors: Record<string, string> = {
   'democratic': 'blue',
   'republican': 'red',
-  'independent': 'green'
+  'independent': 'green',
+  'd': 'blue',
+  'r': 'red'
 }
 
 export function getPartyColor(party: string) {
