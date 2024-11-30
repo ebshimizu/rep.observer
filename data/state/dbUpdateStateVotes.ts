@@ -273,10 +273,10 @@ export async function updateVotes(
 
   const files = fs.readdirSync(`${cachePath}/actions`)
 
-  const results: Record<string, number> = {
-    updated: 0,
-    failed: 0,
-    noChange: 0,
+  const results: Record<ProcessVoteResult, number> = {
+    [ProcessVoteResult.Updated]: 0,
+    [ProcessVoteResult.NoChange]: 0,
+    [ProcessVoteResult.Failed]: 0,
   }
 
   // votes are pretty immutable so
@@ -294,7 +294,7 @@ export async function updateVotes(
       votesRecorded += result.votesRecorded
     } catch (e) {
       console.error(e)
-      results.failed += 1
+      results[ProcessVoteResult.Failed] += 1
     }
   }
 
@@ -325,9 +325,9 @@ export async function updateVotes(
   }
 
   console.log(`Update Complete
-Success: ${results.updated}
-Failed: ${results.failed}
-Unchanged: ${results.noChange}
+Success: ${results[ProcessVoteResult.Updated]}
+Failed: ${results[ProcessVoteResult.Failed]}
+Unchanged: ${results[ProcessVoteResult.NoChange]}
 Votes Recorded: ${votesRecorded}
   `)
 }
