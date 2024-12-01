@@ -159,6 +159,8 @@ async function processCaAssembly() {
     const provisionalId = `CA-${names?.[1][0]}${names?.[0]}`
 
     // TODO: Database check here to get full ID
+    // this will be necessary for the next year of incoming representatives
+    // we should flag duplicates to enable manual checks before fully processing
     const id = await validateIdUnique(provisionalId)
 
     // put data in the cache
