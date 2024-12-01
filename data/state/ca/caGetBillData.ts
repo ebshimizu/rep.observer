@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import fetch from 'node-fetch'
 import { HTMLElement, Node, parse } from 'node-html-parser'
 import type { LegislatureAction, StateMemberCache, Vote } from '../state-types'
-import { uniq } from 'lodash'
+import _ from 'lodash'
 
 enum BillResult {
   New = 'New',
@@ -264,7 +264,7 @@ async function processBill(bill: Partial<LegislatureAction>) {
         )
 
         // ensure uniqueness
-        cache.cosponsors = uniq(
+        cache.cosponsors = _.uniq(
           authors
             .map((a) => {
               const authorClean = a.substring(0, a.indexOf('(')).trim()
