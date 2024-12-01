@@ -2,7 +2,7 @@
 const route = useRoute()
 
 const reps = await useFetch('/api/reps/current', {
-  query: { state: route.params.state },
+  query: { state: route.params.state, level: 'state' },
 })
 
 // split reps by chamber

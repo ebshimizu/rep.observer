@@ -21,6 +21,8 @@ const links = [
         <template #panel>
           <div class="p-4">
             <ULink to="/reps/national" class="cursor-pointer hover:text-blue-400">National</ULink>
+            <UDivider />
+            <ULink to="/reps/CA" class="cursor-pointer hover:text-blue-400">CA State</ULink>
           </div>
         </template>
       </UPopover>

@@ -5,13 +5,20 @@ This project uses `unitedstates/congress` to fetch data in json format. The json
 
 If you are working on windows, you should use WSL to run the scripts in this folder.
 
-### Development notes
-Run `./downloadData.sh 118` where the last number is the number of the current congress.
+## Updating the Data
 
-## Reformatting the data
-We're interested in sorting things here by the list of bills/resolutions/actions and then mapping representative votes to those actions. Each piece of legislation goes through multiple revisions and votes, so we'll need to track what was voted on when.
+### First Run
+The representatives need to be in the database before the votes go in, so when you're running this script for the first time, you will need to first update the cache and update the representatives data in the database.
 
-### Uploading to database
+Run the following commands for first run from the `/data/national` folder.
+```
+./update_partial.sh [current congress number, 118]
+npx tsx ./generateCache.ts [current congress number, 118]
+npx tsx ./dbUpdateReps.ts [current congress number, 118]
+npx tsx ./dbUpdateVotes.ts
+```
 
-### Refreshing the data
-we'll need some way to track last time something changed to keep our data in sync
+### Normal Updates
+After running the initial representative data generation, you can just run `./update.sh` to load updated votes and bills.
+
+If there's a new representative in the data, an error should show up in the script. (TODO: when this error happens, attempt a representative data update).
