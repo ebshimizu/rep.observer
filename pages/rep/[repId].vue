@@ -95,11 +95,15 @@ const filteredItems = computed(() => {
     }) ?? []
 
   // page check
-  if (currentPage.value > Math.ceil(items.length / itemsPerPage.value)) {
-    currentPage.value = Math.floor(items.length / itemsPerPage.value)
-  }
+  if (items.length > 0) {
+    if (currentPage.value > Math.ceil(items.length / itemsPerPage.value)) {
+      currentPage.value = Math.floor(items.length / itemsPerPage.value)
+    }
 
-  if (currentPage.value <= 0) {
+    if (currentPage.value <= 0) {
+      currentPage.value = 1
+    }
+  } else {
     currentPage.value = 1
   }
 
@@ -158,7 +162,12 @@ const pageItems = computed(() => {
         <UDivider class="my-2"></UDivider>
         <div class="w-full mt-2">Filters</div>
       </div>
-      <RepVoteRow v-for="vote of pageItems" :vote="vote" :rep-id="repId" :key="vote.votes.id" />
+      <RepVoteRow
+        v-for="vote of pageItems"
+        :vote="vote"
+        :rep-id="repId"
+        :key="vote.votes.id"
+      />
     </div>
   </div>
 </template>
