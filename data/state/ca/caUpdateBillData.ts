@@ -8,7 +8,7 @@ const cachePath = process.argv[2]
 const sessionIds = await getCurrentStateSessions('CA')
 
 // now CA session IDs are written as 'Assembly" or "Senate" and the cache is written as 'a' or 's'
-await updateVotes(
+process.exitCode = await updateVotes(
   cachePath,
   { a: sessionIds.Assembly.id, s: sessionIds.Senate.id },
   'caUpdateBillData'

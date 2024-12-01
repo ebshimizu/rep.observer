@@ -11,12 +11,15 @@ If you are working on windows, you should use WSL to run the scripts in this fol
 The representatives need to be in the database before the votes go in, so when you're running this script for the first time, you will need to first update the cache and update the representatives data in the database.
 
 Run the following commands for first run from the `/data/national` folder.
-```
+```bash
 ./update_partial.sh [current congress number, 118]
 npx tsx ./generateCache.ts [current congress number, 118]
 npx tsx ./dbUpdateReps.ts [current congress number, 118]
+# See note below for extra details on members
 npx tsx ./dbUpdateVotes.ts
 ```
+
+If you are starting from a clean database (without seed) you will need to add a "VP" row to the representatives table in order to match the vote the VP casts in the national chambers.
 
 ### Normal Updates
 After running the initial representative data generation, you can just run `./update.sh` to load updated votes and bills.

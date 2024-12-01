@@ -349,7 +349,8 @@ async function processVotes() {
   const dbUpdate = await supabase.from('db_updates').upsert(updateData)
 
   if (dbUpdate.error) {
-    console.error(dbUpdate.error)
+    // non fatal, but our status logs will be desync'd
+    console.warn(dbUpdate.error)
   }
 
   console.log(`Update Complete
@@ -358,7 +359,11 @@ async function processVotes() {
 - Unchanged: ${results.noChange}
 - Votes Recorded: ${votesRecorded}
   `)
+
+  return results.failed === 0 ? 0 : 1
 }
 
 // run the script
-await processVotes()
+const exitCode = await processVotes()
+
+process.exitCode = exitCode

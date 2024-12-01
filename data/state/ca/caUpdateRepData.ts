@@ -4,4 +4,4 @@
 
 import { processRepData } from '../dbUpdateStateReps'
 
-await processRepData(`./${process.argv[2]}`, 'caUpdateRepData')
+process.exitCode = await processRepData(`./${process.argv[2]}`, 'caUpdateRepData')
