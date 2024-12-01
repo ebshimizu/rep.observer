@@ -330,4 +330,7 @@ Failed: ${results[ProcessVoteResult.Failed]}
 Unchanged: ${results[ProcessVoteResult.NoChange]}
 Votes Recorded: ${votesRecorded}
   `)
+
+  // returns 0 if no errors, 1 otherwise
+  return results[ProcessVoteResult.Failed] === 0 ? 0 : 1
 }

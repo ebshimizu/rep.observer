@@ -387,8 +387,16 @@ function generateDataCache() {
     )
     console.log('[OUT] writing data')
     writeCacheToDisk(outPath)
-  } catch (e) {}
+    
+    // success is if there are 0 failures
+    return results[VoteResult.FAILURE] === 0 ? 0 : 1
+  } catch (e) {
+    // failed
+    return 1
+  }
 }
 
 // it's 2024 we have top level await now if we need it
-generateDataCache()
+const exitCode = generateDataCache()
+
+process.exitCode = exitCode

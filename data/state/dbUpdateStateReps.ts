@@ -190,4 +190,7 @@ Term Error: ${results[RepUpdateResult.TermError]}`)
   }
 
   await supabase.from('db_updates').upsert(updateData)
+
+  // return exit code
+  return status === 'success' ? 0 : 1
 }
