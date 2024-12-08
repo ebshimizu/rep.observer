@@ -40,6 +40,91 @@ const memberData = JSON.parse(
 const members = Object.values(memberData.members)
 
 /**
+ * Parse the senate vote question in to discrete pieces. Primarily used to get the type.
+ * @param question Vote title
+ * @returns Parsed data structure, or undefined
+ */
+function parseSenateVote(question: string) {
+  // the following regex is just trying to grab the different bits of info from where they should be located in the title
+  // this is pretty fragile, if CA ever changes how this data is rendered, we'll have to rewrite it
+  const senateRegex =
+    /(?<type>Assembly 2nd Reading|Assembly 3rd Reading|Unfinished Business|Special Consent|Consent Calendar 2nd|Senate 3rd Reading|Senate 2nd Reading|Consent Calendar|W\/O REF. TO FILE) (?<number>\w{2,3}\d{1,4})(?<author>.*?)(?<by>By [\w ]+?)?(?<typeSuffix>Concurrence|Urgency Clause|Concurrence Reconsider)?$/gi
+
+  const match = senateRegex.exec(question)
+
+  if (match) {
+    return {
+      type: match.groups?.type,
+      number: match.groups?.number,
+      author: match.groups?.author.trim(),
+      by: match.groups?.by,
+      typeSuffix: match.groups?.typeSuffix,
+    }
+  }
+}
+
+/**
+ * Parse the assembly vote question in to discrete pieces.
+ * @param question Vote title
+ * @returns Parsed data structure, or undefined
+ */
+function parseAssemblyVote(question: string) {
+  const senateRegex =
+    /(?<number>\w{2,3} \d{1,4}) (?<author>.*?) (?<type>Assembly Third Reading|Senate Third Reading|Consent Calendar(?: Second Day)?|Concurrence in Senate Amendments|Concurrence - Urgency Added|Third Reading Urgency|Motion to Reconsider)? ?(?<by>By [\w -\.,]+?)?(?<session>Second Day Regular Session|Second Extraordinary Session)?(?<amendment>(?:Amendment|Amend) .+)?$/gi
+
+  const match = senateRegex.exec(question)
+
+  if (match) {
+    return {
+      type: match.groups?.type,
+      number: match.groups?.number,
+      author: match.groups?.author.trim(),
+      by: match.groups?.by,
+      amendment: match.groups?.amendment,
+      session: match.groups?.session,
+    }
+  }
+}
+
+/**
+ * Parse the vote question and return the type and the vote title
+ * @param question Vote question
+ * @param house House the vote was taken in (a or s)
+ * @param shortTitle bill short title
+ * @returns Vote type
+ */
+function getVoteType(question: string, chamber: string | undefined, shortTitle: string | undefined) {
+  if (chamber === 'a') {
+    const data = parseAssemblyVote(question)
+
+    // assembly data
+    if (data) {
+      return {
+        question: `${shortTitle}${data.amendment ? ` ${data.amendment}` : ''}`,
+        type: `${data.type}${data.session ? ` ${data.session}` : ''}`,
+      }
+    }
+  } else if (chamber === 's') {
+    const data = parseSenateVote(question)
+
+    if (data) {
+      return {
+        question: `${shortTitle}`,
+        type: `${data.type}${data.typeSuffix ? ` ${data.typeSuffix}` : ''}`,
+      }
+    }
+  }
+
+  // fall through case
+  console.log(`[TYPE PARSE ERROR] ${chamber} ${question}`)
+
+  return {
+    question,
+    type: undefined,
+  }
+}
+
+/**
  * Attempts to resolve a CA member ID from a full name
  * @param name Name to search for
  */
@@ -326,18 +411,24 @@ async function processBill(bill: Partial<LegislatureAction>) {
 
             const repVotes = processRepVotes(rows?.slice(rows.length - 3))
 
+            const question =
+              rows?.[6].querySelector('.statusCellData span')?.textContent ?? ''
+
+            // CA's questions aren't the most informative so we're going to reformat them
+            const voteChamber = location === 'assembly floor' ? 'a' : 's'
+            const voteParts = getVoteType(question, voteChamber, cache.short_title)
+
             const voteData: Vote = {
               // we reconstruct the alternate ID after sorting the votes
               alternate_id: 'tmp',
-              chamber: location === 'assembly floor' ? 'a' : 's',
-              question:
-                rows?.[6].querySelector('.statusCellData span')?.textContent ??
-                '',
+              chamber: voteChamber,
+              question: voteParts.question,
               result: resultFormatted,
               date: date.toISOString(),
               cache_updated_at: date.toISOString(),
               source_url: `${CaBillVotes}?bill_id=${id}`,
               rep_votes: repVotes,
+              type: voteParts.type,
             }
 
             cache.votes.push(voteData)
