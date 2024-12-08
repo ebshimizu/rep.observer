@@ -22,6 +22,5 @@ const questionTitle = computed(() => {
     :full-title="props.vote.votes.actions.official_title"
     :tags="props.vote.votes.actions.tags ?? []"
     :date="new Date(props.vote.votes.date ?? '')"
-    :use-type-in-subtable="true"
   />
 </template>

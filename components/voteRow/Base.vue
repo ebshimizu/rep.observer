@@ -14,7 +14,6 @@ const props = defineProps<{
   tags?: string[]
   top_tag?: string
   required?: string
-  useTypeInSubtable?: boolean
 }>()
 
 const expanded = ref(false)
@@ -46,7 +45,7 @@ const relatedVoteItems = computed(() => {
         v.rep_votes.length > 0 ? v.rep_votes[0].vote : '[In Other Chamber]',
       result: v.result,
       motion: {
-        value: props.useTypeInSubtable ? `${v.type}` : `${v.question}`,
+        value: `${v.type}`,
         class: 'text-wrap',
       },
     }))
