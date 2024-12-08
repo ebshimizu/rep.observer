@@ -41,9 +41,13 @@ const relatedVoteItems = computed(() => {
     .map((v) => ({
       id: v.id,
       date: moment(v.date).format('MMMM Do YYYY'),
-      repVote: v.rep_votes.length > 0 ? v.rep_votes[0].vote : '[In Other Chamber]',
+      repVote:
+        v.rep_votes.length > 0 ? v.rep_votes[0].vote : '[In Other Chamber]',
       result: v.result,
-      motion: { value: v.question, class: 'text-wrap' },
+      motion: {
+        value: `${v.type}`,
+        class: 'text-wrap',
+      },
     }))
 })
 
