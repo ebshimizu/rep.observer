@@ -20,7 +20,7 @@ const repItems = [
         <ULink to="/" class="hover:text-blue-400">What the rep doin</ULink>
       </div>
       <div>
-      <UDropdown mode="hover" :items="repItems" :popper="{ placement: 'bottom-start' }">
+      <UDropdown mode="click" :items="repItems" :popper="{ placement: 'bottom-start' }">
         <UButton trailing-icon="i-heroicons-chevron-down-20-solid">Representatives</UButton>
       </UDropdown>
       </div>

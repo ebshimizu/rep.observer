@@ -20,7 +20,7 @@ const questionTitle = computed(() => {
     :result="props.vote.votes.result"
     :title="questionTitle"
     :full-title="props.vote.votes.actions.official_title"
-    :tags="props.vote.votes.actions.tags ?? []"
+    :tags="props.vote.votes.actions.tags"
     :date="new Date(props.vote.votes.date ?? '')"
   />
 </template>
