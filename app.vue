@@ -1,10 +1,13 @@
 <script setup lang="ts">
-const links = [
-  {
-    label: 'Home',
-    icon: 'i-heroicons-home',
-    to: '/',
-  },
+const repItems = [
+  [{
+    label: 'National',
+    to: '/reps/national'
+  }],
+  [{
+    label: 'California',
+    to: '/reps/CA'
+  }]
 ]
 </script>
 
@@ -16,18 +19,14 @@ const links = [
       <div>
         <ULink to="/" class="hover:text-blue-400">What the rep doin</ULink>
       </div>
-      <UPopover mode="hover" :popper="{ placement: 'bottom-start' }">
-        <UButton>Representatives</UButton>
-        <template #panel>
-          <div class="p-4">
-            <ULink to="/reps/national" class="cursor-pointer hover:text-blue-400">National</ULink>
-            <UDivider />
-            <ULink to="/reps/CA" class="cursor-pointer hover:text-blue-400">CA State</ULink>
-          </div>
-        </template>
-      </UPopover>
+      <div>
+      <UDropdown mode="click" :items="repItems" :popper="{ placement: 'bottom-start' }">
+        <UButton trailing-icon="i-heroicons-chevron-down-20-solid">Representatives</UButton>
+      </UDropdown>
+      </div>
     </div>
     <div class="min-h-80">
+      <NuxtLoadingIndicator />
       <NuxtPage />
     </div>
     <div class="w-full container flex justify-center mx-auto">

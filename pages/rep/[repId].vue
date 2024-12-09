@@ -122,10 +122,18 @@ const pageItems = computed(() => {
   <div class="container mx-auto">
     <div class="flex flex-col gap-1 my-2">
       <h1 class="text-3xl font-medium flex align-middle gap-2">
-        {{ repData.data.value?.full_name }}
+        <USkeleton
+          class="w-full h-full"
+          v-if="repData.status.value === 'pending'"
+        ></USkeleton>
+        {{
+          repData.status.value === 'pending'
+            ? ''
+            : repData.data.value?.full_name
+        }}
       </h1>
       <div class="text-md">{{ sessionTitle }}</div>
-      <div>
+      <div v-if="repData.status.value !== 'pending'">
         <UBadge :color="badgeColor"
           >{{
             repData.data.value?.term.sessions?.level === 'national'
@@ -162,12 +170,17 @@ const pageItems = computed(() => {
         <UDivider class="my-2"></UDivider>
         <div class="w-full mt-2">Filters</div>
       </div>
-      <RepVoteRow
-        v-for="vote of pageItems"
-        :vote="vote"
-        :rep-id="repId"
-        :key="vote.votes.id"
-      />
+      <template v-if="votes.status.value === 'pending'">
+        <USkeleton class="h-32"></USkeleton>
+      </template>
+      <template v-else>
+        <RepVoteRow
+          v-for="vote of pageItems"
+          :vote="vote"
+          :rep-id="repId"
+          :key="vote.votes.id"
+        />
+      </template>
     </div>
   </div>
 </template>

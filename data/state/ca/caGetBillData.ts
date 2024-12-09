@@ -93,7 +93,11 @@ function parseAssemblyVote(question: string) {
  * @param shortTitle bill short title
  * @returns Vote type
  */
-function getVoteType(question: string, chamber: string | undefined, shortTitle: string | undefined) {
+function getVoteType(
+  question: string,
+  chamber: string | undefined,
+  shortTitle: string | undefined
+) {
   if (chamber === 'a') {
     const data = parseAssemblyVote(question)
 
@@ -101,7 +105,9 @@ function getVoteType(question: string, chamber: string | undefined, shortTitle: 
     if (data) {
       return {
         question: `${shortTitle}${data.amendment ? ` ${data.amendment}` : ''}`,
-        type: `${data.type}${data.session ? ` ${data.session}` : ''}`,
+        type: `${data.type ? data.type : ''}${
+          data.session ? ` ${data.session}` : ''
+        }`,
       }
     }
   } else if (chamber === 's') {
@@ -110,7 +116,9 @@ function getVoteType(question: string, chamber: string | undefined, shortTitle: 
     if (data) {
       return {
         question: `${shortTitle}`,
-        type: `${data.type}${data.typeSuffix ? ` ${data.typeSuffix}` : ''}`,
+        type: `${data.type ? data.type : ''}${
+          data.typeSuffix ? ` ${data.typeSuffix}` : ''
+        }`,
       }
     }
   }
@@ -416,7 +424,11 @@ async function processBill(bill: Partial<LegislatureAction>) {
 
             // CA's questions aren't the most informative so we're going to reformat them
             const voteChamber = location === 'assembly floor' ? 'a' : 's'
-            const voteParts = getVoteType(question, voteChamber, cache.short_title)
+            const voteParts = getVoteType(
+              question,
+              voteChamber,
+              cache.short_title
+            )
 
             const voteData: Vote = {
               // we reconstruct the alternate ID after sorting the votes

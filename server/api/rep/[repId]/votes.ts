@@ -38,6 +38,7 @@ export default defineEventHandler(async (event) => {
       requires,
       number,
       date,
+      alternate_id,
       actions (
         id,
         type,
