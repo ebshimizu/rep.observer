@@ -11,6 +11,7 @@ export interface RepVotesResponse {
     requires?: string
     number?: number
     date?: string
+    alternate_id?: string
     actions: {
       id: string
       type?: string

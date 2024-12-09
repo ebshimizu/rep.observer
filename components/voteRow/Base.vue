@@ -108,7 +108,7 @@ const resultColor = computed(() => {
         </slot>
         <div class="grow"></div>
         <slot name="tags">
-          <div v-if="props.tags != null" class="w-fit">
+          <div v-if="props.tags != null && props.tags.length > 0" class="w-fit">
             <ClientOnly>
               <UPopover mode="hover">
                 <UBadge variant="soft" size="xs">{{ topTag }}</UBadge>
@@ -127,6 +127,9 @@ const resultColor = computed(() => {
             </ClientOnly>
           </div>
         </slot>
+        <div class="flex gap-1">
+          <slot name="links"></slot>
+        </div>
       </div>
       <div class="w-full flex justify-between">
         <slot name="title">
