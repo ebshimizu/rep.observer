@@ -26,6 +26,7 @@ const repItems = [
       </div>
     </div>
     <div class="min-h-80">
+      <NuxtLoadingIndicator />
       <NuxtPage />
     </div>
     <div class="w-full container flex justify-center mx-auto">
