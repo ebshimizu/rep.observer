@@ -339,7 +339,7 @@ async function processVotes() {
     last_run: new Date(cacheGenerationDate),
     status: GlobalErrors.length > 0 ? 'error' : 'success',
     result_data: results,
-    error_data: JSON.stringify({ errors: GlobalErrors }),
+    error_data: { errors: GlobalErrors },
   }
 
   if (GlobalErrors.length === 0) {
