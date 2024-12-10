@@ -19485,7 +19485,8 @@
       "icpsr": 20104,
       "house_history": 22560,
       "wikidata": "Q350843",
-      "google_entity_id": "kg:/m/024tls"
+      "google_entity_id": "kg:/m/024tls",
+      "lis": "S427"
     },
     "name": {
       "first": "Adam",
@@ -39248,7 +39249,8 @@
       "icpsr": 21937,
       "google_entity_id": "kg:/g/11f730yxds",
       "ballotpedia": "Andrew Kim (New Jersey)",
-      "votesmart": 179640
+      "votesmart": 179640,
+      "lis": "S426"
     },
     "name": {
       "first": "Andy",
