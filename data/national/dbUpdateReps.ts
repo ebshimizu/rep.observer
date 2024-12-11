@@ -38,7 +38,7 @@ async function processRep(
 ) {
   // get the data from the congress api
   const bioReq = await fetch(
-    `${CONGRESS_API}/member/${bioguideId}?api_key=${process.env.NUXT_CONGRESS_API_KEY}`
+    `${CONGRESS_API}/member/${bioguideId}?api_key=${process.env.NUXT_CONGRESS_API_KEY}&format=json`
   )
   const bioData = (await bioReq.json()) as CongressResponse
 
@@ -142,7 +142,7 @@ async function createTermData(): Promise<{ house: number; senate: number }> {
 
   // get the data for the congressional session
   const sessionReq = await fetch(
-    `${CONGRESS_API}/congress/${congress}?api_key=${process.env.NUXT_CONGRESS_API_KEY}`
+    `${CONGRESS_API}/congress/${congress}?api_key=${process.env.NUXT_CONGRESS_API_KEY}&format=json`
   )
   const sessionData = (await sessionReq.json()) as CongressResponse
 

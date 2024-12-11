@@ -32,10 +32,9 @@ const repData = useAsyncData(
 // lil bit of caching
 watch(
   () => {
-    return repData.data.value?.full_name
+    return repData.data?.value?.full_name
   },
   (newName, oldName) => {
-    console.log(newName)
     if (newName) {
       lastSeenRepName.value = newName
     }
@@ -82,7 +81,11 @@ const availableTerms = computed(() => {
   if (repData.data.value) {
     return repData.data.value.terms.map((t) => ({
       id: t.sessions?.id,
-      label: getSessionTitle(
+      label: `${getTitle(
+        t.sessions?.level,
+        t.sessions?.chamber,
+        t.party
+      )} - ${getSessionTitle(
         t.sessions?.level,
         t.sessions?.congress,
         {
@@ -90,8 +93,7 @@ const availableTerms = computed(() => {
           end: t.sessions?.end_date,
         },
         t.sessions?.title
-      ),
-      role: getTitle(t.sessions?.level, t.sessions?.chamber, t.party),
+      )}`,
     }))
   }
 
@@ -167,7 +169,11 @@ const pageItems = computed(() => {
   <div class="container mx-auto">
     <div class="flex flex-col gap-2 my-2">
       <h1 class="text-3xl font-medium flex align-middle gap-2">
-        {{ lastSeenRepName }}
+        {{
+          lastSeenRepName === ''
+            ? repData.data?.value?.full_name
+            : lastSeenRepName
+        }}
       </h1>
       <div>
         <UBadge v-if="repData.status.value !== 'pending'" :color="badgeColor"
@@ -177,7 +183,7 @@ const pageItems = computed(() => {
         <USkeleton class="w-64 h-6 rounded-lg" v-else></USkeleton>
       </div>
       <div class="text-md">
-        <ClientOnly>
+        <UFormGroup label="Legislative Term">
           <USelectMenu
             v-model="session"
             placeholder="Select a Legislative Session"
@@ -185,7 +191,7 @@ const pageItems = computed(() => {
             value-attribute="id"
           >
           </USelectMenu>
-        </ClientOnly>
+        </UFormGroup>
       </div>
     </div>
     <div class="border rounded border-blue-500">

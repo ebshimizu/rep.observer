@@ -19639,6 +19639,16 @@
         "address": "2309 Rayburn House Office Building Washington DC 20515-0530",
         "office": "2309 Rayburn House Office Building",
         "phone": "202-225-4176"
+      },
+      {
+        "type": "sen",
+        "start": "2024-12-09",
+        "end": "2025-01-03",
+        "how": "special-election",
+        "state": "CA",
+        "party": "Democrat",
+        "class": 1,
+        "state_rank": "junior"
       }
     ]
   },
@@ -39297,6 +39307,15 @@
         "address": "2444 Rayburn House Office Building Washington DC 20515-3003",
         "office": "2444 Rayburn House Office Building",
         "phone": "202-225-4765"
+      },
+      {
+        "type": "sen",
+        "start": "2024-12-09",
+        "end": "2025-01-03",
+        "state": "NJ",
+        "class": 1,
+        "state_rank": "junior",
+        "party": "Democrat"
       }
     ]
   },
