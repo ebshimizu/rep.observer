@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import { useRewriteQueryParams } from '~/composables/useRewriteQueryParams'
+
 const route = useRoute()
 
 const repId = ref(route.params.repId as string)
-const session = ref(route.query?.session ?? undefined)
+const session = ref<number | undefined>(
+  route.query?.session ? parseInt(route.query.session as string) : undefined
+)
 const itemsPerPage = ref(50)
+
+// prevent reloading the rep name when the session changes
+const lastSeenRepName = ref('')
 
 // this might have to be computed at some point, if filtered values change we have to clamp
 const currentPage = ref(1)
@@ -24,6 +31,30 @@ const repData = useAsyncData(
   }
 )
 
+// lil bit of caching
+watch(
+  () => {
+    return repData.data?.value?.full_name
+  },
+  (newName, oldName) => {
+    if (newName) {
+      lastSeenRepName.value = newName
+    }
+  },
+  { immediate: true }
+)
+
+// update the url when the session changes (or other things?)
+const { rewriteQueryParams } = useRewriteQueryParams()
+watch(
+  () => ({ session: session.value }),
+  (newParams) => {
+    rewriteQueryParams(newParams)
+  }
+)
+
+// get the votes for the session. If session is not specified in query params, the API will return the
+// most recent session
 const votes = useAsyncData(
   'votes',
   () => {
@@ -35,44 +66,71 @@ const votes = useAsyncData(
 
     return $fetch(`/api/rep/${repId.value}/votes`, { query })
   },
-
   {
     watch: [session],
   }
 )
 
+// compute the active term, either the current returned from the API or one of the terms specified by
+// the session query param
+const activeTerm = computed(() => {
+  if (session.value != null) {
+    const term = repData.data.value?.terms.find(
+      (t) => t.sessions?.id === session.value
+    )
+
+    return term
+  } else {
+    if (repData.data.value?.currentTerm) {
+      session.value = repData.data.value?.currentTerm.sessions?.id ?? 0
+    }
+    return repData.data.value?.currentTerm
+  }
+})
+
+const availableTerms = computed(() => {
+  if (repData.data.value) {
+    return repData.data.value.terms.map((t) => ({
+      id: t.sessions?.id,
+      label: `${
+        t.sessions?.level === 'national'
+          ? `${getTitle(t.sessions?.level, t.sessions?.chamber, t.party)} -`
+          : ''
+      }${getSessionTitle(
+        t.sessions?.level,
+        t.sessions?.congress,
+        {
+          start: t.sessions?.start_date,
+          end: t.sessions?.end_date,
+        },
+        t.sessions?.title
+      )}`,
+    }))
+  }
+
+  return []
+})
+
 // display data
 const repTitle = computed(() =>
   getTitle(
-    repData.data.value?.term.sessions?.level,
-    repData.data.value?.term.sessions?.chamber,
-    repData.data.value?.term.party
-  )
-)
-
-const sessionTitle = computed(() =>
-  getSessionTitle(
-    repData.data.value?.term.sessions?.level,
-    repData.data.value?.term.sessions?.congress,
-    {
-      start: repData.data.value?.term.sessions?.start_date,
-      end: repData.data.value?.term.sessions?.end_date,
-    },
-    repData.data.value?.term.sessions?.title
+    activeTerm.value?.sessions?.level,
+    activeTerm.value?.sessions?.chamber,
+    activeTerm.value?.party
   )
 )
 
 const badgeLabel = computed(() =>
   getDistrictBadge(
-    repData.data.value?.term.sessions?.level,
-    repData.data.value?.term?.district,
-    repData.data.value?.term?.party,
-    repData.data.value?.term?.state
+    activeTerm.value?.sessions?.level,
+    activeTerm.value?.district,
+    activeTerm.value?.party,
+    activeTerm.value?.state
   )
 )
 
 const badgeColor = computed(() => {
-  return getPartyColor(repData.data.value?.term?.party ?? '') as any
+  return getPartyColor(activeTerm.value?.party ?? '') as any
 })
 
 // search filters
@@ -120,28 +178,31 @@ const pageItems = computed(() => {
 
 <template>
   <div class="container mx-auto">
-    <div class="flex flex-col gap-1 my-2">
+    <div class="flex flex-col gap-2 my-2">
       <h1 class="text-3xl font-medium flex align-middle gap-2">
-        <USkeleton
-          class="w-full h-full"
-          v-if="repData.status.value === 'pending'"
-        ></USkeleton>
         {{
-          repData.status.value === 'pending'
-            ? ''
-            : repData.data.value?.full_name
+          lastSeenRepName === ''
+            ? repData.data?.value?.full_name
+            : lastSeenRepName
         }}
       </h1>
-      <div class="text-md">{{ sessionTitle }}</div>
-      <div v-if="repData.status.value !== 'pending'">
-        <UBadge :color="badgeColor"
-          >{{
-            repData.data.value?.term.sessions?.level === 'national'
-              ? repTitle
-              : ''
-          }}
+      <div>
+        <UBadge v-if="repData.status.value !== 'pending'" :color="badgeColor"
+          >{{ activeTerm?.sessions?.level === 'national' ? repTitle : '' }}
           {{ badgeLabel }}</UBadge
         >
+        <USkeleton class="w-64 h-6 rounded-lg" v-else></USkeleton>
+      </div>
+      <div class="text-md">
+        <UFormGroup label="Legislative Term">
+          <USelectMenu
+            v-model="session"
+            placeholder="Select a Legislative Session"
+            :options="availableTerms"
+            value-attribute="id"
+          >
+          </USelectMenu>
+        </UFormGroup>
       </div>
     </div>
     <div class="border rounded border-blue-500">

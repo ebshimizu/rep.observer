@@ -128,7 +128,9 @@ const resultColor = computed(() => {
           </div>
         </slot>
         <div class="flex gap-1">
-          <slot name="links"></slot>
+          <ClientOnly>
+            <slot name="links"></slot>
+          </ClientOnly>
         </div>
       </div>
       <div class="w-full flex justify-between">

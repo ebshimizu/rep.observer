@@ -1,0 +1,24 @@
+# whattherepdoin
+
+## 0.1.1
+
+### Patch Changes
+
+- rewrite rep page url when session id changes (permalink)
+
+## 0.1.0
+
+### Minor Changes
+
+- 03b6a09: add session/term selector to individual rep page
+
+### Patch Changes
+
+- e710062: ca data: don't output undefined if type is actually undefined
+- e710062: vote row: re-layout of data, responsive design added
+- 6b67490: change nav dropdown to actual nuxt ui dropdown
+- 05f7d12: CA state question formatting change
+- b7848e2: rep page: fix infinite loop when filtered item length is 0
+- b989b13: change related votes table to use vote type
+- c468940: add externa links button
+- f1fad88: adding exit codes for possible use in crontab jobs

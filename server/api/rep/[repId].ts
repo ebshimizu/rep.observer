@@ -59,26 +59,22 @@ export default defineEventHandler(async (event) => {
         (t) => t.sessions?.end_date == null
       )
 
-      let targetTerm =
-        isTermUnfinished ??
-        data.data.terms.sort(
+      const sortedTerms = data.data.terms.sort(
           (a, b) =>
             new Date(b.sessions?.start_date ?? '').getTime() -
             new Date(a.sessions?.start_date ?? '').getTime()
-        )[0]
+        )
 
-      if ('session' in query) {
-        // find the specified session id
-        const targetId = parseInt(query.session as string)
-        targetTerm = data.data.terms.find((t) => t.sessions?.id === targetId) as any
-      }
+      let currentTerm =
+        isTermUnfinished ?? sortedTerms[0]
 
       return {
         id: data.data.id,
         full_name: data.data.full_name,
         homepage: data.data.full_name,
         govtrack_id: data.data.govtrack_id,
-        term: targetTerm,
+        terms: sortedTerms,
+        currentTerm
       }
     }
   }
