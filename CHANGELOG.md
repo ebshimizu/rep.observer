@@ -1,5 +1,11 @@
 # whattherepdoin
 
+## 0.1.1
+
+### Patch Changes
+
+- rewrite rep page url when session id changes (permalink)
+
 ## 0.1.0
 
 ### Minor Changes
