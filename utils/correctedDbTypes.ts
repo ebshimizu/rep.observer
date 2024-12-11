@@ -53,3 +53,11 @@ export type ActionRepVotesResponse = {
     rep_id: string
   }[]
 }[]
+
+export type SessionTruncated = {
+  sessions: {
+    id: string
+    end_date: string
+    start_date: string
+  }
+}

@@ -2,8 +2,8 @@
  * returns the list of votes and subset of vote data for the specified member's session
  */
 
-import { createClient } from '@supabase/supabase-js'
-import { RepVotesResponse } from '~/utils/correctedDbTypes'
+import { createClient, Session } from '@supabase/supabase-js'
+import { RepVotesResponse, SessionTruncated } from '~/utils/correctedDbTypes'
 
 const supabase = createClient(
   process.env.NUXT_SUPABASE_DB_URL ?? '',
@@ -24,13 +24,14 @@ const supabase = createClient(
 
 export default defineEventHandler(async (event) => {
   const queryParams = getQuery(event)
+  console.log(queryParams)
 
   const query = supabase
     .from('rep_votes')
     .select(
       `
     vote,
-    votes (
+    votes!inner (
       id,
       result,
       question,
@@ -67,6 +68,50 @@ export default defineEventHandler(async (event) => {
 
   if (queryParams.session != null) {
     query.eq('votes.session', parseInt(queryParams.session as string))
+  } else {
+    // we default limit to the current session. Determining this requires another database request
+    const dbQuery = supabase
+      .from('representatives')
+      .select(
+        `
+          id,
+          terms (
+            sessions (
+              id,
+              start_date,
+              end_date
+            )
+          )
+        `
+      )
+      .eq('id', getRouterParam(event, 'repId'))
+      .limit(1)
+      .single()
+
+    const data = await dbQuery
+
+    if (data.error) {
+      console.error(data.error)
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Query failed to return data',
+      })
+    } else {
+      // get the most recent term
+      const terms = data.data.terms as unknown as SessionTruncated[]
+      const isTermUnfinished = terms.find(
+        (t) => t.sessions?.end_date == null
+      )
+
+      const sortedTerms = terms.sort(
+        (a, b) =>
+          new Date(b.sessions?.start_date ?? '').getTime() -
+          new Date(a.sessions?.start_date ?? '').getTime()
+      )
+
+      let currentTerm = isTermUnfinished ?? sortedTerms[0]
+      query.eq('votes.session', currentTerm.sessions?.id)
+    }
   }
 
   const data = await query
