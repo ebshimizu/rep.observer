@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRewriteQueryParams } from '~/composables/useRewriteQueryParams'
+
 const route = useRoute()
 
 const repId = ref(route.params.repId as string)
@@ -42,6 +44,15 @@ watch(
   { immediate: true }
 )
 
+// update the url when the session changes (or other things?)
+const { rewriteQueryParams } = useRewriteQueryParams()
+watch(
+  () => ({ session: session.value }),
+  (newParams) => {
+    rewriteQueryParams(newParams)
+  }
+)
+
 // get the votes for the session. If session is not specified in query params, the API will return the
 // most recent session
 const votes = useAsyncData(
@@ -81,11 +92,11 @@ const availableTerms = computed(() => {
   if (repData.data.value) {
     return repData.data.value.terms.map((t) => ({
       id: t.sessions?.id,
-      label: `${getTitle(
-        t.sessions?.level,
-        t.sessions?.chamber,
-        t.party
-      )} - ${getSessionTitle(
+      label: `${
+        t.sessions?.level === 'national'
+          ? `${getTitle(t.sessions?.level, t.sessions?.chamber, t.party)} -`
+          : ''
+      }${getSessionTitle(
         t.sessions?.level,
         t.sessions?.congress,
         {
