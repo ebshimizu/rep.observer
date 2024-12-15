@@ -4,6 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
+import { RepInfoResponse } from '~/utils/correctedDbTypes'
 import { Database } from '~/utils/supabase-types'
 
 const supabase = createClient<Database>(
@@ -60,13 +61,12 @@ export default defineEventHandler(async (event) => {
       )
 
       const sortedTerms = data.data.terms.sort(
-          (a, b) =>
-            new Date(b.sessions?.start_date ?? '').getTime() -
-            new Date(a.sessions?.start_date ?? '').getTime()
-        )
+        (a, b) =>
+          new Date(b.sessions?.start_date ?? '').getTime() -
+          new Date(a.sessions?.start_date ?? '').getTime()
+      )
 
-      let currentTerm =
-        isTermUnfinished ?? sortedTerms[0]
+      let currentTerm = isTermUnfinished ?? sortedTerms[0]
 
       return {
         id: data.data.id,
@@ -74,13 +74,13 @@ export default defineEventHandler(async (event) => {
         homepage: data.data.full_name,
         govtrack_id: data.data.govtrack_id,
         terms: sortedTerms,
-        currentTerm
-      }
+        currentTerm,
+      } as unknown as RepInfoResponse
     }
   }
 
   throw createError({
     statusCode: 400,
-    statusMessage: 'No representative found with given ID.'
+    statusMessage: 'No representative found with given ID.',
   })
 })

@@ -61,3 +61,28 @@ export type SessionTruncated = {
     start_date: string
   }
 }
+
+export type RepInfoTerm = {
+  state?: string
+  district?: number
+  party?: string
+  sessions: {
+    id: number
+    level: string
+    state?: string
+    chamber?: string
+    congress?: number
+    title?: string
+    start_date?: string
+    end_date?: string
+  }
+}
+
+export type RepInfoResponse = {
+  id: string
+  full_name: string
+  homepage?: string
+  govtrack_id?: string
+  currentTerm: RepInfoTerm
+  terms: RepInfoTerm[]
+}
