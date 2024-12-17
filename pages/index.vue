@@ -27,9 +27,20 @@ const filteredReps = computed(() => {
 
 <template>
   <div class="md:container mx-auto flex flex-col gap-2">
-    <div class="text-4xl text-center">what the rep doin?</div>
+    <div class="text-4xl text-center">Representative Observer</div>
     <div class="text-xl text-center">
-      See what your representatives have been voting on
+      See what your representatives voted on.
+    </div>
+    <div class="text-md text-center">
+      Find your representative by typing in their name. Don't know who
+      represents you?
+      <ULink
+        to="https://www.usa.gov/elected-officials/"
+        target="_blank"
+        class="hover:text-blue-200 text-blue-400"
+        >Look them up</ULink
+      >
+      then come back here to see what they're doing.
     </div>
     <UInput
       size="xl"

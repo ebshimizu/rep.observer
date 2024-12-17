@@ -71,7 +71,7 @@ export default defineEventHandler(async (event) => {
       return {
         id: data.data.id,
         full_name: data.data.full_name,
-        homepage: data.data.full_name,
+        homepage: data.data.homepage,
         govtrack_id: data.data.govtrack_id,
         terms: sortedTerms,
         currentTerm,

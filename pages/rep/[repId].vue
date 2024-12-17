@@ -69,20 +69,15 @@ watch(
   { immediate: true }
 )
 
+// there is some weirdness with the query param rewrite as we're navigating out
+// we're going to reset the session param so this component doesn't have it cached
+// and will set a flag to prevent query rewrites on the way out
+
 // update the url when the session changes (or other things?)
 const { rewriteQueryParams } = useRewriteQueryParams()
 watch(
   () => ({
     session: session.value,
-    startDate: filters.value.dateRange.start?.toISOString(),
-    endDate: filters.value.dateRange.end?.toISOString(),
-    tags:
-      filters.value.tags.length > 0
-        ? JSON.stringify(filters.value.tags)
-        : undefined,
-    type: filters.value.type !== '' ? filters.value.type : undefined,
-    search:
-      filters.value.searchText !== '' ? filters.value.searchText : undefined,
   }),
   (newParams) => {
     rewriteQueryParams(newParams)
@@ -103,7 +98,7 @@ const votes = useAsyncData(
     return $fetch(`/api/rep/${repId.value}/votes`, { query })
   },
   {
-    watch: [session],
+    watch: [session, repId],
   }
 )
 
@@ -115,7 +110,13 @@ const activeTerm = computed(() => {
       (t) => t.sessions?.id === session.value
     )
 
-    return term
+    // if you did not specify a valid session id, then we reset to the current
+    if (term == null) {
+      session.value = repData.data.value?.currentTerm.sessions?.id ?? 0
+      return repData.data.value?.currentTerm
+    } else {
+      return term
+    }
   } else {
     if (repData.data.value?.currentTerm) {
       session.value = repData.data.value?.currentTerm.sessions?.id ?? 0
@@ -302,13 +303,23 @@ const pageItems = computed(() => {
 <template>
   <div class="container mx-auto">
     <div class="flex flex-col gap-2 my-2">
-      <h1 class="text-3xl font-medium flex align-middle gap-2">
-        {{
-          lastSeenRepName === ''
-            ? repData.data?.value?.full_name
-            : lastSeenRepName
-        }}
-      </h1>
+      <div class="flex gap-2">
+        <h1 class="text-3xl font-medium flex align-middle gap-2">
+          {{
+            lastSeenRepName === ''
+              ? repData.data?.value?.full_name
+              : lastSeenRepName
+          }}
+        </h1>
+        <UButton
+          v-if="repData.data?.value?.homepage"
+          icon="heroicons:home-solid"
+          variant="soft"
+          color="green"
+          :to="repData.data?.value?.homepage"
+          target="_blank"
+        />
+      </div>
       <div>
         <UBadge v-if="repData.status.value !== 'pending'" :color="badgeColor"
           >{{ activeTerm?.sessions?.level === 'national' ? repTitle : '' }}
@@ -317,15 +328,17 @@ const pageItems = computed(() => {
         <USkeleton class="w-64 h-6 rounded-lg" v-else></USkeleton>
       </div>
       <div class="text-md">
-        <UFormGroup label="Legislative Term">
-          <USelectMenu
-            v-model="session"
-            placeholder="Select a Legislative Session"
-            :options="availableTerms"
-            value-attribute="id"
-          >
-          </USelectMenu>
-        </UFormGroup>
+        <ClientOnly>
+          <UFormGroup label="Legislative Term">
+            <USelectMenu
+              v-model="session"
+              placeholder="Select a Legislative Session"
+              :options="availableTerms"
+              value-attribute="id"
+            >
+            </USelectMenu>
+          </UFormGroup>
+        </ClientOnly>
       </div>
     </div>
     <div class="border rounded border-blue-500">
