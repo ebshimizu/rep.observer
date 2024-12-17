@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { toOrdinal } from 'number-to-words'
+
 const props = defineProps<{ vote: RepVotesResponse; repId: string }>()
 
 const questionTitle = computed(() => {
@@ -26,18 +28,36 @@ if (props.vote.votes.alternate_id) {
   govtrackVoteUrl = `https://www.govtrack.us/congress/votes/${sessionParts[0]}-${sessionParts[1]}/${id}`
 }
 
+// congress.gov is yet another url format
+// and it uses ordinals
+const congressUrl = getCongressUrl(
+  props.vote.votes.actions.congress ?? 1,
+  props.vote.votes.actions.bill_type ?? '',
+  props.vote.votes.actions.number ?? 0
+)
+
 const links = [
   [
-    ...(props.vote.votes.actions.bill_type == null
-      ? []
-      : [
+    ...(congressUrl
+      ? [
+          {
+            icon: 'heroicons:building-library-16-solid',
+            label: 'Congress.gov Summary',
+            to: congressUrl,
+            target: '_blank',
+          },
+        ]
+      : []),
+    ...(props.vote.votes.actions.bill_type != null
+      ? [
           {
             icon: 'uil:document-info',
             label: 'GovTrack Bill Info',
             to: govtrackBillUrl,
             target: '_blank',
           },
-        ]),
+        ]
+      : []),
     {
       icon: 'heroicons:chat-bubble-left-right-16-solid',
       label: 'GovTrack Vote Info',
