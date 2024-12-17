@@ -24,7 +24,6 @@ const supabase = createClient(
 
 export default defineEventHandler(async (event) => {
   const queryParams = getQuery(event)
-  console.log(queryParams)
 
   const query = supabase
     .from('rep_votes')

@@ -21,7 +21,11 @@ export const useRewriteQueryParams = () => {
         Object.entries(params)
           .filter(([_, value]) => value != null)
           .map(([key, value]) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(value!)
+            return (
+              encodeURIComponent(key) +
+              '=' +
+              encodeURIComponent(value!.toString())
+            )
           })
           .join('&')
     )

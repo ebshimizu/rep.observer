@@ -1,5 +1,12 @@
 # whattherepdoin
 
+## 0.1.2
+
+### Patch Changes
+
+- 3ea9f8d: add button to open rep home page
+- 80e4127: add dark/light mode switch
+
 ## 0.1.1
 
 ### Patch Changes
