@@ -49,7 +49,7 @@ const repData = useAsyncData(
       query['session'] = session.value
     }
 
-    return $fetch(`/api/rep/${repId.value}`, { query })
+    return $fetch<RepInfoResponse>(`/api/rep/${repId.value}`, { query })
   },
   {
     watch: [session],
