@@ -6,7 +6,7 @@ const reps = await useFetch('/api/reps/current', {
 })
 
 useHead({
-  title: `rep.observer | Current ${route.params.state} State Representatives`
+  title: `Current ${route.params.state} State Representatives`
 })
 
 // split reps by chamber

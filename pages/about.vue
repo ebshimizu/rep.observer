@@ -2,7 +2,7 @@
 import moment from 'moment'
 
 useHead({
-  title: 'rep.observer | About'
+  title: 'About'
 })
 
 const statusData = useAsyncData('status', () => $fetch('/api/status'))

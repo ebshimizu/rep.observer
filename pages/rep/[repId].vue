@@ -59,7 +59,7 @@ const repData = useAsyncData(
 // header data
 useHead({
   title: computed(
-    () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
+    () => `Voting Record for ${repData.data.value?.full_name}`
   ),
   link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
 })
@@ -94,7 +94,7 @@ useSeoMeta({
     () => `https://rep.observer${route.path}?session=${session.value}`
   ),
   ogTitle: computed(
-    () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
+    () => `Voting Record for ${repData.data.value?.full_name}`
   ),
   ogDescription: computed(() => {
     const term =
