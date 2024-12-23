@@ -42,7 +42,7 @@ const favoriteReps = await useAsyncData(
       return []
     }
   },
-  { watch: [favorites], server: false, lazy: true, default: [] }
+  { watch: [favorites], server: false, lazy: true, default: () => [] }
 )
 
 const filteredReps = computed(() => {
