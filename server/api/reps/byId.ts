@@ -36,7 +36,6 @@ export default defineEventHandler(async (event) => {
     )`)
 
   if ('ids' in query) {
-    console.log(query.ids)
     dbQuery.in('id', Array.isArray(query.ids) ? query.ids : [query.ids])
   }
 
