@@ -36,14 +36,6 @@ const filters = ref<RepFilters>({
 // prevent reloading the rep name when the session changes
 const lastSeenRepName = ref('')
 
-// header data
-useHead({
-  title: computed(
-    () => `rep.observer | Voting Record for ${lastSeenRepName.value}`
-  ),
-  link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
-})
-
 // this might have to be computed at some point, if filtered values change we have to clamp
 const currentPage = ref(1)
 
@@ -64,21 +56,71 @@ const repData = useAsyncData(
   }
 )
 
-useSeoMeta({
-  description: computed(
-    () =>
-      `Voting record for ${repData.data.value?.full_name}'s most recent elected term. See what ${repData.data.value?.full_name} voted on.'`
+// header data
+useHead({
+  title: computed(
+    () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
   ),
+  link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
+})
+
+useSeoMeta({
+  description: computed(() => {
+    const term =
+      repData.data.value?.terms.find((t) => t.sessions.id === session.value) ??
+      repData.data.value?.currentTerm
+
+    const termLabel = `${
+      term?.sessions.level === 'national'
+        ? `${getTitle(
+            term.sessions?.level,
+            term.sessions?.chamber,
+            term.party
+          )} -`
+        : ''
+    }${getSessionTitle(
+      term?.sessions?.level,
+      term?.sessions?.congress,
+      {
+        start: term?.sessions?.start_date,
+        end: term?.sessions?.end_date,
+      },
+      term?.sessions?.title
+    )}`
+
+    return `Voting record for ${repData.data.value?.full_name}'s ${termLabel} term. See what ${repData.data.value?.full_name} voted on.'`
+  }),
   ogUrl: computed(
     () => `https://rep.observer${route.path}?session=${session.value}`
   ),
   ogTitle: computed(
     () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
   ),
-  ogDescription: computed(
-    () =>
-      `View the voting record for ${repData.data.value?.full_name}.'`
-  ),
+  ogDescription: computed(() => {
+    const term =
+      repData.data.value?.terms.find((t) => t.sessions.id === session.value) ??
+      repData.data.value?.currentTerm
+
+    const termLabel = `${
+      term?.sessions.level === 'national'
+        ? `${getTitle(
+            term.sessions?.level,
+            term.sessions?.chamber,
+            term.party
+          )} -`
+        : ''
+    }${getSessionTitle(
+      term?.sessions?.level,
+      term?.sessions?.congress,
+      {
+        start: term?.sessions?.start_date,
+        end: term?.sessions?.end_date,
+      },
+      term?.sessions?.title
+    )}`
+    
+    return `View the voting record for ${repData.data.value?.full_name} in the ${termLabel}.`
+  }),
   ogLocale: 'en_US',
   ogSiteName: 'rep.observer',
 })
