@@ -40,33 +40,31 @@ const congressTitle = computed(() => {
     return props.title
   }
 })
-
-const goToRep = () => {
-  return navigateTo({
-    path: `/rep/${props.repId}`,
-  })
-}
 </script>
 
 <template>
-  <UCard
-    class="cursor-pointer hover:shadow-lg hover:outline-indigo-500 hover:outline"
-    :ui="{
-      background: 'bg-white dark:hover:bg-gray-800 dark:bg-gray-900 ',
-    }"
-    @click="goToRep"
-  >
-    <div class="text-xl font-medium flex justify-between">
-      {{ props.name }}
-      <UBadge v-if="props.level != null" :color="badgeColor" variant="subtle">{{
-        badgeLabel
-      }}</UBadge>
-    </div>
-    <div class="text-md dark:text-white/75">
-      {{ roleTitle }}
-    </div>
-    <div class="text-md dark:text-white/75">
-      {{ congressTitle }}
-    </div>
-  </UCard>
+  <ULink :to="`/rep/${props.repId}`">
+    <UCard
+      class="cursor-pointer hover:shadow-lg hover:outline-indigo-500 hover:outline"
+      :ui="{
+        background: 'bg-white dark:hover:bg-gray-800 dark:bg-gray-900 ',
+      }"
+    >
+      <div class="text-xl font-medium flex justify-between">
+        {{ props.name }}
+        <UBadge
+          v-if="props.level != null"
+          :color="badgeColor"
+          variant="subtle"
+          >{{ badgeLabel }}</UBadge
+        >
+      </div>
+      <div class="text-md dark:text-white/75">
+        {{ roleTitle }}
+      </div>
+      <div class="text-md dark:text-white/75">
+        {{ congressTitle }}
+      </div>
+    </UCard>
+  </ULink>
 </template>
