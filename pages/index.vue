@@ -2,7 +2,7 @@
 const nameSearch = ref('')
 
 useHead({
-  title: 'rep.obesrver | Home',
+  title: 'rep.observer | Home',
 })
 
 useSeoMeta({
