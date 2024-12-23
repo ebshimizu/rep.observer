@@ -59,7 +59,7 @@ const repData = useAsyncData(
 // header data
 useHead({
   title: computed(
-    () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
+    () => `Voting Record for ${repData.data.value?.full_name}`
   ),
   link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
 })

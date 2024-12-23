@@ -13,6 +13,10 @@ const repItems = [
     },
   ],
 ]
+
+useHead({
+  titleTemplate: (titleChunk) => `rep.observer | ${titleChunk}`
+})
 </script>
 
 <template>

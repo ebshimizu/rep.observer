@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'rep.observer | Current National Representatives'
+  title: 'Current National Representatives'
 })
 
 const reps = await useFetch('/api/reps/current', {
