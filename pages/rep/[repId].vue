@@ -39,6 +39,9 @@ const lastSeenRepName = ref('')
 // this might have to be computed at some point, if filtered values change we have to clamp
 const currentPage = ref(1)
 
+// favorites data
+const { activeIsFavorite, toggleFavorite } = useFavoriteReps(repId.value)
+
 // retrieve rep data
 const repData = useAsyncData(
   'repInfo',
@@ -58,9 +61,7 @@ const repData = useAsyncData(
 
 // header data
 useHead({
-  title: computed(
-    () => `Voting Record for ${repData.data.value?.full_name}`
-  ),
+  title: computed(() => `Voting Record for ${repData.data.value?.full_name}`),
   link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
 })
 
@@ -93,9 +94,7 @@ useSeoMeta({
   ogUrl: computed(
     () => `https://rep.observer${route.path}?session=${session.value}`
   ),
-  ogTitle: computed(
-    () => `Voting Record for ${repData.data.value?.full_name}`
-  ),
+  ogTitle: computed(() => `Voting Record for ${repData.data.value?.full_name}`),
   ogDescription: computed(() => {
     const term =
       repData.data.value?.terms.find((t) => t.sessions.id === session.value) ??
@@ -118,7 +117,7 @@ useSeoMeta({
       },
       term?.sessions?.title
     )}`
-    
+
     return `View the voting record for ${repData.data.value?.full_name} in the ${termLabel}.`
   }),
   ogLocale: 'en_US',
@@ -376,6 +375,14 @@ const pageItems = computed(() => {
               : lastSeenRepName
           }}
         </h1>
+        <ClientOnly>
+          <UButton
+            :icon="activeIsFavorite ? 'heroicons:star-solid' : 'heroicons:star'"
+            variant="ghost"
+            color="yellow"
+            @click="() => toggleFavorite()"
+          />
+        </ClientOnly>
         <UButton
           v-if="repData.data?.value?.homepage"
           icon="heroicons:home-solid"

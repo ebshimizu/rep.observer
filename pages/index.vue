@@ -2,7 +2,7 @@
 const nameSearch = ref('')
 
 useHead({
-  title: 'rep.observer | Home',
+  title: 'Home',
 })
 
 useSeoMeta({
@@ -12,8 +12,10 @@ useSeoMeta({
     index: true,
     follow: true,
   },
-  ogType: 'website'
+  ogType: 'website',
 })
+
+const { favorites } = useFavoriteReps()
 
 const repData = await useAsyncData(
   'currentReps',
@@ -30,6 +32,17 @@ const repData = await useAsyncData(
     watch: [nameSearch],
     dedupe: 'cancel',
   }
+)
+
+const favoriteReps = await useAsyncData(
+  async () => {
+    if (favorites.value.length > 0) {
+      return $fetch('/api/reps/byId', { query: { ids: favorites.value } })
+    } else {
+      return []
+    }
+  },
+  { watch: [favorites], server: false, lazy: true, default: [] }
 )
 
 const filteredReps = computed(() => {
@@ -62,7 +75,39 @@ const filteredReps = computed(() => {
       class="w-full lg:w-3/5 mx-auto"
       v-model="nameSearch"
     />
+    <ClientOnly>
+      <h3
+        v-if="
+          favoriteReps.data.value &&
+          favoriteReps.data.value.length > 0 &&
+          nameSearch.length <= 2
+        "
+        class="text-bold text-lg text-center"
+      >
+        My Favorite Representatives
+      </h3>
+    </ClientOnly>
     <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 my-4">
+      <template
+        v-if="
+          favoriteReps.data.value &&
+          favoriteReps.data.value.length > 0 &&
+          nameSearch.length <= 2
+        "
+      >
+        <HomeRepCard
+          v-for="rep in favoriteReps.data.value"
+          :name="rep.full_name!"
+          :level="rep.currentTerm?.sessions?.level"
+          :repId="rep.id"
+          :chamber="rep.currentTerm?.sessions?.chamber"
+          :state="rep.currentTerm?.state"
+          :party="rep.currentTerm?.party"
+          :district="rep.currentTerm?.district"
+          :congress="rep.currentTerm?.sessions?.congress"
+          :title="rep.currentTerm?.sessions?.title"
+        />
+      </template>
       <template v-if="repData.status.value === 'pending'">
         <USkeleton class="h-32"></USkeleton>
         <USkeleton class="h-32"></USkeleton>
