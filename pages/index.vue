@@ -12,6 +12,7 @@ useSeoMeta({
     index: true,
     follow: true,
   },
+  ogType: 'website'
 })
 
 const repData = await useAsyncData(
