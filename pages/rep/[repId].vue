@@ -69,10 +69,6 @@ watch(
   { immediate: true }
 )
 
-// there is some weirdness with the query param rewrite as we're navigating out
-// we're going to reset the session param so this component doesn't have it cached
-// and will set a flag to prevent query rewrites on the way out
-
 // update the url when the session changes (or other things?)
 const { rewriteQueryParams } = useRewriteQueryParams()
 watch(

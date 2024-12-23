@@ -37,7 +37,7 @@ const filteredReps = computed(() => {
       <ULink
         to="https://www.usa.gov/elected-officials/"
         target="_blank"
-        class="hover:text-blue-200 text-blue-400"
+        class="hover:dark:text-blue-200 dark:text-blue-400 text-blue-600 hover:text-blue-400"
         >Look them up</ULink
       >
       then come back here to see what they're doing.
