@@ -44,25 +44,6 @@ useHead({
   link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
 })
 
-useSeoMeta({
-  description: computed(
-    () =>
-      `Voting record for ${lastSeenRepName.value}'s most recent elected term. See what ${lastSeenRepName.value} voted on.'`
-  ),
-  ogUrl: computed(
-    () => `https://rep.observer${route.path}?session=${session.value}`
-  ),
-  ogTitle: computed(
-    () => `rep.observer | Voting Record for ${lastSeenRepName.value}`
-  ),
-  ogDescription: computed(
-    () =>
-      `View the voting record for ${lastSeenRepName.value}.'`
-  ),
-  ogLocale: 'en_US',
-  ogSiteName: 'rep.observer',
-})
-
 // this might have to be computed at some point, if filtered values change we have to clamp
 const currentPage = ref(1)
 
@@ -82,6 +63,25 @@ const repData = useAsyncData(
     watch: [session],
   }
 )
+
+useSeoMeta({
+  description: computed(
+    () =>
+      `Voting record for ${repData.data.value?.full_name}'s most recent elected term. See what ${repData.data.value?.full_name} voted on.'`
+  ),
+  ogUrl: computed(
+    () => `https://rep.observer${route.path}?session=${session.value}`
+  ),
+  ogTitle: computed(
+    () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
+  ),
+  ogDescription: computed(
+    () =>
+      `View the voting record for ${repData.data.value?.full_name}.'`
+  ),
+  ogLocale: 'en_US',
+  ogSiteName: 'rep.observer',
+})
 
 // lil bit of caching
 watch(
