@@ -76,7 +76,7 @@ useSeoMeta({
             term.sessions?.level,
             term.sessions?.chamber,
             term.party
-          )} -`
+          )} - `
         : ''
     }${getSessionTitle(
       term?.sessions?.level,
@@ -107,7 +107,7 @@ useSeoMeta({
             term.sessions?.level,
             term.sessions?.chamber,
             term.party
-          )} -`
+          )} - `
         : ''
     }${getSessionTitle(
       term?.sessions?.level,
