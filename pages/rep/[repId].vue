@@ -36,6 +36,33 @@ const filters = ref<RepFilters>({
 // prevent reloading the rep name when the session changes
 const lastSeenRepName = ref('')
 
+// header data
+useHead({
+  title: computed(
+    () => `rep.observer | Voting Record for ${lastSeenRepName.value}`
+  ),
+  link: [{ rel: 'canonical', content: `https://rep.observer${route.path}` }],
+})
+
+useSeoMeta({
+  description: computed(
+    () =>
+      `Voting record for ${lastSeenRepName.value}'s most recent elected term. See what ${lastSeenRepName.value} voted on.'`
+  ),
+  ogUrl: computed(
+    () => `https://rep.observer${route.path}?session=${session.value}`
+  ),
+  ogTitle: computed(
+    () => `rep.observer | Voting Record for ${lastSeenRepName.value}`
+  ),
+  ogDescription: computed(
+    () =>
+      `View the voting record for ${lastSeenRepName.value}.'`
+  ),
+  ogLocale: 'en_US',
+  ogSiteName: 'rep.observer',
+})
+
 // this might have to be computed at some point, if filtered values change we have to clamp
 const currentPage = ref(1)
 

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import moment from 'moment'
 
+useHead({
+  title: 'rep.observer | About'
+})
+
 const statusData = useAsyncData('status', () => $fetch('/api/status'))
 
 const statusTableData = computed(() => {

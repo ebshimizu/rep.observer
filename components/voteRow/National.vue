@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { toOrdinal } from 'number-to-words'
-
 const props = defineProps<{ vote: RepVotesResponse; repId: string }>()
 
 const questionTitle = computed(() => {

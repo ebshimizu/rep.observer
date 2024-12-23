@@ -5,6 +5,10 @@ const reps = await useFetch('/api/reps/current', {
   query: { state: route.params.state, level: 'state' },
 })
 
+useHead({
+  title: `rep.observer | Current ${route.params.state} State Representatives`
+})
+
 // split reps by chamber
 const byChamber = computed(() => {
   // TODO: clean up types

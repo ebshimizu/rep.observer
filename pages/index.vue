@@ -1,6 +1,19 @@
 <script setup lang="ts">
 const nameSearch = ref('')
 
+useHead({
+  title: 'rep.obesrver | Home',
+})
+
+useSeoMeta({
+  description:
+    'See what your elected representatives are voting on at a glance.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+})
+
 const repData = await useAsyncData(
   'currentReps',
   async () => {
