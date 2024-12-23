@@ -27,7 +27,8 @@ const statusTableData = computed(() => {
       back links to the page where the data was originally acquired from. The
       goal of presenting this data in this way is to make it easier for
       constituents to hold their elected officials responsible for their
-      actions.
+      actions. Rep.observer is focused on displaying voting records for current
+      representatives and started tracking national data in 2024.
     </p>
     <p class="my-2">
       This site will not automatically contact representatives for you. Links
