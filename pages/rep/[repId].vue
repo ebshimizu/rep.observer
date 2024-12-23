@@ -94,7 +94,7 @@ useSeoMeta({
     () => `https://rep.observer${route.path}?session=${session.value}`
   ),
   ogTitle: computed(
-    () => `rep.observer | Voting Record for ${repData.data.value?.full_name}`
+    () => `Voting Record for ${repData.data.value?.full_name}`
   ),
   ogDescription: computed(() => {
     const term =
