@@ -187,6 +187,8 @@ function getTypeFromId(id: string = '') {
     return 'joint resolution'
   } else if (code.startsWith('R')) {
     return 'resolution'
+  } else if (code.startsWith('CA')) {
+    return 'constitutional amendment'
   }
 
   console.log(`unknown resolution type: ${code}`)
