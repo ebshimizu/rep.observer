@@ -2,7 +2,7 @@
 import moment from 'moment'
 
 useHead({
-  title: 'About'
+  title: 'About',
 })
 
 const statusData = useAsyncData('status', () => $fetch('/api/status'))
@@ -143,6 +143,17 @@ const statusTableData = computed(() => {
       this site. Scripts that update representative data are only run if the
       representatives change. If a script has encountered an error, the dates
       for Last Success and Last Run will differ.
+    </p>
+    <p class="mb-2">
+      If you have found a data error, please file an issue on
+      <ULink
+        class="hover:dark:text-blue-200 dark:text-blue-400 text-blue-600 hover:text-blue-400"
+        to="https://github.com/ebshimizu/rep.observer/issues"
+        target="_blank"
+        >GitHub</ULink
+      >
+      and provide a link to the page with the data error and as much information
+      as you can about the correct data.
     </p>
     <div class="flex items-center w-full justify-center">
       <UTable

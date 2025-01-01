@@ -5,14 +5,16 @@
       "state": "CA",
       "chamber": "Senate",
       "title": "CA State Senate - 2023-2024 Session",
-      "start_date": "2023-01-01"
+      "start_date": "2023-01-01",
+      "end_date": "2024-12-31"
     },
     {
       "level": "state",
       "state": "CA",
       "chamber": "Assembly",
       "title": "CA State Assembly - 2023-2024 Session",
-      "start_date": "2023-01-01"
+      "start_date": "2023-01-01",
+      "end_date": "2024-12-31"
     }
   ],
   "members": {
