@@ -3,7 +3,7 @@
 A website for displaying what elected representatives in the United States voted on in a single table.
 
 ## Data Sources
-All data sources for this project provide public domain data.
+All data sources for this project are public domain.
 See https://www.rep.observer/about for the complete list of sources.
 
 ## Development Setup
