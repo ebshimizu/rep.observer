@@ -86,3 +86,16 @@ export type RepInfoResponse = {
   currentTerm: RepInfoTerm
   terms: RepInfoTerm[]
 }
+
+export type CurrentRepEntry = {
+  chamber: string | null
+  congress: number | null
+  district: number | null
+  full_name: string | null
+  level: string | null
+  party: string | null
+  rep_id: string | null
+  session_id: number | null
+  state: string | null
+  title: string | null
+}

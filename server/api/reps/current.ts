@@ -5,6 +5,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '~/utils/supabase-types'
+import { CurrentRepEntry } from '../../../utils/correctedDbTypes'
 
 const supabase = createClient<Database>(
   process.env.NUXT_SUPABASE_DB_URL ?? '',
@@ -37,6 +38,6 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Query failed to return data',
     })
   } else {
-    return data.data
+    return data.data as unknown as CurrentRepEntry[]
   }
 })
