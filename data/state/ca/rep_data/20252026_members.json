@@ -4,17 +4,15 @@
       "level": "state",
       "state": "CA",
       "chamber": "Senate",
-      "title": "CA State Senate - 2023-2024 Session",
-      "start_date": "2023-01-01",
-      "end_date": "2024-12-31"
+      "title": "CA State Senate - 2025-2026 Session",
+      "start_date": "2025-01-01"
     },
     {
       "level": "state",
       "state": "CA",
       "chamber": "Assembly",
-      "title": "CA State Assembly - 2023-2024 Session",
-      "start_date": "2023-01-01",
-      "end_date": "2024-12-31"
+      "title": "CA State Assembly - 2025-2026 Session",
+      "start_date": "2025-01-01"
     }
   ],
   "members": {
@@ -57,6 +55,19 @@
         "sessionIndex": 0
       }
     },
+    "CA-JArreguín": {
+      "id": "CA-JArreguín",
+      "first_name": "Jesse",
+      "last_name": "Arreguín",
+      "full_name": "Jesse Arreguín",
+      "homepage": "https://sd07.senate.ca.gov/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 7,
+        "sessionIndex": 0
+      }
+    },
     "CA-AAshby": {
       "id": "CA-AAshby",
       "first_name": "Angelique",
@@ -67,19 +78,6 @@
         "party": "D",
         "state": "CA",
         "district": 8,
-        "sessionIndex": 0
-      }
-    },
-    "CA-TAtkins": {
-      "id": "CA-TAtkins",
-      "first_name": "Toni",
-      "last_name": "Atkins",
-      "full_name": "Toni Atkins",
-      "homepage": "https://sd39.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 39,
         "sessionIndex": 0
       }
     },
@@ -109,16 +107,16 @@
         "sessionIndex": 0
       }
     },
-    "CA-SBradford": {
-      "id": "CA-SBradford",
-      "first_name": "Steven",
-      "last_name": "Bradford",
-      "full_name": "Steven Bradford",
-      "homepage": "https://sd35.senate.ca.gov/",
+    "CA-CCabaldon": {
+      "id": "CA-CCabaldon",
+      "first_name": "Christopher",
+      "last_name": "Cabaldon",
+      "full_name": "Christopher Cabaldon",
+      "homepage": "https://sd03.senate.ca.gov/",
       "term": {
         "party": "D",
         "state": "CA",
-        "district": 35,
+        "district": 3,
         "sessionIndex": 0
       }
     },
@@ -135,6 +133,32 @@
         "sessionIndex": 0
       }
     },
+    "CA-SCervantes": {
+      "id": "CA-SCervantes",
+      "first_name": "Sabrina",
+      "last_name": "Cervantes",
+      "full_name": "Sabrina Cervantes",
+      "homepage": "https://sd31.senate.ca.gov/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 31,
+        "sessionIndex": 0
+      }
+    },
+    "CA-S\"Steve\"": {
+      "id": "CA-S\"Steve\"",
+      "first_name": "Steven",
+      "last_name": "\"Steve\"",
+      "full_name": "Steven \"Steve\" Choi",
+      "homepage": "https://sr37.senate.ca.gov/",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 37,
+        "sessionIndex": 0
+      }
+    },
     "CA-DCortese": {
       "id": "CA-DCortese",
       "first_name": "Dave",
@@ -148,29 +172,16 @@
         "sessionIndex": 0
       }
     },
-    "CA-BDahle": {
-      "id": "CA-BDahle",
-      "first_name": "Brian",
+    "CA-MDahle": {
+      "id": "CA-MDahle",
+      "first_name": "Megan",
       "last_name": "Dahle",
-      "full_name": "Brian Dahle",
+      "full_name": "Megan Dahle",
       "homepage": "https://sr01.senate.ca.gov/",
       "term": {
         "party": "R",
         "state": "CA",
         "district": 1,
-        "sessionIndex": 0
-      }
-    },
-    "CA-BDodd": {
-      "id": "CA-BDodd",
-      "first_name": "Bill",
-      "last_name": "Dodd",
-      "full_name": "Bill Dodd",
-      "homepage": "https://sd03.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 3,
         "sessionIndex": 0
       }
     },
@@ -187,32 +198,6 @@
         "sessionIndex": 0
       }
     },
-    "CA-STalamantes": {
-      "id": "CA-STalamantes",
-      "first_name": "Susan",
-      "last_name": "Talamantes",
-      "full_name": "Susan Talamantes Eggman",
-      "homepage": "https://sd05.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 5,
-        "sessionIndex": 0
-      }
-    },
-    "CA-SGlazer": {
-      "id": "CA-SGlazer",
-      "first_name": "Steven",
-      "last_name": "Glazer",
-      "full_name": "Steven Glazer",
-      "homepage": "https://sd07.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 7,
-        "sessionIndex": 0
-      }
-    },
     "CA-LGonzalez": {
       "id": "CA-LGonzalez",
       "first_name": "Lena",
@@ -223,6 +208,19 @@
         "party": "D",
         "state": "CA",
         "district": 33,
+        "sessionIndex": 0
+      }
+    },
+    "CA-TGrayson": {
+      "id": "CA-TGrayson",
+      "first_name": "Tim",
+      "last_name": "Grayson",
+      "full_name": "Tim Grayson",
+      "homepage": "https://sd09.senate.ca.gov/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 9,
         "sessionIndex": 0
       }
     },
@@ -283,11 +281,11 @@
       "first_name": "Monique",
       "last_name": "Limón",
       "full_name": "Monique Limón",
-      "homepage": "https://sd19.senate.ca.gov/",
+      "homepage": "https://sd21.senate.ca.gov/",
       "term": {
         "party": "D",
         "state": "CA",
-        "district": 19,
+        "district": 21,
         "sessionIndex": 0
       }
     },
@@ -304,6 +302,19 @@
         "sessionIndex": 0
       }
     },
+    "CA-JMcNerney": {
+      "id": "CA-JMcNerney",
+      "first_name": "Jerry",
+      "last_name": "McNerney",
+      "full_name": "Jerry McNerney",
+      "homepage": "https://sd05.senate.ca.gov/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 5,
+        "sessionIndex": 0
+      }
+    },
     "CA-CMenjivar": {
       "id": "CA-CMenjivar",
       "first_name": "Caroline",
@@ -314,45 +325,6 @@
         "party": "D",
         "state": "CA",
         "district": 20,
-        "sessionIndex": 0
-      }
-    },
-    "CA-DMin": {
-      "id": "CA-DMin",
-      "first_name": "Dave",
-      "last_name": "Min",
-      "full_name": "Dave Min",
-      "homepage": "https://sd37.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 37,
-        "sessionIndex": 0
-      }
-    },
-    "CA-JNewman": {
-      "id": "CA-JNewman",
-      "first_name": "Josh",
-      "last_name": "Newman",
-      "full_name": "Josh Newman",
-      "homepage": "https://sd29.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 29,
-        "sessionIndex": 0
-      }
-    },
-    "CA-JNguyen": {
-      "id": "CA-JNguyen",
-      "first_name": "Janet",
-      "last_name": "Nguyen",
-      "full_name": "Janet Nguyen",
-      "homepage": "https://sr36.senate.ca.gov/",
-      "term": {
-        "party": "R",
-        "state": "CA",
-        "district": 36,
         "sessionIndex": 0
       }
     },
@@ -374,11 +346,11 @@
       "first_name": "Rosilicie",
       "last_name": "Ochoa",
       "full_name": "Rosilicie Ochoa Bogh",
-      "homepage": "https://sr23.senate.ca.gov/",
+      "homepage": "https://sr19.senate.ca.gov/",
       "term": {
         "party": "R",
         "state": "CA",
-        "district": 23,
+        "district": 19,
         "sessionIndex": 0
       }
     },
@@ -395,11 +367,11 @@
         "sessionIndex": 0
       }
     },
-    "CA-APortantino": {
-      "id": "CA-APortantino",
-      "first_name": "Anthony",
-      "last_name": "Portantino",
-      "full_name": "Anthony Portantino",
+    "CA-SRenée": {
+      "id": "CA-SRenée",
+      "first_name": "Sasha",
+      "last_name": "Renée",
+      "full_name": "Sasha Renée Pérez",
       "homepage": "https://sd25.senate.ca.gov/",
       "term": {
         "party": "D",
@@ -408,16 +380,29 @@
         "sessionIndex": 0
       }
     },
-    "CA-RD.": {
-      "id": "CA-RD.",
-      "first_name": "Richard",
-      "last_name": "D.",
-      "full_name": "Richard D. Roth",
-      "homepage": "https://sd31.senate.ca.gov/",
+    "CA-EGómez": {
+      "id": "CA-EGómez",
+      "first_name": "Eloise",
+      "last_name": "Gómez",
+      "full_name": "Eloise Gómez Reyes",
+      "homepage": "https://sd29.senate.ca.gov/",
       "term": {
         "party": "D",
         "state": "CA",
-        "district": 31,
+        "district": 29,
+        "sessionIndex": 0
+      }
+    },
+    "CA-LRichardson": {
+      "id": "CA-LRichardson",
+      "first_name": "Laura",
+      "last_name": "Richardson",
+      "full_name": "Laura Richardson",
+      "homepage": "https://sd35.senate.ca.gov/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 35,
         "sessionIndex": 0
       }
     },
@@ -444,19 +429,6 @@
         "party": "R",
         "state": "CA",
         "district": 32,
-        "sessionIndex": 0
-      }
-    },
-    "CA-NSkinner": {
-      "id": "CA-NSkinner",
-      "first_name": "Nancy",
-      "last_name": "Skinner",
-      "full_name": "Nancy Skinner",
-      "homepage": "https://sd09.senate.ca.gov/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 9,
         "sessionIndex": 0
       }
     },
@@ -499,6 +471,19 @@
         "sessionIndex": 0
       }
     },
+    "CA-SMartinez": {
+      "id": "CA-SMartinez",
+      "first_name": "Suzette",
+      "last_name": "Martinez",
+      "full_name": "Suzette Martinez Valladares",
+      "homepage": "https://sr23.senate.ca.gov/",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 23,
+        "sessionIndex": 0
+      }
+    },
     "CA-AWahab": {
       "id": "CA-AWahab",
       "first_name": "Aisha",
@@ -512,6 +497,19 @@
         "sessionIndex": 0
       }
     },
+    "CA-AWeber": {
+      "id": "CA-AWeber",
+      "first_name": "Akilah",
+      "last_name": "Weber",
+      "full_name": "Akilah Weber Pierson",
+      "homepage": "https://sd39.senate.ca.gov/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 39,
+        "sessionIndex": 0
+      }
+    },
     "CA-SWiener": {
       "id": "CA-SWiener",
       "first_name": "Scott",
@@ -522,19 +520,6 @@
         "party": "D",
         "state": "CA",
         "district": 11,
-        "sessionIndex": 0
-      }
-    },
-    "CA-SWilk": {
-      "id": "CA-SWilk",
-      "first_name": "Scott",
-      "last_name": "Wilk",
-      "full_name": "Scott Wilk",
-      "homepage": "https://sr21.senate.ca.gov/",
-      "term": {
-        "party": "R",
-        "state": "CA",
-        "district": 21,
         "sessionIndex": 0
       }
     },
@@ -561,6 +546,19 @@
         "party": "D",
         "state": "CA",
         "district": 4,
+        "sessionIndex": 1
+      }
+    },
+    "CA-PAhrens": {
+      "id": "CA-PAhrens",
+      "first_name": "Ahrens",
+      "last_name": "Patrick",
+      "full_name": "Patrick Ahrens",
+      "homepage": "https://a26.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 26,
         "sessionIndex": 1
       }
     },
@@ -600,6 +598,19 @@
         "party": "D",
         "state": "CA",
         "district": 31,
+        "sessionIndex": 1
+      }
+    },
+    "CA-AAvila Farias": {
+      "id": "CA-AAvila Farias",
+      "first_name": "Avila Farias",
+      "last_name": "Anamarie",
+      "full_name": "Anamarie Avila Farias",
+      "homepage": "https://a15.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 15,
         "sessionIndex": 1
       }
     },
@@ -660,7 +671,6 @@
       "first_name": "Boerner",
       "last_name": "Tasha",
       "full_name": "Tasha Boerner",
-      "alt_name": "Boerner Horvath",
       "homepage": "https://a77.asmdc.org/",
       "term": {
         "party": "D",
@@ -708,6 +718,19 @@
         "sessionIndex": 1
       }
     },
+    "CA-JCaloza": {
+      "id": "CA-JCaloza",
+      "first_name": "Caloza",
+      "last_name": "Jessica",
+      "full_name": "Jessica Caloza",
+      "homepage": "https://a52.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 52,
+        "sessionIndex": 1
+      }
+    },
     "CA-JCarrillo": {
       "id": "CA-JCarrillo",
       "first_name": "Carrillo",
@@ -721,27 +744,14 @@
         "sessionIndex": 1
       }
     },
-    "CA-WCarrillo": {
-      "id": "CA-WCarrillo",
-      "first_name": "Carrillo",
-      "last_name": "Wendy",
-      "full_name": "Wendy Carrillo",
-      "homepage": "https://a52.asmdc.org/",
+    "CA-LCastillo": {
+      "id": "CA-LCastillo",
+      "first_name": "Castillo",
+      "last_name": "Leticia",
+      "full_name": "Leticia Castillo",
+      "homepage": "https://ad58.asmrc.org/",
       "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 52,
-        "sessionIndex": 1
-      }
-    },
-    "CA-SCervantes": {
-      "id": "CA-SCervantes",
-      "first_name": "Cervantes",
-      "last_name": "Sabrina",
-      "full_name": "Sabrina Cervantes",
-      "homepage": "https://a58.asmdc.org/",
-      "term": {
-        "party": "D",
+        "party": "R",
         "state": "CA",
         "district": 58,
         "sessionIndex": 1
@@ -773,19 +783,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-MDahle": {
-      "id": "CA-MDahle",
-      "first_name": "Dahle",
-      "last_name": "Megan",
-      "full_name": "Megan Dahle",
-      "homepage": "https://ad01.asmrc.org/",
-      "term": {
-        "party": "R",
-        "state": "CA",
-        "district": 1,
-        "sessionIndex": 1
-      }
-    },
     "CA-LDavies": {
       "id": "CA-LDavies",
       "first_name": "Davies",
@@ -799,6 +796,19 @@
         "sessionIndex": 1
       }
     },
+    "CA-CDeMaio": {
+      "id": "CA-CDeMaio",
+      "first_name": "DeMaio",
+      "last_name": "Carl",
+      "full_name": "Carl DeMaio",
+      "homepage": "https://ad75.asmrc.org/ ",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 75,
+        "sessionIndex": 1
+      }
+    },
     "CA-DDixon": {
       "id": "CA-DDixon",
       "first_name": "Dixon",
@@ -809,6 +819,19 @@
         "party": "R",
         "state": "CA",
         "district": 72,
+        "sessionIndex": 1
+      }
+    },
+    "CA-SElhawary": {
+      "id": "CA-SElhawary",
+      "first_name": "Elhawary",
+      "last_name": "Sade",
+      "full_name": "Sade Elhawary",
+      "homepage": "https://a57.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 57,
         "sessionIndex": 1
       }
     },
@@ -851,19 +874,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-LFriedman": {
-      "id": "CA-LFriedman",
-      "first_name": "Friedman",
-      "last_name": "Laura",
-      "full_name": "Laura Friedman",
-      "homepage": "https://a44.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 44,
-        "sessionIndex": 1
-      }
-    },
     "CA-JGabriel": {
       "id": "CA-JGabriel",
       "first_name": "Gabriel",
@@ -890,16 +900,16 @@
         "sessionIndex": 1
       }
     },
-    "CA-EGarcia": {
-      "id": "CA-EGarcia",
+    "CA-RGarcia": {
+      "id": "CA-RGarcia",
       "first_name": "Garcia",
-      "last_name": "Eduardo",
-      "full_name": "Eduardo Garcia",
-      "homepage": "https://a36.asmdc.org/",
+      "last_name": "Robert",
+      "full_name": "Robert Garcia",
+      "homepage": "https://a50.asmdc.org/",
       "term": {
         "party": "D",
         "state": "CA",
-        "district": 36,
+        "district": 50,
         "sessionIndex": 1
       }
     },
@@ -916,16 +926,42 @@
         "sessionIndex": 1
       }
     },
-    "CA-TGrayson": {
-      "id": "CA-TGrayson",
-      "first_name": "Grayson",
-      "last_name": "Timothy",
-      "full_name": "Timothy Grayson",
-      "homepage": "https://a15.asmdc.org/",
+    "CA-JGonzalez": {
+      "id": "CA-JGonzalez",
+      "first_name": "Gonzalez",
+      "last_name": "Jeff",
+      "full_name": "Jeff Gonzalez",
+      "homepage": "https://ad36.asmrc.org/ ",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 36,
+        "sessionIndex": 1
+      }
+    },
+    "CA-MGonzález": {
+      "id": "CA-MGonzález",
+      "first_name": "González",
+      "last_name": "Mark",
+      "full_name": "Mark González",
+      "homepage": "https://a54.asmdc.org/",
       "term": {
         "party": "D",
         "state": "CA",
-        "district": 15,
+        "district": 54,
+        "sessionIndex": 1
+      }
+    },
+    "CA-HHadwick": {
+      "id": "CA-HHadwick",
+      "first_name": "Hadwick",
+      "last_name": "Heather",
+      "full_name": "Heather Hadwick",
+      "homepage": "https://ad01.asmrc.org/",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 1,
         "sessionIndex": 1
       }
     },
@@ -942,6 +978,19 @@
         "sessionIndex": 1
       }
     },
+    "CA-JHarabedian": {
+      "id": "CA-JHarabedian",
+      "first_name": "Harabedian",
+      "last_name": "John",
+      "full_name": "John Harabedian",
+      "homepage": "https://a41.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 41,
+        "sessionIndex": 1
+      }
+    },
     "CA-GHart": {
       "id": "CA-GHart",
       "first_name": "Hart",
@@ -952,19 +1001,6 @@
         "party": "D",
         "state": "CA",
         "district": 37,
-        "sessionIndex": 1
-      }
-    },
-    "CA-CHolden": {
-      "id": "CA-CHolden",
-      "first_name": "Holden",
-      "last_name": "Chris R.",
-      "full_name": "Chris R. Holden",
-      "homepage": "https://a41.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 41,
         "sessionIndex": 1
       }
     },
@@ -1007,19 +1043,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-RJones-Sawyer": {
-      "id": "CA-RJones-Sawyer",
-      "first_name": "Jones-Sawyer",
-      "last_name": "Reginald Byron",
-      "full_name": "Reginald Byron Jones-Sawyer",
-      "homepage": "https://a57.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 57,
-        "sessionIndex": 1
-      }
-    },
     "CA-AKalra": {
       "id": "CA-AKalra",
       "first_name": "Kalra",
@@ -1030,6 +1053,19 @@
         "party": "D",
         "state": "CA",
         "district": 25,
+        "sessionIndex": 1
+      }
+    },
+    "CA-MKrell": {
+      "id": "CA-MKrell",
+      "first_name": "Krell",
+      "last_name": "Maggy",
+      "full_name": "Maggy Krell",
+      "homepage": "https://a06.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 6,
         "sessionIndex": 1
       }
     },
@@ -1059,19 +1095,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-ELow": {
-      "id": "CA-ELow",
-      "first_name": "Low",
-      "last_name": "Evan",
-      "full_name": "Evan Low",
-      "homepage": "https://a26.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 26,
-        "sessionIndex": 1
-      }
-    },
     "CA-JLowenthal": {
       "id": "CA-JLowenthal",
       "first_name": "Lowenthal",
@@ -1085,42 +1108,16 @@
         "sessionIndex": 1
       }
     },
-    "CA-BMaienschein": {
-      "id": "CA-BMaienschein",
-      "first_name": "Maienschein",
-      "last_name": "Brian",
-      "full_name": "Brian Maienschein",
-      "homepage": "https://a76.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 76,
-        "sessionIndex": 1
-      }
-    },
-    "CA-DMathis": {
-      "id": "CA-DMathis",
-      "first_name": "Mathis",
-      "last_name": "Devon",
-      "full_name": "Devon Mathis",
-      "homepage": "https://ad33.asmrc.org/",
+    "CA-AMacedo": {
+      "id": "CA-AMacedo",
+      "first_name": "Macedo",
+      "last_name": "Alexandra",
+      "full_name": "Alexandra Macedo",
+      "homepage": "https://ad33.asmrc.org/ ",
       "term": {
         "party": "R",
         "state": "CA",
         "district": 33,
-        "sessionIndex": 1
-      }
-    },
-    "CA-KMcCarty": {
-      "id": "CA-KMcCarty",
-      "first_name": "McCarty",
-      "last_name": "Kevin",
-      "full_name": "Kevin McCarty",
-      "homepage": "https://a06.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 6,
         "sessionIndex": 1
       }
     },
@@ -1176,19 +1173,6 @@
         "sessionIndex": 1
       }
     },
-    "F000480": {
-      "id": "F000480",
-      "first_name": "Vince",
-      "last_name": "Fong",
-      "full_name": "Vince Fong",
-      "homepage": "https://fong.house.gov",
-      "term": {
-        "party": "R",
-        "state": "CA",
-        "district": 32,
-        "sessionIndex": 1
-      }
-    },
     "CA-BPacheco": {
       "id": "CA-BPacheco",
       "first_name": "Pacheco",
@@ -1215,16 +1199,16 @@
         "sessionIndex": 1
       }
     },
-    "CA-JPatterson": {
-      "id": "CA-JPatterson",
-      "first_name": "Patterson",
-      "last_name": "Jim",
-      "full_name": "Jim Patterson",
-      "homepage": "https://ad08.asmrc.org/",
+    "CA-DPatel": {
+      "id": "CA-DPatel",
+      "first_name": "Patel",
+      "last_name": "Darshana",
+      "full_name": "Darshana Patel",
+      "homepage": "https://a76.asmdc.org/",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "CA",
-        "district": 8,
+        "district": 76,
         "sessionIndex": 1
       }
     },
@@ -1293,42 +1277,16 @@
         "sessionIndex": 1
       }
     },
-    "CA-ARendon": {
-      "id": "CA-ARendon",
-      "first_name": "Rendon",
-      "last_name": "Anthony",
-      "full_name": "Anthony Rendon",
-      "homepage": "https://a62.asmdc.org/",
+    "CA-RRansom": {
+      "id": "CA-RRansom",
+      "first_name": "Ransom",
+      "last_name": "Rhodesia",
+      "full_name": "Rhodesia Ransom",
+      "homepage": "https://a13.asmdc.org/",
       "term": {
         "party": "D",
         "state": "CA",
-        "district": 62,
-        "sessionIndex": 1
-      }
-    },
-    "CA-EReyes": {
-      "id": "CA-EReyes",
-      "first_name": "Reyes",
-      "last_name": "Eloise Gómez",
-      "full_name": "Eloise Gómez Reyes",
-      "homepage": "https://a50.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 50,
-        "sessionIndex": 1
-      }
-    },
-    "CA-LRivas": {
-      "id": "CA-LRivas",
-      "first_name": "Rivas",
-      "last_name": "Luz",
-      "full_name": "Luz Rivas",
-      "homepage": "https://a43.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 43,
+        "district": 13,
         "sessionIndex": 1
       }
     },
@@ -1345,16 +1303,42 @@
         "sessionIndex": 1
       }
     },
-    "CA-FRodriguez": {
-      "id": "CA-FRodriguez",
+    "CA-CRodriguez": {
+      "id": "CA-CRodriguez",
       "first_name": "Rodriguez",
-      "last_name": "Freddie",
-      "full_name": "Freddie Rodriguez",
+      "last_name": "Celeste",
+      "full_name": "Celeste Rodriguez",
+      "homepage": "https://a43.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 43,
+        "sessionIndex": 1
+      }
+    },
+    "CA-MRodriguez": {
+      "id": "CA-MRodriguez",
+      "first_name": "Rodriguez",
+      "last_name": "Michelle",
+      "full_name": "Michelle Rodriguez",
       "homepage": "https://a53.asmdc.org/",
       "term": {
         "party": "D",
         "state": "CA",
         "district": 53,
+        "sessionIndex": 1
+      }
+    },
+    "CA-CRogers": {
+      "id": "CA-CRogers",
+      "first_name": "Rogers",
+      "last_name": "Chris",
+      "full_name": "Chris Rogers",
+      "homepage": "https://a02.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 2,
         "sessionIndex": 1
       }
     },
@@ -1384,19 +1368,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-MSantiago": {
-      "id": "CA-MSantiago",
-      "first_name": "Santiago",
-      "last_name": "Miguel",
-      "full_name": "Miguel Santiago",
-      "homepage": "https://a54.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 54,
-        "sessionIndex": 1
-      }
-    },
     "CA-PSchiavo": {
       "id": "CA-PSchiavo",
       "first_name": "Schiavo",
@@ -1407,6 +1378,45 @@
         "party": "D",
         "state": "CA",
         "district": 40,
+        "sessionIndex": 1
+      }
+    },
+    "CA-NSchultz": {
+      "id": "CA-NSchultz",
+      "first_name": "Schultz",
+      "last_name": "Nick",
+      "full_name": "Nick Schultz",
+      "homepage": "https://a44.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 44,
+        "sessionIndex": 1
+      }
+    },
+    "CA-LSharp-Collins": {
+      "id": "CA-LSharp-Collins",
+      "first_name": "Sharp-Collins",
+      "last_name": "LaShae",
+      "full_name": "LaShae Sharp-Collins",
+      "homepage": "https://a79.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 79,
+        "sessionIndex": 1
+      }
+    },
+    "CA-JSolache Jr.": {
+      "id": "CA-JSolache Jr.",
+      "first_name": "Solache Jr.",
+      "last_name": "José Luis",
+      "full_name": "José Luis Solache Jr.",
+      "homepage": "https://a62.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 62,
         "sessionIndex": 1
       }
     },
@@ -1423,6 +1433,19 @@
         "sessionIndex": 1
       }
     },
+    "CA-CStefani": {
+      "id": "CA-CStefani",
+      "first_name": "Stefani",
+      "last_name": "Catherine",
+      "full_name": "Catherine Stefani",
+      "homepage": "https://a19.asmdc.org/",
+      "term": {
+        "party": "D",
+        "state": "CA",
+        "district": 19,
+        "sessionIndex": 1
+      }
+    },
     "CA-TTa": {
       "id": "CA-TTa",
       "first_name": "Ta",
@@ -1436,16 +1459,16 @@
         "sessionIndex": 1
       }
     },
-    "CA-PTing": {
-      "id": "CA-PTing",
-      "first_name": "Ting",
-      "last_name": "Philip",
-      "full_name": "Philip Ting",
-      "homepage": "https://a19.asmdc.org/",
+    "CA-DTangipa": {
+      "id": "CA-DTangipa",
+      "first_name": "Tangipa",
+      "last_name": "David J.",
+      "full_name": "David J. Tangipa",
+      "homepage": "https://ad08.asmrc.org/ ",
       "term": {
-        "party": "D",
+        "party": "R",
         "state": "CA",
-        "district": 19,
+        "district": 8,
         "sessionIndex": 1
       }
     },
@@ -1459,32 +1482,6 @@
         "party": "D",
         "state": "CA",
         "district": 68,
-        "sessionIndex": 1
-      }
-    },
-    "CA-CVillapudua": {
-      "id": "CA-CVillapudua",
-      "first_name": "Villapudua",
-      "last_name": "Carlos",
-      "full_name": "Carlos Villapudua",
-      "homepage": "https://a13.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 13,
-        "sessionIndex": 1
-      }
-    },
-    "CA-MWaldron": {
-      "id": "CA-MWaldron",
-      "first_name": "Waldron",
-      "last_name": "Marie",
-      "full_name": "Marie Waldron",
-      "homepage": "https://ad75.asmrc.org/",
-      "term": {
-        "party": "R",
-        "state": "CA",
-        "district": 75,
         "sessionIndex": 1
       }
     },
@@ -1514,19 +1511,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-MWeber": {
-      "id": "CA-MWeber",
-      "first_name": "Weber",
-      "last_name": "M.D.",
-      "full_name": "M.D. Weber",
-      "homepage": "https://a79.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 79,
-        "sessionIndex": 1
-      }
-    },
     "CA-BWicks": {
       "id": "CA-BWicks",
       "first_name": "Wicks",
@@ -1553,19 +1537,6 @@
         "sessionIndex": 1
       }
     },
-    "CA-JWood": {
-      "id": "CA-JWood",
-      "first_name": "Wood",
-      "last_name": "Jim",
-      "full_name": "Jim Wood",
-      "homepage": "https://a02.asmdc.org/",
-      "term": {
-        "party": "D",
-        "state": "CA",
-        "district": 2,
-        "sessionIndex": 1
-      }
-    },
     "CA-RZbur": {
       "id": "CA-RZbur",
       "first_name": "Zbur",
@@ -1580,5 +1551,5 @@
       }
     }
   },
-  "lastUpdated": "2024-11-23T18:07:40.438Z"
+  "lastUpdated": "2025-01-01T00:59:16.605Z"
 }
