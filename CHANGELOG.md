@@ -1,5 +1,21 @@
 # whattherepdoin
 
+## 0.2.0
+
+### Minor Changes
+
+- 9144796: add ability to mark representatives as favorites
+- 93963ff: open graph data added for link previews
+- 0918880: Added page: about
+- 852e899: CA member script updated for 2025
+
+### Patch Changes
+
+- b73899d: about: add info about excluded votes (procedural, etc.)
+- 852e899: new seed file added for development setup
+- b73899d: scaffolding data for 119th congress
+- 61f2c78: add link to congress.gov summaries
+
 ## 0.1.2
 
 ### Patch Changes
