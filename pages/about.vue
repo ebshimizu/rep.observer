@@ -88,7 +88,8 @@ const statusTableData = computed(() => {
           to="https://www.govtrack.us/"
           target="_blank"
           >GovTrack.us</ULink
-        >.
+        >. Note that procedural, leadership, and quorum votes are skipped in the
+        data collection script.
       </li>
       <li>
         <ULink

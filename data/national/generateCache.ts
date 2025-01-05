@@ -387,7 +387,7 @@ function generateDataCache() {
     )
     console.log('[OUT] writing data')
     writeCacheToDisk(outPath)
-    
+
     // success is if there are 0 failures
     return results[VoteResult.FAILURE] === 0 ? 0 : 1
   } catch (e) {
