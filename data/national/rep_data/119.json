@@ -1,5 +1,31 @@
 [
   {
+    "name": {
+      "first": "Ashley",
+      "middle": "Brooke",
+      "last": "Moody",
+      "official_full": "Ashley Moody"
+    },
+    "id": {
+      "bioguide": "M001244",
+      "lis": "S439",
+      "govtrack": 457033
+    }
+  },
+  {
+    "name": {
+      "first": "Jon",
+      "middle": "Allen",
+      "last": "Husted",
+      "official_full": "Jon Husted"
+    },
+    "id": {
+      "bioguide": "H001104",
+      "lis": "S438",
+      "govtrack": 457032
+    }
+  },
+  {
     "id": {
       "bioguide": "C000127",
       "thomas": "00172",
