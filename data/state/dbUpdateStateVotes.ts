@@ -13,6 +13,7 @@
  */
 import dotenv from 'dotenv'
 import path from 'path'
+import moment from 'moment'
 
 // this is typically called from a state directory, one level down
 dotenv.config({ path: path.resolve(process.cwd(), '../../../.env') })
@@ -56,7 +57,8 @@ async function processVote(
   try {
     // bill data update conditions are
     // bill metadata was changed
-    const updatedAt = new Date(data.cache_updated_at)
+    // we're going to give a one day buffer because I don't want to deal with time zones :)
+    const updatedAt = moment(new Date(data.cache_updated_at)).subtract(1, 'day').toDate()
 
     // this is a bit different than the national level, but the state script does expect that the
     // cache file updatedAt date is updated if a new vote comes in

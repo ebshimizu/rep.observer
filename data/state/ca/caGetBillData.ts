@@ -4,7 +4,6 @@ import fetch from 'node-fetch'
 import { HTMLElement, Node, parse } from 'node-html-parser'
 import type { LegislatureAction, StateMemberCache, Vote } from '../state-types'
 import _ from 'lodash'
-import moment from 'moment'
 
 enum BillResult {
   New = 'New',
@@ -490,14 +489,9 @@ async function processBill(bill: Partial<LegislatureAction>) {
 }
 
 async function getBillData() {
-  // we subtract an hour from the update time due to JS actually being too precise.
-  // CA data does not have millisecond level precision, so we need to set the cache to *before* this
-  // script runs to catch same-day updates.
-  const cacheDateSafe = moment().subtract(1, 'hour')
-
   fs.writeFileSync(
     `./cache/${session}/cache_updated_at.json`,
-    JSON.stringify({ updated_at: cacheDateSafe.toDate() })
+    JSON.stringify({ updated_at: new Date() })
   )
 
   const billIndex = await getBillIndex()
