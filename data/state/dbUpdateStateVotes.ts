@@ -57,8 +57,7 @@ async function processVote(
   try {
     // bill data update conditions are
     // bill metadata was changed
-    // we're going to give a one day buffer because I don't want to deal with time zones :)
-    const updatedAt = moment(new Date(data.cache_updated_at)).subtract(1, 'day').toDate()
+    const updatedAt = new Date(data.cache_updated_at)
 
     // this is a bit different than the national level, but the state script does expect that the
     // cache file updatedAt date is updated if a new vote comes in
@@ -264,10 +263,13 @@ export async function updateVotes(
     return
   }
 
-  const updatedAt =
+  const updatedAt = moment(
     lastUpdated.data.length > 0
       ? new Date(lastUpdated.data[0].last_success)
       : new Date('1776-07-04')
+  )
+    .subtract(1, 'day')
+    .toDate()
 
   console.log(
     `Processing votes, bills, and other motions for state data cache at ${cachePath}. Last DB update on ${updatedAt}`
