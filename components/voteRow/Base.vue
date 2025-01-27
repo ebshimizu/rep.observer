@@ -72,12 +72,7 @@ const relatedVoteColumns = [
 
 const resultColor = computed(() => {
   const res = `${props.result?.toLowerCase()}`
-
-  if (res === 'pass' || res === 'passed') {
-    return 'green'
-  } else if (res === 'fail' || res === 'failed') {
-    return 'red'
-  }
+  return voteResultColor(res)
 })
 </script>
 
