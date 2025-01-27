@@ -9,14 +9,24 @@ See https://www.rep.observer/about for the complete list of sources.
 ## Development Setup
 This project is a Nuxt app with a Supabase backend. Make sure you have Node v20+ when installing and running dependencies.
 
-Make sure to install dependencies:
+First, enable pnpm:
+```bash
+corepack enable pnpm
+```
+
+Next, install dependencies
 
 ```bash
 pnpm install
 ```
 
 ## Development Server
-First, start Supabase.
+Install supabase's dependencies, including Docker Desktop.
+Next, start su
+
+```bash
+npx supabase start
+```
 
 Then, start the Nuxt development server on `http://localhost:3000`:
 
