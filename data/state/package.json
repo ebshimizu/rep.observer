@@ -1,0 +1,6 @@
+{
+  "name": "@rep-observer/state",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Shared state data scripts for rep.observer"
+}
