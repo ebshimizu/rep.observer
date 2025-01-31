@@ -1,5 +1,11 @@
 # whattherepdoin
 
+## 0.2.1
+
+### Patch Changes
+
+- 01f619b: Update vote result badge colors to cover (most) senate result types
+
 ## 0.2.0
 
 ### Minor Changes

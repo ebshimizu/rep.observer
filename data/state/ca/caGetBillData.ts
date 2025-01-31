@@ -284,200 +284,212 @@ async function processBill(bill: Partial<LegislatureAction>) {
   if (id) {
     // very first thing we need to do is check if the bill needs to be updated in our cache
     // we do this by checking the most recent history actions on the status page (which we need anyway to update title, etc.)
-    const billInfo = await (await fetch(`${CaBillStatus}?bill_id=${id}`)).text()
-    const billNode = await parse(billInfo)
-
-    const cacheFile = `./cache/${session}/actions/${id}.json`
-
-    let lastUpdate = new Date('1776-07-04')
-    let cache = bill
-    let isNew = true
-
-    if (fs.existsSync(cacheFile)) {
-      const cacheData = JSON.parse(
-        fs.readFileSync(cacheFile).toString()
-      ) as LegislatureAction
-      lastUpdate = new Date(cacheData.cache_updated_at)
-      isNew = false
-
-      // populate index cache with current bill cache
-      cache = {
-        ...bill,
-        ...cacheData,
-      }
-    }
-
-    // get the last updated date
-    const lastAction = new Date(
-      billNode.querySelector('#billhistory tbody tr td[scope="row"]')
-        ?.textContent ?? ''
-    )
-
-    if (lastAction.getTime() > lastUpdate.getTime()) {
-      cache.cache_updated_at = lastAction.toISOString()
-      console.log(`[Bill] Updating ${id}`)
-
-      // update core data, assume we're starting from nothing here
-      cache.id = id
-      cache.type = getTypeFromId(
-        billNode.querySelector('#measureNum')?.textContent
-      )
-      cache.level = 'state'
-      cache.state = 'CA'
-      // manual correction, HR is HR instead of AR I guess
-      cache.chamber = cache.chamber?.toLowerCase() === 'h' ? 'a' : cache.chamber
-      // this is in a really weird tag
-      cache.official_title = billNode
-        .querySelector('#statusTitle')
-        ?.textContent.trim()
-      cache.top_tag = billNode
-        .querySelector('#subject')
-        ?.textContent.replaceAll('.', '')
-        .trim()
-
-      // format the coauthors if this isn't coming from a committee
-      // this should be noted in the sponsor type
-      if (!cache.sponsor_type?.toLocaleLowerCase().startsWith('committee')) {
-        const authors: string[] = []
-        authors.push(
-          ...(billNode
-            .querySelector('#leadAuthors')
-            ?.textContent.trim()
-            .split(',') ?? [])
-        )
-        authors.push(
-          ...(billNode
-            .querySelector('#principalAuthors')
-            ?.textContent.trim()
-            .split(',') ?? [])
-        )
-        authors.push(
-          ...(billNode
-            .querySelector('#coAuthors')
-            ?.textContent.trim()
-            .split(',') ?? [])
-        )
-
-        // ensure uniqueness
-        cache.cosponsors = _.uniq(
-          authors
-            .map((a) => {
-              const authorClean = a.substring(0, a.indexOf('(')).trim()
-              const authorId = getMemberIdFromVoteName(authorClean)
-
-              if (authorId) {
-                return authorId
-              }
-
-              return undefined
-            })
-            .filter((a) => a != null)
-        ).map((a) => ({ id: a }))
-      }
-
-      // get the analysis link. i was going to link to the pdf but it seems to trigger a JS function that performs
-      // a download instead of having a static link
-      cache.summary = {
-        analysis_link: `${CaBillAnalysis}?bill_id=${id}`,
-      }
-
-      // check the votes
-      if (cache.votes == null) {
-        cache.votes = []
-      }
-
-      const mostRecentVote =
-        cache.votes.length > 0
-          ? new Date(cache.votes[cache.votes.length - 1].date)
-          : new Date('1776-07-04')
-
-      const votesPage = await (
-        await fetch(`${CaBillVotes}?bill_id=${id}`)
+    try {
+      const billInfo = await (
+        await fetch(`${CaBillStatus}?bill_id=${id}`)
       ).text()
-      const votesRoot = await parse(votesPage)
+      const billNode = await parse(billInfo)
 
-      const voteNodes = votesRoot.querySelectorAll('.status')
-      for (const vote of voteNodes) {
-        const rows = vote.querySelectorAll('.statusRow')
+      const cacheFile = `./cache/${session}/actions/${id}.json`
 
-        // check if this is an assembly floor or senate floor vote, we don't track committee votes here (at the moment)
-        const location = (
-          rows?.[2].querySelector('.statusCellData span')?.textContent ?? ''
-        ).toLowerCase()
+      let lastUpdate = new Date('1776-07-04')
+      let cache = bill
+      let isNew = true
 
-        if (location === 'assembly floor' || location === 'senate floor') {
-          const date = new Date(
-            rows?.[0].querySelector('.statusCellData span')?.textContent ?? ''
-          )
+      if (fs.existsSync(cacheFile)) {
+        const cacheData = JSON.parse(
+          fs.readFileSync(cacheFile).toString()
+        ) as LegislatureAction
+        lastUpdate = new Date(cacheData.cache_updated_at)
+        isNew = false
 
-          if (date.getTime() > mostRecentVote.getTime()) {
-            console.log(`[Bill] found new vote for ${id}`)
-            const result =
-              rows?.[1].querySelector('.statusCellData span')?.textContent ?? ''
-            const resultFormatted =
-              result.length > 0
-                ? result.substring(1, result.length - 1).toLowerCase()
-                : result
-
-            const repVotes = processRepVotes(rows?.slice(rows.length - 3))
-
-            const question =
-              rows?.[6].querySelector('.statusCellData span')?.textContent ?? ''
-
-            // CA's questions aren't the most informative so we're going to reformat them
-            const voteChamber = location === 'assembly floor' ? 'a' : 's'
-            const voteParts = getVoteType(
-              question,
-              voteChamber,
-              cache.short_title
-            )
-
-            const voteData: Vote = {
-              // we reconstruct the alternate ID after sorting the votes
-              alternate_id: 'tmp',
-              chamber: voteChamber,
-              question: voteParts.question,
-              result: resultFormatted,
-              date: date.toISOString(),
-              cache_updated_at: date.toISOString(),
-              source_url: `${CaBillVotes}?bill_id=${id}`,
-              rep_votes: repVotes,
-              type: voteParts.type,
-            }
-
-            cache.votes.push(voteData)
-          }
-        } else {
-          // console.log(`[Bill] ${id} skipping non-floor vote ${location}`)
+        // populate index cache with current bill cache
+        cache = {
+          ...bill,
+          ...cacheData,
         }
       }
 
-      // if the new cache has more than one vote, write it
-      if (cache.votes.length > 0) {
-        // sort the vote cache
-        cache.votes.sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      // get the last updated date
+      const lastAction = new Date(
+        billNode.querySelector('#billhistory tbody tr td[scope="row"]')
+          ?.textContent ?? ''
+      )
+
+      if (lastAction.getTime() > lastUpdate.getTime()) {
+        cache.cache_updated_at = lastAction.toISOString()
+        console.log(`[Bill] Updating ${id}`)
+
+        // update core data, assume we're starting from nothing here
+        cache.id = id
+        cache.type = getTypeFromId(
+          billNode.querySelector('#measureNum')?.textContent
         )
+        cache.level = 'state'
+        cache.state = 'CA'
+        // manual correction, HR is HR instead of AR I guess
+        cache.chamber =
+          cache.chamber?.toLowerCase() === 'h' ? 'a' : cache.chamber
+        // this is in a really weird tag
+        cache.official_title = billNode
+          .querySelector('#statusTitle')
+          ?.textContent.trim()
+        cache.top_tag = billNode
+          .querySelector('#subject')
+          ?.textContent.replaceAll('.', '')
+          .trim()
 
-        // generate the vote ids now that they're sorted
-        // we need the alt ids to be unique and always correctly mapped to their votes
-        // so for CA, we'll do this by using the action id + vote index assuming votes are always sorted
-        // in date ascending order (latest last)
-        cache.votes = cache.votes.map((v, idx) => ({
-          ...v,
-          alternate_id: `ca-${cache.id}-v${idx}`,
-        }))
+        // format the coauthors if this isn't coming from a committee
+        // this should be noted in the sponsor type
+        if (!cache.sponsor_type?.toLocaleLowerCase().startsWith('committee')) {
+          const authors: string[] = []
+          authors.push(
+            ...(billNode
+              .querySelector('#leadAuthors')
+              ?.textContent.trim()
+              .split(',') ?? [])
+          )
+          authors.push(
+            ...(billNode
+              .querySelector('#principalAuthors')
+              ?.textContent.trim()
+              .split(',') ?? [])
+          )
+          authors.push(
+            ...(billNode
+              .querySelector('#coAuthors')
+              ?.textContent.trim()
+              .split(',') ?? [])
+          )
 
-        fs.writeFileSync(cacheFile, JSON.stringify(cache, null, 2))
-        console.log(`[Bill] ${id} written to disk`)
-        return isNew ? BillResult.New : BillResult.Modified
+          // ensure uniqueness
+          cache.cosponsors = _.uniq(
+            authors
+              .map((a) => {
+                const authorClean = a.substring(0, a.indexOf('(')).trim()
+                const authorId = getMemberIdFromVoteName(authorClean)
+
+                if (authorId) {
+                  return authorId
+                }
+
+                return undefined
+              })
+              .filter((a) => a != null)
+          ).map((a) => ({ id: a }))
+        }
+
+        // get the analysis link. i was going to link to the pdf but it seems to trigger a JS function that performs
+        // a download instead of having a static link
+        cache.summary = {
+          analysis_link: `${CaBillAnalysis}?bill_id=${id}`,
+        }
+
+        // check the votes
+        if (cache.votes == null) {
+          cache.votes = []
+        }
+
+        const mostRecentVote =
+          cache.votes.length > 0
+            ? new Date(cache.votes[cache.votes.length - 1].date)
+            : new Date('1776-07-04')
+
+        const votesPage = await (
+          await fetch(`${CaBillVotes}?bill_id=${id}`)
+        ).text()
+        const votesRoot = await parse(votesPage)
+
+        const voteNodes = votesRoot.querySelectorAll('.status')
+        for (const vote of voteNodes) {
+          const rows = vote.querySelectorAll('.statusRow')
+
+          // check if this is an assembly floor or senate floor vote, we don't track committee votes here (at the moment)
+          const location = (
+            rows?.[2].querySelector('.statusCellData span')?.textContent ?? ''
+          ).toLowerCase()
+
+          if (location === 'assembly floor' || location === 'senate floor') {
+            const date = new Date(
+              rows?.[0].querySelector('.statusCellData span')?.textContent ?? ''
+            )
+
+            if (date.getTime() > mostRecentVote.getTime()) {
+              console.log(`[Bill] found new vote for ${id}`)
+              const result =
+                rows?.[1].querySelector('.statusCellData span')?.textContent ??
+                ''
+              const resultFormatted =
+                result.length > 0
+                  ? result.substring(1, result.length - 1).toLowerCase()
+                  : result
+
+              const repVotes = processRepVotes(rows?.slice(rows.length - 3))
+
+              const question =
+                rows?.[6].querySelector('.statusCellData span')?.textContent ??
+                ''
+
+              // CA's questions aren't the most informative so we're going to reformat them
+              const voteChamber = location === 'assembly floor' ? 'a' : 's'
+              const voteParts = getVoteType(
+                question,
+                voteChamber,
+                cache.short_title
+              )
+
+              const voteData: Vote = {
+                // we reconstruct the alternate ID after sorting the votes
+                alternate_id: 'tmp',
+                chamber: voteChamber,
+                question: voteParts.question,
+                result: resultFormatted,
+                date: date.toISOString(),
+                cache_updated_at: date.toISOString(),
+                source_url: `${CaBillVotes}?bill_id=${id}`,
+                rep_votes: repVotes,
+                type: voteParts.type,
+              }
+
+              cache.votes.push(voteData)
+            }
+          } else {
+            // console.log(`[Bill] ${id} skipping non-floor vote ${location}`)
+          }
+        }
+
+        // if the new cache has more than one vote, write it
+        if (cache.votes.length > 0) {
+          // sort the vote cache
+          cache.votes.sort(
+            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+          )
+
+          // generate the vote ids now that they're sorted
+          // we need the alt ids to be unique and always correctly mapped to their votes
+          // so for CA, we'll do this by using the action id + vote index assuming votes are always sorted
+          // in date ascending order (latest last)
+          cache.votes = cache.votes.map((v, idx) => ({
+            ...v,
+            alternate_id: `ca-${cache.id}-v${idx}`,
+          }))
+
+          fs.writeFileSync(cacheFile, JSON.stringify(cache, null, 2))
+          console.log(`[Bill] ${id} written to disk`)
+          return isNew ? BillResult.New : BillResult.Modified
+        } else {
+          console.log(`[Bill] ${id} skipped, no relevant votes on record`)
+          return BillResult.SkippedNoRelevantVotes
+        }
       } else {
-        console.log(`[Bill] ${id} skipped, no relevant votes on record`)
-        return BillResult.SkippedNoRelevantVotes
+        console.log(`[Bill] ${id} unchanged`)
+        return BillResult.Unchanged
       }
-    } else {
-      console.log(`[Bill] ${id} unchanged`)
-      return BillResult.Unchanged
+    } catch (e) {
+      console.log(`[ERROR] Failed to process ${bill.id}. ${e}. Retrying...`)
+      
+      // this could go forever, and if it does hopefully cronitor tells us
+      processBill(bill)
     }
   } else {
     console.error(

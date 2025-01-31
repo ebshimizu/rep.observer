@@ -47,3 +47,44 @@ export function getSessionTitle(
     return `${title}`
   }
 }
+
+export const VotePassedLabels = [
+  'pass',
+  'passed',
+  'nomination confirmed',
+  'cloture motion agreed to',
+  'bill passed',
+  'motion agreed to',
+  'joint resolution passed',
+  'cloture on the motion to proceed agreed to',
+  'veto sustained',
+  'conference report agreed to',
+  'amendment agreed to',
+  'resolution agreed to',
+  'resolution of ratification agreed to'
+]
+
+export const VoteFailedLabels = [
+  'fail',
+  'failed',
+  'cloture motion rejected',
+  'cloture on the motion to proceed rejected',
+  'amendment rejected',
+  'bill defeated',
+  'motion rejected',
+  'joint resolution defeated'
+]
+
+/**
+ * Returns the color of the badge label (as a string) according to the vote result.
+ * The senate specifically has a lot of these labels so I'll try to keep up
+ * @param res vote result string to check
+ * @returns 
+ */
+export function voteResultColor(res: string) {
+  if (VotePassedLabels.includes(res)) {
+    return 'green'
+  } else if (VoteFailedLabels.includes(res)) {
+    return 'red'
+  }
+}
