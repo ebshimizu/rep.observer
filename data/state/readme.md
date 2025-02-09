@@ -17,3 +17,8 @@ States must provide a `update.ts` script that will update the cache and then loa
 The tricky part about the representative data scrapers is generating a globally unique ID for each member. Generally, each state can choose how they want to do this. Database checks are allowed in these scripts to let scripts determine how to handle conflicts or find duplicate members from session to session.
 
 This gets even more complicated when someone moves from the state level to national level (or i guess back to state level? does that happen?). In this case we may need to do some manual data linking. A script will eventually be made available to perform ID merging automatically (mostly an issue of updating all referenced foreign keys and then deleting the original row).
+
+Steps for importing representative data:
+1. Write a cache file. Use `./ca/caGetRepData.ts` as a template.
+2. Once the cache file gets generated, copy it to a folder labeled `rep_data` in the state folder. Name the cache file something descriptive and relevant to the relevant legislative session. This data doesn't change that often and sometimes requires manual adjustments, so we maintain a persistent cache of the representative data.
+3. Write a database upload script. Use `./ca/caUpdateRepData.ts` as a template. The argument given to this script should be the file path to a json file in `rep_data` for your state.
