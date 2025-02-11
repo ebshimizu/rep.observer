@@ -1,0 +1,6 @@
+{
+  "name": "@rep-observer/national",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "National data parser and scraper for rep.observer"
+}

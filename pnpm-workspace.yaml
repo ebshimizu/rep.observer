@@ -1,0 +1,5 @@
+packages:
+  - 'data/national'
+  - 'data/state'
+  - 'data/state/*'
+  - './'

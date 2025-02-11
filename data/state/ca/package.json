@@ -1,0 +1,6 @@
+{
+  "name": "@rep-observer/state-ca",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "California state legislature scripts for rep.observer"
+}

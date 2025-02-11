@@ -1,6 +1,5 @@
 {
-  "name": "whattherepdoin",
-  "private": true,
+  "name": "rep-observer",
   "type": "module",
   "version": "0.2.1",
   "description": "Track what representatives vote on.",
