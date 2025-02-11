@@ -24,3 +24,8 @@ npx tsx ./txGetBillData [session number] [-v] [-i]
 - session number instead of year
 - `-i` runs the script in incremental mode (only download changes seen in the history.xml file in the ftp root)
 - `-v` enables verbose FTP output. Not recommended for production.
+
+## Recovery Steps
+```
+npx tsx ./txGetBillData.ts [session number]
+npx tsx ./tsUpdateBillData.ts
