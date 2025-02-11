@@ -132,6 +132,40 @@ interface TxHouseMemberData {
   member_name: string
 }
 
+async function getTxHousePartyData() {
+  const housePartyPage = await (
+    await fetch(
+      `https://www.lrl.texas.gov/legeLeaders/members/partyListSession.cfm?leg=${sessionNumber}`
+    )
+  ).text()
+  const housePartyDom = parse(housePartyPage)
+
+  // ok soooo child element selectors will be our friends
+  const titles = housePartyDom.querySelectorAll('h3')
+
+  // filter by party
+  // the house is first and there's exactly 4 h3s on the page
+  const demNode = titles.filter((t) =>
+    t.text.toLowerCase().startsWith('democrat')
+  )[0]
+  const repNode = titles.filter((t) =>
+    t.text.toLowerCase().startsWith('republican')
+  )[0]
+
+  const repIndex: Record<string, string> = {}
+
+  demNode.nextElementSibling?.childNodes
+    .filter((c) => c.rawTagName === 'a')
+    .map(n => n.text.replaceAll(',', ''))
+    .forEach((n) => (repIndex[n] = 'D'))
+  repNode.nextElementSibling?.childNodes
+    .filter((c) => c.rawTagName === 'a')
+    .map(n => n.text.replaceAll(',', ''))
+    .forEach((n) => (repIndex[n] = 'R'))
+
+  return repIndex
+}
+
 async function processTxHouse(sessionNumber: number) {
   const housePage = await fetch(TxHouseUrl)
   const houseText = await housePage.text()
@@ -149,9 +183,10 @@ async function processTxHouse(sessionNumber: number) {
 
   sessions.push(houseSession)
 
-  // the assembly page is not as nice as the senate
-  // but we still know what the row selector is
-  // been a while since i've thought about drupal
+  // the house site doesn't list party but we have an alternate source
+  const partyData = await getTxHousePartyData()
+
+  // house is actually a json array passed to a vue custom component. we have the json data so...
   const members = JSON.parse(
     houseDom.querySelector('get-members')?.getAttribute(':members') ?? '{ }'
   ) as TxHouseMemberData[]
@@ -180,6 +215,14 @@ async function processTxHouse(sessionNumber: number) {
     // we should flag duplicates to enable manual checks before fully processing
     const id = await validateIdUnique(provisionalId, `${fullName}`, memberData)
 
+    const party = partyData[fullName]
+
+    if (party == null) {
+      console.log(
+        `[MANUAL CORRECTION NEEDED] Missing party info for ${id} (${fullName})`
+      )
+    }
+
     // put data in the cache
     memberData[id] = {
       id,
@@ -188,7 +231,7 @@ async function processTxHouse(sessionNumber: number) {
       full_name: `${fullName}`,
       homepage: member.link,
       term: {
-        party: 'R', // we will put R and then correct manually since R outnumbers D in TX usually
+        party,
         state: 'TX',
         district: district,
         sessionIndex: 1,

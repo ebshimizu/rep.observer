@@ -439,20 +439,20 @@
       "full_name": "Alma A. Allen",
       "homepage": "https://house.texas.gov/members/2100",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 131,
         "sessionIndex": 1
       }
     },
-    "TX-RAnch&iacute;a": {
-      "id": "TX-RAnch&iacute;a",
+    "TX-RAnchía": {
+      "id": "TX-RAnchía",
       "first_name": "Rafael",
-      "last_name": "Anch&iacute;a",
-      "full_name": "Rafael Anch&iacute;a",
+      "last_name": "Anchía",
+      "full_name": "Rafael Anchía",
       "homepage": "https://house.texas.gov/members/2150",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 103,
         "sessionIndex": 1
@@ -517,7 +517,7 @@
       "full_name": "Diego M. Bernal",
       "homepage": "https://house.texas.gov/members/3110",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 123,
         "sessionIndex": 1
@@ -530,7 +530,7 @@
       "full_name": "Salman Bhojani",
       "homepage": "https://house.texas.gov/members/4115",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 92,
         "sessionIndex": 1
@@ -556,7 +556,7 @@
       "full_name": "Rhetta Andrews Bowers",
       "homepage": "https://house.texas.gov/members/3565",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 113,
         "sessionIndex": 1
@@ -569,7 +569,7 @@
       "full_name": "John Bryant",
       "homepage": "https://house.texas.gov/members/4120",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 114,
         "sessionIndex": 1
@@ -588,14 +588,14 @@
         "sessionIndex": 1
       }
     },
-    "TX-JBucy lll": {
-      "id": "TX-JBucy lll",
+    "TX-JBucyIII": {
+      "id": "TX-JBucyIII",
       "first_name": "John H.",
-      "last_name": "Bucy lll",
-      "full_name": "John H. Bucy lll",
+      "last_name": "Bucy III",
+      "full_name": "John H. Bucy III",
       "homepage": "https://house.texas.gov/members/3595",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 136,
         "sessionIndex": 1
@@ -660,7 +660,7 @@
       "full_name": "Elizabeth \"Liz\" Campos",
       "homepage": "https://house.texas.gov/members/3950",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 119,
         "sessionIndex": 1
@@ -673,7 +673,7 @@
       "full_name": "Terry Canales",
       "homepage": "https://house.texas.gov/members/2340",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 40,
         "sessionIndex": 1
@@ -699,7 +699,7 @@
       "full_name": "Sheryl Cole",
       "homepage": "https://house.texas.gov/members/3625",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 46,
         "sessionIndex": 1
@@ -712,7 +712,7 @@
       "full_name": "Nicole Collier",
       "homepage": "https://house.texas.gov/members/2360",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 95,
         "sessionIndex": 1
@@ -738,7 +738,7 @@
       "full_name": "Philip Cortez",
       "homepage": "https://house.texas.gov/members/2365",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 117,
         "sessionIndex": 1
@@ -803,7 +803,7 @@
       "full_name": "Aicha Davis",
       "homepage": "https://house.texas.gov/members/4465",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 109,
         "sessionIndex": 1
@@ -816,7 +816,7 @@
       "full_name": "Yvonne Davis",
       "homepage": "https://house.texas.gov/members/2625",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 111,
         "sessionIndex": 1
@@ -868,7 +868,7 @@
       "full_name": "Harold V. Dutton Jr.",
       "homepage": "https://house.texas.gov/members/2650",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 142,
         "sessionIndex": 1
@@ -907,7 +907,7 @@
       "full_name": "Lulu Flores",
       "homepage": "https://house.texas.gov/members/4150",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 51,
         "sessionIndex": 1
@@ -933,7 +933,7 @@
       "full_name": "Erin Gámez",
       "homepage": "https://house.texas.gov/members/4095",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 38,
         "sessionIndex": 1
@@ -946,7 +946,7 @@
       "full_name": "Cassandra Garcia Hernandez",
       "homepage": "https://house.texas.gov/members/4495",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 115,
         "sessionIndex": 1
@@ -959,7 +959,7 @@
       "full_name": "Josey Garcia",
       "homepage": "https://house.texas.gov/members/4170",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 124,
         "sessionIndex": 1
@@ -972,7 +972,7 @@
       "full_name": "Linda Garcia",
       "homepage": "https://house.texas.gov/members/4485",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 107,
         "sessionIndex": 1
@@ -1024,7 +1024,7 @@
       "full_name": "Barbara Gervin-Hawkins",
       "homepage": "https://house.texas.gov/members/3445",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 120,
         "sessionIndex": 1
@@ -1037,7 +1037,7 @@
       "full_name": "Jessica González",
       "homepage": "https://house.texas.gov/members/3335",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 104,
         "sessionIndex": 1
@@ -1050,7 +1050,7 @@
       "full_name": "Mary E. González",
       "homepage": "https://house.texas.gov/members/2410",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 75,
         "sessionIndex": 1
@@ -1063,7 +1063,7 @@
       "full_name": "Vikki Goodwin",
       "homepage": "https://house.texas.gov/members/3820",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 47,
         "sessionIndex": 1
@@ -1076,7 +1076,7 @@
       "full_name": "R.D. \"Bobby\" Guerra",
       "homepage": "https://house.texas.gov/members/2325",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 41,
         "sessionIndex": 1
@@ -1108,8 +1108,8 @@
         "sessionIndex": 1
       }
     },
-    "TX-CHarris Davila": {
-      "id": "TX-CHarris Davila",
+    "TX-CHarrisDavila": {
+      "id": "TX-CHarrisDavila",
       "first_name": "Caroline",
       "last_name": "Harris Davila",
       "full_name": "Caroline Harris Davila",
@@ -1121,8 +1121,8 @@
         "sessionIndex": 1
       }
     },
-    "TX-CHarris2": {
-      "id": "TX-CHarris2",
+    "TX-CHarris": {
+      "id": "TX-CHarris",
       "first_name": "Cody",
       "last_name": "Harris",
       "full_name": "Cody Harris",
@@ -1180,7 +1180,7 @@
       "full_name": "Ana Hernandez",
       "homepage": "https://house.texas.gov/members/3155",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 143,
         "sessionIndex": 1
@@ -1206,7 +1206,7 @@
       "full_name": "Gina Hinojosa",
       "homepage": "https://house.texas.gov/members/3210",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 49,
         "sessionIndex": 1
@@ -1245,7 +1245,7 @@
       "full_name": "Donna Howard",
       "homepage": "https://house.texas.gov/members/3310",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 48,
         "sessionIndex": 1
@@ -1297,7 +1297,7 @@
       "full_name": "Ann Johnson",
       "homepage": "https://house.texas.gov/members/3985",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 134,
         "sessionIndex": 1
@@ -1310,7 +1310,7 @@
       "full_name": "Jolanda \"Jo\" Jones",
       "homepage": "https://house.texas.gov/members/4105",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 147,
         "sessionIndex": 1
@@ -1323,7 +1323,7 @@
       "full_name": "Venton Jones",
       "homepage": "https://house.texas.gov/members/4275",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 100,
         "sessionIndex": 1
@@ -1388,7 +1388,7 @@
       "full_name": "Suleman Lalani",
       "homepage": "https://house.texas.gov/members/4285",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 76,
         "sessionIndex": 1
@@ -1466,7 +1466,7 @@
       "full_name": "Oscar Longoria",
       "homepage": "https://house.texas.gov/members/2485",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 35,
         "sessionIndex": 1
@@ -1492,7 +1492,7 @@
       "full_name": "Ray Lopez",
       "homepage": "https://house.texas.gov/members/3915",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 125,
         "sessionIndex": 1
@@ -1570,7 +1570,7 @@
       "full_name": "Christian Manuel",
       "homepage": "https://house.texas.gov/members/4255",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 22,
         "sessionIndex": 1
@@ -1583,7 +1583,7 @@
       "full_name": "Trey Martinez Fischer",
       "homepage": "https://house.texas.gov/members/2835",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 116,
         "sessionIndex": 1
@@ -1596,7 +1596,7 @@
       "full_name": "Armando \"Mando\" Martinez",
       "homepage": "https://house.texas.gov/members/3780",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 39,
         "sessionIndex": 1
@@ -1661,7 +1661,7 @@
       "full_name": "Terry Meza",
       "homepage": "https://house.texas.gov/members/3455",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 105,
         "sessionIndex": 1
@@ -1687,7 +1687,7 @@
       "full_name": "Joe Moody",
       "homepage": "https://house.texas.gov/members/3850",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 78,
         "sessionIndex": 1
@@ -1700,7 +1700,7 @@
       "full_name": "Penny Morales Shaw",
       "homepage": "https://house.texas.gov/members/4035",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 148,
         "sessionIndex": 1
@@ -1713,7 +1713,7 @@
       "full_name": "Christina Morales",
       "homepage": "https://house.texas.gov/members/3910",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 145,
         "sessionIndex": 1
@@ -1726,7 +1726,7 @@
       "full_name": "Eddie Morales",
       "homepage": "https://house.texas.gov/members/4000",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 74,
         "sessionIndex": 1
@@ -1752,7 +1752,7 @@
       "full_name": "Sergio Muñoz Jr.",
       "homepage": "https://house.texas.gov/members/2060",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 36,
         "sessionIndex": 1
@@ -1804,7 +1804,7 @@
       "full_name": "Claudia Ordaz",
       "homepage": "https://house.texas.gov/members/4015",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 79,
         "sessionIndex": 1
@@ -1856,7 +1856,7 @@
       "full_name": "Mary Ann Perez",
       "homepage": "https://house.texas.gov/members/2535",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 144,
         "sessionIndex": 1
@@ -1869,7 +1869,7 @@
       "full_name": "Vincent Perez",
       "homepage": "https://house.texas.gov/members/4710",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 77,
         "sessionIndex": 1
@@ -1908,7 +1908,7 @@
       "full_name": "Mihaela Plesa",
       "homepage": "https://house.texas.gov/members/4345",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 70,
         "sessionIndex": 1
@@ -1921,7 +1921,7 @@
       "full_name": "Richard Peña Raymond",
       "homepage": "https://house.texas.gov/members/4215",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 42,
         "sessionIndex": 1
@@ -1934,7 +1934,7 @@
       "full_name": "Ron Reynolds",
       "homepage": "https://house.texas.gov/members/2040",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 27,
         "sessionIndex": 1
@@ -1953,14 +1953,13 @@
         "sessionIndex": 1
       }
     },
-    "TX-ARodr&iacute;guez Ramos": {
-      "id": "TX-ARodr&iacute;guez Ramos",
-      "first_name": "Ana-Mar&iacute;a",
-      "last_name": "Rodr&iacute;guez Ramos",
-      "full_name": "Ana-Mar&iacute;a Rodr&iacute;guez Ramos",
+    "TX-ARodríguezRamos": {
+      "id": "TX-ARodríguezRamos",
+      "first_name": "Ana-María",
+      "last_name": "Rodríguez Ramos",
+      "full_name": "Ana-María Rodríguez Ramos",
       "homepage": "https://house.texas.gov/members/3735",
       "term": {
-        "party": "R",
         "state": "TX",
         "district": 102,
         "sessionIndex": 1
@@ -1973,7 +1972,7 @@
       "full_name": "Ramon Romero Jr.",
       "homepage": "https://house.texas.gov/members/3060",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 90,
         "sessionIndex": 1
@@ -1986,7 +1985,7 @@
       "full_name": "Toni Rose",
       "homepage": "https://house.texas.gov/members/2555",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 110,
         "sessionIndex": 1
@@ -1999,7 +1998,7 @@
       "full_name": "Jon E. Rosenthal",
       "homepage": "https://house.texas.gov/members/3635",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 135,
         "sessionIndex": 1
@@ -2077,7 +2076,7 @@
       "full_name": "Lauren Ashley Simmons",
       "homepage": "https://house.texas.gov/members/4765",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 146,
         "sessionIndex": 1
@@ -2142,7 +2141,7 @@
       "full_name": "James Talarico",
       "homepage": "https://house.texas.gov/members/3685",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 50,
         "sessionIndex": 1
@@ -2168,7 +2167,7 @@
       "full_name": "Senfronia Thompson",
       "homepage": "https://house.texas.gov/members/4630",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 141,
         "sessionIndex": 1
@@ -2220,7 +2219,7 @@
       "full_name": "Chris Turner",
       "homepage": "https://house.texas.gov/members/4680",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 101,
         "sessionIndex": 1
@@ -2285,7 +2284,7 @@
       "full_name": "Hubert Vo",
       "homepage": "https://house.texas.gov/members/4900",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 149,
         "sessionIndex": 1
@@ -2298,7 +2297,7 @@
       "full_name": "Armando Walle",
       "homepage": "https://house.texas.gov/members/4930",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 140,
         "sessionIndex": 1
@@ -2311,7 +2310,7 @@
       "full_name": "Charlene Ward Johnson",
       "homepage": "https://house.texas.gov/members/4785",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 139,
         "sessionIndex": 1
@@ -2350,7 +2349,7 @@
       "full_name": "Gene Wu",
       "homepage": "https://house.texas.gov/members/2865",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 137,
         "sessionIndex": 1
@@ -2363,12 +2362,12 @@
       "full_name": "Erin Zwiener",
       "homepage": "https://house.texas.gov/members/3710",
       "term": {
-        "party": "R",
+        "party": "D",
         "state": "TX",
         "district": 45,
         "sessionIndex": 1
       }
     }
   },
-  "lastUpdated": "2025-02-09T05:28:39.793Z"
+  "lastUpdated": "2025-02-11T04:33:19.417Z"
 }
