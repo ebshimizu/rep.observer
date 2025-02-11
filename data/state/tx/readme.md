@@ -18,7 +18,7 @@ npx tsx ./txUpdateRepData [path to cache file]
 ```
 
 ## Votes
-```
+```bash
 npx tsx ./txGetBillData [session number] [-v] [-i]
 ```
 - session number instead of year
@@ -26,6 +26,10 @@ npx tsx ./txGetBillData [session number] [-v] [-i]
 - `-v` enables verbose FTP output. Not recommended for production.
 
 ## Recovery Steps
-```
+Run the full sync and then update database.
+```bash
 npx tsx ./txGetBillData.ts [session number]
-npx tsx ./tsUpdateBillData.ts
+npx tsx ./tsUpdateBillData.ts ./cache/[session number]/votes
+```
+
+If representatives are missing, either manually edit `./rep_data/tx-89.json` and update database, or re-run script and reconcile data.
