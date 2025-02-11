@@ -14,7 +14,7 @@ Check the file for any inconsistent IDs (i.e. html codes that snuck in) and fix 
 
 Update the database with
 ```bash
-npx tsx ./txUpdateRepData [path to cache file]
+npx tsx ./txUpdateRepData.ts [path to cache file]
 ```
 
 ## Votes
