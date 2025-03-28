@@ -225,6 +225,7 @@ export interface RawVote {
   }
   updated_at: string
   vote_id: string
+  vote_document_text?: string
   // votes use the result as the key, which maps to a list of members
   votes: Record<string, RawVoteMember[]>
 }
