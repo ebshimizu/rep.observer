@@ -1,5 +1,11 @@
 # @rep-observer/national
 
+## 1.0.1
+
+### Patch Changes
+
+- updating rep data and making CA script comprehensive
+
 ## 1.0.0
 
 ### Major Changes

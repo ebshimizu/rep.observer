@@ -1,7 +1,7 @@
 {
   "name": "rep-observer",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Track what representatives vote on.",
   "scripts": {
     "build": "nuxt build",
