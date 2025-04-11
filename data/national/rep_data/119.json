@@ -1,4 +1,45 @@
 [
+    {
+    "id": {
+      "bioguide": "F000484",
+      "fec": [
+        "H6FL06258"
+      ],
+      "votesmart": 172909,
+      "wikipedia": "Randy Fine",
+      "wikidata": "Q59240328",
+      "govtrack": 457035,
+      "ballotpedia": "Randy Fine",
+      "house_history": 36507226672,
+      "google_entity_id": "kg:/g/11fhvxds1p"
+    },
+    "name": {
+      "first": "Randall",
+      "middle": "Adam",
+      "nickname": "Randy",
+      "last": "Fine",
+      "official_full": "Randy Fine"
+    },
+    "bio": {
+      "gender": "M",
+      "birthday": "1974-04-20"
+    },
+    "terms": [
+      {
+        "type": "rep",
+        "start": "2025-04-02",
+        "end": "2027-01-03",
+        "state": "FL",
+        "district": 6,
+        "party": "Republican",
+        "url": "https://fine.house.gov/",
+        "contact_form": "hhttps://fine.house.gov/address_authentication?form=/contact/email-me",
+        "address": "244 Cannon House Office Building Washington DC 20515-0906",
+        "office": "244 Cannon House Office Building",
+        "phone": "202-225-2706"
+      }
+    ]
+  },
   {
     "id": {
       "bioguide": "V000137",

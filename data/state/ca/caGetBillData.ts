@@ -414,8 +414,8 @@ async function processBill(bill: Partial<LegislatureAction>) {
               rows?.[0].querySelector('.statusCellData span')?.textContent ?? ''
             )
 
-            if (date.getTime() > mostRecentVote.getTime()) {
-              console.log(`[Bill] found new vote for ${id}`)
+            // if (date.getTime() > mostRecentVote.getTime()) {
+              console.log(`[Bill] found vote for ${id}`)
               const result =
                 rows?.[1].querySelector('.statusCellData span')?.textContent ??
                 ''
@@ -452,7 +452,7 @@ async function processBill(bill: Partial<LegislatureAction>) {
               }
 
               cache.votes.push(voteData)
-            }
+            // }
           } else {
             // console.log(`[Bill] ${id} skipping non-floor vote ${location}`)
           }

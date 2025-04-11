@@ -458,6 +458,19 @@
         "sessionIndex": 0
       }
     },
+    "CA-TStrickland": {
+      "id": "CA-TStrickland",
+      "first_name": "Tony",
+      "last_name": "Strickland",
+      "full_name": "Tony Strickland",
+      "homepage": "https://sr36.senate.ca.gov/",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 36,
+        "sessionIndex": 0
+      }
+    },
     "CA-TUmberg": {
       "id": "CA-TUmberg",
       "first_name": "Thomas",
@@ -552,8 +565,8 @@
     "CA-PAhrens": {
       "id": "CA-PAhrens",
       "first_name": "Ahrens",
-      "last_name": "Patrick",
-      "full_name": "Patrick Ahrens",
+      "last_name": "Patrick J.",
+      "full_name": "Patrick J. Ahrens",
       "homepage": "https://a26.asmdc.org/",
       "term": {
         "party": "D",
@@ -603,9 +616,9 @@
     },
     "CA-AAvila Farias": {
       "id": "CA-AAvila Farias",
-      "first_name": "Avila Farias",
+      "first_name": "Ávila Farías",
       "last_name": "Anamarie",
-      "full_name": "Anamarie Avila Farias",
+      "full_name": "Anamarie Ávila Farías",
       "homepage": "https://a15.asmdc.org/",
       "term": {
         "party": "D",
@@ -617,8 +630,8 @@
     "CA-JBains": {
       "id": "CA-JBains",
       "first_name": "Bains",
-      "last_name": "Jasmeet",
-      "full_name": "Jasmeet Bains",
+      "last_name": "Jasmeet Kaur",
+      "full_name": "Jasmeet Kaur Bains",
       "homepage": "https://a35.asmdc.org/",
       "term": {
         "party": "D",
@@ -695,8 +708,8 @@
     "CA-IBryan": {
       "id": "CA-IBryan",
       "first_name": "Bryan",
-      "last_name": "Isaac",
-      "full_name": "Isaac Bryan",
+      "last_name": "Isaac G.",
+      "full_name": "Isaac G. Bryan",
       "homepage": "https://a55.asmdc.org/",
       "term": {
         "party": "D",
@@ -721,8 +734,8 @@
     "CA-JCaloza": {
       "id": "CA-JCaloza",
       "first_name": "Caloza",
-      "last_name": "Jessica",
-      "full_name": "Jessica Caloza",
+      "last_name": "Jessica M.",
+      "full_name": "Jessica M. Caloza",
       "homepage": "https://a52.asmdc.org/",
       "term": {
         "party": "D",
@@ -812,8 +825,8 @@
     "CA-DDixon": {
       "id": "CA-DDixon",
       "first_name": "Dixon",
-      "last_name": "Diane",
-      "full_name": "Diane Dixon",
+      "last_name": "Diane B.",
+      "full_name": "Diane B. Dixon",
       "homepage": "https://ad72.asmrc.org/",
       "term": {
         "party": "R",
@@ -835,16 +848,16 @@
         "sessionIndex": 1
       }
     },
-    "CA-BEssayli": {
-      "id": "CA-BEssayli",
-      "first_name": "Essayli",
-      "last_name": "Bill",
-      "full_name": "Bill Essayli",
-      "homepage": "https://ad63.asmrc.org/",
+    "CA-SEllis": {
+      "id": "CA-SEllis",
+      "first_name": "Ellis",
+      "last_name": "Stan",
+      "full_name": "Stan Ellis",
+      "homepage": "https://ad32.asmrc.org/",
       "term": {
         "party": "R",
         "state": "CA",
-        "district": 63,
+        "district": 32,
         "sessionIndex": 1
       }
     },
@@ -1033,8 +1046,8 @@
     "CA-DJackson": {
       "id": "CA-DJackson",
       "first_name": "Jackson",
-      "last_name": "Dr. Corey",
-      "full_name": "Dr. Corey Jackson",
+      "last_name": "Dr. Corey A.",
+      "full_name": "Dr. Corey A. Jackson",
       "homepage": "https://a60.asmdc.org/",
       "term": {
         "party": "D",
@@ -1111,8 +1124,8 @@
     "CA-AMacedo": {
       "id": "CA-AMacedo",
       "first_name": "Macedo",
-      "last_name": "Alexandra",
-      "full_name": "Alexandra Macedo",
+      "last_name": "Alexandra M.",
+      "full_name": "Alexandra M. Macedo",
       "homepage": "https://ad33.asmrc.org/ ",
       "term": {
         "party": "R",
@@ -1124,8 +1137,8 @@
     "CA-TMcKinnor": {
       "id": "CA-TMcKinnor",
       "first_name": "McKinnor",
-      "last_name": "Tina",
-      "full_name": "Tina McKinnor",
+      "last_name": "Tina S.",
+      "full_name": "Tina S. McKinnor",
       "homepage": "https://a61.asmdc.org/",
       "term": {
         "party": "D",
@@ -1202,8 +1215,8 @@
     "CA-DPatel": {
       "id": "CA-DPatel",
       "first_name": "Patel",
-      "last_name": "Darshana",
-      "full_name": "Darshana Patel",
+      "last_name": "Dr. Darshana R.",
+      "full_name": "Dr. Darshana R. Patel",
       "homepage": "https://a76.asmdc.org/",
       "term": {
         "party": "D",
@@ -1267,8 +1280,8 @@
     "CA-JRamos": {
       "id": "CA-JRamos",
       "first_name": "Ramos",
-      "last_name": "James",
-      "full_name": "James Ramos",
+      "last_name": "James C.",
+      "full_name": "James C. Ramos",
       "homepage": "https://a45.asmdc.org/",
       "term": {
         "party": "D",
@@ -1345,8 +1358,8 @@
     "CA-BRubio": {
       "id": "CA-BRubio",
       "first_name": "Rubio",
-      "last_name": "Blanca",
-      "full_name": "Blanca Rubio",
+      "last_name": "Blanca E.",
+      "full_name": "Blanca E. Rubio",
       "homepage": "https://a48.asmdc.org/",
       "term": {
         "party": "D",
@@ -1358,8 +1371,8 @@
     "CA-KSanchez": {
       "id": "CA-KSanchez",
       "first_name": "Sanchez",
-      "last_name": "Kate A.",
-      "full_name": "Kate A. Sanchez",
+      "last_name": "Kate",
+      "full_name": "Kate Sanchez",
       "homepage": "https://ad71.asmrc.org/",
       "term": {
         "party": "R",
@@ -1397,8 +1410,8 @@
     "CA-LSharp-Collins": {
       "id": "CA-LSharp-Collins",
       "first_name": "Sharp-Collins",
-      "last_name": "LaShae",
-      "full_name": "LaShae Sharp-Collins",
+      "last_name": "Dr. LaShae",
+      "full_name": "Dr. LaShae Sharp-Collins",
       "homepage": "https://a79.asmdc.org/",
       "term": {
         "party": "D",
@@ -1423,8 +1436,8 @@
     "CA-ESoria": {
       "id": "CA-ESoria",
       "first_name": "Soria",
-      "last_name": "Esmeralda",
-      "full_name": "Esmeralda Soria",
+      "last_name": "Esmeralda Z.",
+      "full_name": "Esmeralda Z. Soria",
       "homepage": "https://a27.asmdc.org/",
       "term": {
         "party": "D",
@@ -1527,8 +1540,8 @@
     "CA-LWilson": {
       "id": "CA-LWilson",
       "first_name": "Wilson",
-      "last_name": "Lori",
-      "full_name": "Lori Wilson",
+      "last_name": "Lori D.",
+      "full_name": "Lori D. Wilson",
       "homepage": "https://a11.asmdc.org/",
       "term": {
         "party": "D",
@@ -1551,5 +1564,5 @@
       }
     }
   },
-  "lastUpdated": "2025-01-01T00:59:16.605Z"
+  "lastUpdated": "2025-04-11T07:31:21.638Z"
 }
