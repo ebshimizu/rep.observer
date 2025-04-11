@@ -1359,12 +1359,25 @@
       "id": "CA-BRubio",
       "first_name": "Rubio",
       "last_name": "Blanca E.",
-      "full_name": "Blanca E. Rubio",
+      "full_name": "Blanca Rubio",
       "homepage": "https://a48.asmdc.org/",
       "term": {
         "party": "D",
         "state": "CA",
         "district": 48,
+        "sessionIndex": 1
+      }
+    },
+    "CA-BEssayli": {
+      "id": "CA-BEssayli",
+      "first_name": "Essayli",
+      "last_name": "Bill",
+      "full_name": "Bill Essayli",
+      "homepage": "https://ad63.asmrc.org/",
+      "term": {
+        "party": "R",
+        "state": "CA",
+        "district": 63,
         "sessionIndex": 1
       }
     },
