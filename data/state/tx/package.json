@@ -1,0 +1,6 @@
+{
+  "name": "@rep-observer/state-tx",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Texas state legislature scripts for rep.observer"
+}
